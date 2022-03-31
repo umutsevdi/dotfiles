@@ -1,0 +1,178 @@
+# i3 config file (v4)
+
+
+#################
+#  DEFINITIONS  #
+#################
+
+# mod key
+set $mod Mod4
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+set $bg-color 	         #596eb5
+set $inactive-bg-color   #393939
+set $text-color          #fdfdfd
+set $inactive-text-color #546e7a
+set $urgent-bg-color     #EE524F
+# global font
+font pango:Roboto Regular 10
+
+
+#################
+#   EXECUTION   #  
+#################
+
+# select a random wallpaper on start and save it for the future sessions
+exec --no-startup-id sleep 0.1;$HOME/.dotfiles/scripts/bin/pickwp
+# anytime i3 wm restarts kills all existing polybars and creates one
+exec_always --no-startup-id killall polybar; polybar secondary; sleep 0.3; polybar primary;
+# initialize compositor
+exec_always --no-startup-id picom -b  --experimental-backends 
+# initialize applets 
+exec_always --no-startup-id pkill -f blueberry-tray; pkill -f nm-applet; pkill xfce4-power-manager
+exec_always --no-startup-id killall pasystray
+exec_always --no-startup-id blueberry-tray
+exec_always --no-startup-id nm-applet
+exec_always --no-startup-id xfce4-power-manager
+exec_always --no-startup-id pasystray --notify=sink 
+exec_always --no-startup-id sleep 0.1;killall conky;conky --config=$HOME/.dotfiles/conky/.conkyrc --daemonize --pause=2 --interval=2
+
+# color-set
+#                       border              background         text                 indicator
+client.focused          $bg-color           $bg-color          $text-color          #2e323d
+client.unfocused        $inactive-bg-color $inactive-bg-color $inactive-text-color #2e323d
+client.focused_inactive $inactive-bg-color $inactive-bg-color $inactive-text-color #2e323d
+client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color          #2e323d
+default_border pixel 0
+for_window [class="^.*"] border pixel 0
+for_window [class="^.*"] border pixel 0
+gaps outer 10
+gaps inner 20
+
+# floating window exceptions
+for_window [instance="gnome-font-viewer"] floating enable
+for_window [instance="clocks"] floating enable
+for_window [instance="gnome-calendar"] floating enable
+for_window [instance="gnome-disk"] floating enable
+for_window [instance="gnome-calculator"] floating enable
+for_window [instance="xfce4*"] floating enable
+for_window [instance="xfce-*"] floating enable
+for_window [instance="pavucontrol"] floating enable
+for_window [instance="blueberry"] floating enable
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
+
+##################
+#  KEYBINDINGS  #
+#################
+
+# volume settings
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5%
+bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle
+# using mod + shift + c refreshes i3 and i3 blocks
+set $refresh_i3status killall -SIGUSR1 i3status
+# start a terminal
+bindsym $mod+Return exec kitty
+# kill focused window
+bindsym $mod+Shift+q kill
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+#  switch workspace 
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+scedilla move right
+# move container to another location
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+# enable horizontal split orientation
+bindsym $mod+h split h
+# enable vertical split orientation
+bindsym $mod+v split v
+# toggle fullscreen
+bindsym $mod+f fullscreen toggle
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+q layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+# toggle floating status
+bindsym $mod+Shift+s floating toggle
+# focus the parent container
+bindsym $mod+a focus parent
+# focus the child container
+bindsym $mod+c focus child
+# focus selected workspace
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+# move focused container to another workspace
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+# i3 reload
+bindsym $mod+Shift+c reload;exec i3-msg restart
+# applets
+bindsym $mod+Escape exec ~/.dotfiles/applets/powermenu/powermenu.sh
+bindsym $mod+p exec xfce4-display-settings --minimal
+bindsym $mod+d exec ~/.dotfiles/applets/launcher/launcher.sh
+bindsym $mod+m exec ~/.dotfiles/applets/music/player.sh
+bindsym $mod+l exec ~/.dotfiles/bin/i3lock.sh
+
+# window resizer
+# resize window (you can also use the mouse for that)
+bindsym $mod+r mode "resize"  exec notify-send 'Resize Window' 'Resizing started' --app-name="Resize Window" --icon=window_list --category='presence'
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt 
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+        # back to normal: Enter or Escape or $mod+r
+        bindsym Return mode "default"  exec notify-send 'Resize Window' 'Resizing confirmed' --app-name="Resize Window" --icon=window_list --category='presence'
+        bindsym Escape mode "default" exec notify-send 'Resize Window' 'Resizing confirmed' --app-name="Resize Window" --icon=window_list --category='presence'
+        bindsym $mod+r mode "default"  exec notify-send 'Resize Window' 'Resizing confirmed' --app-name="Resize Window" --icon=window_list --category='presence'
+}
+# change gaps
+bindsym $mod+z mode "gaps"  exec notify-send 'Resize Window' 'Resizing window gaps' --app-name="Resize Window" --icon=window_list --category='presence'
+mode "gaps" {
+        # These bindings trigger as soon as you enter the gaps mode mode
+        # same bindings, but for the arrow keys
+        bindsym Left gaps inner current plus 5
+        bindsym Down gaps outer current minus 5
+        bindsym Up gaps outer current plus 5
+        bindsym Right gaps inner current minus 5
+        # back to normal: Enter or Escape or $mod+r
+        bindsym Return mode "default"  exec notify-send 'Resize Window' 'Resizing confirmed' --app-name="Resize Window" --icon=window_list --category='presence'
+        bindsym Escape mode "default" exec notify-send 'Resize Window' 'Resizing confirmed' --app-name="Resize Window" --icon=window_list --category='presence'
+        bindsym $mod+r mode "default"  exec notify-send 'Resize Window' 'Resizing confirmed' --app-name="Resize Window" --icon=window_list --category='presence'
+}

@@ -1,0 +1,69 @@
+conky.config = {
+-- Conky settings
+	update_interval = 1,
+
+	override_utf8_locale = true,
+
+	double_buffer = true,
+	no_buffers = true,
+
+	text_buffer_size = 2048,
+
+-- Window specifications
+	own_window = true,
+	own_window_class = 'conky',
+	own_window_transparent = true,
+	own_window_type = 'override',
+
+	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+
+	border_inner_margin = 0,
+	border_outer_margin = 0,
+
+	alignment = 'bottom_left',
+	gap_x = 60,
+	gap_y = 20,
+
+-- Graphics settings
+	draw_shades = false,
+	draw_outline = false,
+	draw_borders = false,
+	draw_graph_borders = false,
+
+-- Text settings
+	use_xft = true,
+	xftalpha = 0,
+	text_buffer_size = 2048,
+	font = 'JetBrains Mono:size=12',
+	uppercase = false,
+
+	default_color = '#FFFFFF',
+
+};
+
+conky.text = [[
+${voffset 10}${font Open Sans:size=50}${time %A}${font}${voffset -10}
+${voffset 10}${font Open Sans:size=50}${time %B} ${time %e}${font}${voffset -10}
+${voffset 10}${font JetBrains Mono:size=100}${time %I:%M %p}${font}${voffset -10}
+
+${font JetBrains Mono:bold:size=10}Battery: $color${battery}$alignr Uptime:$color $uptime_short
+${font JetBrains Mono :size=10}
+
+${font JetBrains Mono:bold:size=10}RAM usage:${font JetBrains Mono :italic:size=9}$color $mem/$memmax - $memperc%
+${membar}
+${font JetBrains Mono:bold:size=10}/dev/sdb2 :${font JetBrains Mono :italic:size=9} $color${fs_used /} of ${fs_size /}  
+${fs_bar 6 /} ${alignr} ${fs_bar 6 /}
+${font JetBrains Mono:bold:size=10}/dev/sda1 :${font JetBrains Mono :italic:size=9} $color${fs_used /mnt/Library/} of ${fs_size /mnt/Library/}
+${fs_bar 6 /mnt/Library/}
+
+${font JetBrains Mono :size=10}
+${font JetBrains Mono:bold:size=10}${color1}Top Processes:${font JetBrains Mono :italic:size=9}  ${cpu}%  ${cpubar}
+${font JetBrains Mono:bold:size=10}${color1}Name              PID${alignr}CPU%  MEM%    TIME${font JetBrains Mono :italic:size=9}
+${voffset -10}$hr
+${voffset -3}${color}${top name 1} ${top pid 1} ${alignr}${top cpu 1} ${top mem 1} ${top time 1}
+${voffset -3}${color}${top name 2} ${top pid 2} ${alignr}${top cpu 2} ${top mem 2} ${top time 2}
+${voffset -3}${color}${top name 3} ${top pid 3} ${alignr}${top cpu 3} ${top mem 3} ${top time 3}
+${voffset -3}${color}${top name 4} ${top pid 4} ${alignr}${top cpu 4} ${top mem 4} ${top time 4}
+${voffset -3}${color}${top name 5} ${top pid 5} ${alignr}${top cpu 5} ${top mem 5} ${top time 5}
+${voffset 10}${font Open Sans Light:italic:size=10}${alignr}$nodename - $kernel${voffset -10}
+]];
