@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Syncthing
+Exec="/usr/bin/syncthing --no-browser"
+Comment=Tray application for Syncthing
+Icon=syncthing
+Type=Application
+Terminal=true
+X-GNOME-Autostart-Delay=0
+X-GNOME-Autostart-enabled=true
+X-LXQt-Need-Tray=true

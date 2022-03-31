@@ -1,0 +1,42 @@
+#!/bin/bash
+#******************************************************************************
+#
+# * File: pots
+#
+# * Author:  Umut Sevdi
+# * Created: 08/20/22
+# * Description: Program of the Session - Displays a random program in the
+# /bin directory that has ${man} and ${whatis}
+
+#*****************************************************************************
+
+# Set default border size. Border size is 80 or terminal_size
+terminal_size=$(tput cols)
+max_length=$((terminal_size > 80 ? 80 : terminal_size))
+
+Print() {
+    # Update length to length-length_of_command
+    max_length=$(($max_length-`wc -m <<< $cmd`))
+    # Fold the text
+#    cmd_info="`fold -w $max_length <<< $cmd_info`"
+    line="$cmd\e[;0m${cmd_info//$cmd/}\e[36;1m"
+    line_count=$((`echo $line | wc -m ` -13 )) 
+    echo -e "\e[36;1m┌`seq -s─ $line_count | tr -d '[:digit:]'`┐"
+    echo -e │$line │
+    echo -e "└`seq -s─ $line_count | tr -d '[:digit:]'`┘\e[0m"
+}
+
+# Get command with a related info
+for arg in $@; do
+    cmd=$arg
+    cmd_info=`whatis $cmd 2> /dev/null`
+    [ -z "$cmd_info"  ] && `echo -e "Error: $cmd No such file or directory." 1>&2` || Print
+done
+
+if [ -z "$cmd" ]; then
+    while [ -z "$cmd_info" ]; do
+        cmd="`ls /bin/ | shuf -n 1`"
+        cmd_info=`whatis $cmd 2> /dev/null`
+    done
+    Print
+fi

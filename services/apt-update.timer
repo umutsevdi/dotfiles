@@ -1,0 +1,9 @@
+[Unit]
+Description=Run APT update every 3 hours
+
+[Timer]
+OnBootSec=3h
+OnUnitActiveSec=3h
+
+[Install]
+WantedBy=timers.target

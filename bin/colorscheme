@@ -1,0 +1,132 @@
+#!/bin/bash
+#******************************************************************************
+#
+# * File: colorscheme
+#
+# * Author:  Umut Sevdi
+# * Created: 08/20/22
+# * Description: Switch between light and dark mode
+# * @require i3, xsettingsd
+#*****************************************************************************
+
+color_value=`cat /tmp/.cs 2>/dev/null`
+[ "$color_value" = "" ] && color_value=true
+GTK_THEME_DOCK_LIGHT="Jasper-Purple-Compact"
+GTK_THEME_LIGHT="Jasper-Purple-Light-Compact"
+GTK_THEME_DARK="Jasper-Purple-Dark-Compact"
+
+GTK_ICON_LIGHT="Ars-Dark-Icons" #"Pop-Extended"
+GTK_ICON_DARK="Ars-Light-Icons" #"Pop-Extended"
+
+PLASMA_COLOR_LIGHT="FlatRemixGreen"
+PLASMA_COLOR_DARK="FlatRemixGreenDarkest"
+
+
+Help()
+{
+   # gDisplay Help
+   echo "colorscheme.sh - Toggle between light and dark mode"
+   echo
+   echo "Syntax: [-r]"
+   echo
+   echo "Options:"
+   echo "-h/--help          Prints this menu."
+   echo "-r/--refresh       Refreshes the display"
+   echo
+}
+
+Libadwaita()
+{
+    rm -rf "$HOME/.config/assets"
+    rm -rf "$HOME/.config/gtk-4.0/"{assets,windows-assets,gtk.css,gtk-dark.css}
+    ln -s "$HOME/.themes/${lib_themeT}/gtk-4.0/gtk.css" "$HOME/.config/gtk-4.0/gtk.css"
+    ln -s "$HOME/.themes/${lib_theme}/gtk-4.0/gtk-dark.css" "$HOME/.config/gtk-4.0/gtk-dark.css"
+    ln -s "$HOME/.themes/${lib_theme}/gtk-4.0/assets" "$HOME/.config/gtk-4.0/assets"
+    ln -s "$HOME/.themes/${lib_theme}/assets" "$HOME/.config/assets"
+    
+}
+
+Icon()
+{
+    [ "$color_value" = true ] && echo "  " || echo "  "
+}
+
+SetTerminal()
+{
+    if [ "$is_dark" = true ]; then
+        cat $HOME/.dotfiles/alacritty/base.toml $HOME/.dotfiles/alacritty/light.toml > $HOME/.config/alacritty/alacritty.toml
+    else
+        cat $HOME/.dotfiles/alacritty/base.toml $HOME/.dotfiles/alacritty/dark.toml > $HOME/.config/alacritty/alacritty.toml
+    fi
+    # Change themes of all actively running NeoVim instances
+    for i in `ls /tmp/nvim/`; do nvim --server /tmp/nvim/$i --remote-send ":lua SetColors() <CR>" > /dev/null; done
+}
+
+SetAll()
+{
+    if [ "$is_dark" = true ]; then
+        gtk_theme=$GTK_THEME_LIGHT
+        gtk_icon=$GTK_ICON_LIGHT
+        gnome_prefer="prefer-light"
+    else
+        gtk_theme=$GTK_THEME_DARK
+        gtk_icon=$GTK_ICON_DARK
+        gnome_prefer="prefer-dark"
+    fi
+    lib_theme=$GTK_THEME_LIB
+    gsettings set org.gnome.desktop.wm.preferences theme "$gtk_theme"
+    gsettings set org.gnome.desktop.interface gtk-theme "$gtk_theme"
+    gsettings set org.gnome.desktop.interface icon-theme "$gtk_icon"
+    gsettings set org.gnome.shell.extensions.user-theme name "$gtk_theme"
+    gsettings set org.gnome.desktop.interface color-scheme "$gnome_prefer"
+    # gsettings set org.x.apps.portal color-scheme "$gnome_prefer"
+}
+
+SetKDE()
+{
+    if [ "$is_dark" = true ]; then
+        qt_color=$PLASMA_COLOR_LIGHT
+        gnome_prefer="prefer-light"
+        icon=$QT_ICON_LIGHT
+    else
+        qt_color=$PLASMA_COLOR_DARK
+        gnome_prefer="prefer-dark"
+        icon=$QT_ICON_DARK
+    fi
+    plasma-apply-colorscheme $qt_color
+    gsettings set org.gnome.desktop.interface color-scheme "$gnome_prefer"
+}
+
+for arg in $@;do
+    if   [ "$arg" = "-h" ] || [ "$arg" = "--help" ]; then
+        Help
+        exit
+    elif [ "$arg" = "-r" ] || [ "$arg" = "--refresh" ]; then 
+        refresh=true
+    elif [ "$arg" = "-i" ]; then
+        Icon
+        exit
+    else
+        echo -e "Error: Invalid arguments" 1>&2
+        exit
+    fi 
+done
+
+if [ "$refresh" = true  ];then
+    is_dark=`[ "$color_value" = true ] && echo false || echo true`
+else
+    is_dark=$color_value
+    write=`[ "$color_value" = true ] && echo false || echo true`
+    echo $write > /tmp/.cs
+fi
+
+echo "{$XDG_CURRENT_DESKTOP}"
+case $XDG_CURRENT_DESKTOP in
+    KDE)
+        SetKDE
+        ;;
+    *)
+        SetAll
+        ;;
+esac
+SetTerminal &

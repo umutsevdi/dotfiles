@@ -1,0 +1,41 @@
+[cursor]
+style = "Block"
+unfocused_hollow = true
+
+[font]
+size = 10
+
+[font.bold]
+family = "UbuntuMonoNerdFont"
+style = "Bold"
+
+[font.bold_italic]
+family = "UbuntuMonoNerdFont"
+style = "Bold Italic"
+
+[font.glyph_offset]
+x = 0
+y = 0
+
+[font.italic]
+family = "UbuntuMonoNerdFont"
+style = "Italic"
+
+[font.normal]
+family = "UbuntuMonoNerdFont"
+style = "Regular"
+
+[mouse]
+hide_when_typing = false
+
+[scrolling]
+history = 10000
+
+[window]
+decorations = "full"
+dynamic_padding = true
+title = "Alacritty"
+
+[window.padding]
+x = 5
+y = 5

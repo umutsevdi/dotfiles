@@ -1,0 +1,50 @@
+#!/bin/bash
+#******************************************************************************
+#
+# * File: q
+#
+# * Author:  Umut Sevdi
+# * Created: 03/15/23
+# * Description: Displays a quote or saves one
+#*****************************************************************************
+[ "$QUOTE_PATH" = "" ] && QUOTE_PATH=$HOME/Documents/quotes
+
+# Set default border size. Border size is 80 or terminal_size
+terminal_size=$(tput cols)
+
+Help() {
+   # Display Help
+   echo "Quote - Random Quote Displayer"
+   echo "  Picks a random quote from your quote list."
+   echo "You can add new quotes if you want to" 
+   echo
+   echo "Syntax: [-h/c|m]"
+   echo
+   echo "Options:"
+   echo "-h/--help        Prints this menu."
+   echo "-a/--add         Add a quote to the list."
+   echo "-A/--author      List quotes of the person."
+   echo
+}
+
+for arg in $@; do
+    if [ "$add" ]; then
+        echo $arg >> $QUOTE_PATH
+        exit
+    elif [ "$author" ]; then
+        cat $QUOTE_PATH | grep $arg
+        exit
+    elif [ $arg = -h ] || [ $arg = --help ]; then
+        Help
+        exit
+    elif [ $arg = -a ] || [ $arg = --add ]; then
+        add=true
+    elif [ $arg = -A ] || [ $arg = --author ]; then
+        author=$arg
+    else
+        echo -e "Error: Invalid arguments" 1>&2
+        exit
+    fi
+done
+
+fold -w $terminal_size <<< $(shuf -n 1  <<< `cat $QUOTE_PATH`)
