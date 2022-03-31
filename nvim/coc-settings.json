@@ -1,1 +1,7 @@
-/home/chinstrap/.config/nvim/coc-settings.json
+{
+  "clangd.path": "~/.config/coc/extensions/coc-clangd-data/install/13.0.0/clangd_13.0.0/bin/clangd",
+  "diagnostic.virtualText": false,
+  "diagnostic.checkCurrentLine": true,
+  "coc.preferences.currentFunctionSymbolAutoUpdate": true,
+  "diagnostic.displayByAle": false
+}

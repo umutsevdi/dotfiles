@@ -1,7 +1,7 @@
 " Lightline Configuration
 
 let g:coc_symbol_line_render = 'echo'
-let g:lightline = { 'colorscheme': 'default' }
+let g:lightline = { 'colorscheme': 'material_vim' }
 let g:lightline#gitdiff#indicator_added = '⊕ '
 let g:lightline#gitdiff#indicator_modified = '⊛ '
 let g:lightline#gitdiff#indicator_deleted = '⊖ '
