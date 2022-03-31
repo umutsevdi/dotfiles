@@ -18,8 +18,6 @@ when I set up a new environment.
 
 <img src="screenshots/dual_screen.png">
 
-<img src="screenshots/Screenshot_2022-03-20_12-57-52.png">
-
 <img src="screenshots/main.png">
 
 <img src="screenshots/neovim.png">
