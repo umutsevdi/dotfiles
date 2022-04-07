@@ -37,5 +37,6 @@ case $chosen in
         ;;
     $logout)
         xfce4-session-logout --logout
+        
         ;;
 esac

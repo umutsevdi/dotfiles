@@ -10,7 +10,7 @@
 configuration {
 	font:							"Roboto Regular 10";
     show-icons:                     true;
-	icon-theme: 					"manasarovar";
+	icon-theme: 					"kora";
     display-drun: 					"";
     drun-display-format:            "{name}";
     disable-history:                false;
