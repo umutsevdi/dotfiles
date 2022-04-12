@@ -1,12 +1,12 @@
 * {
   accent:           #2274ff;
-  background:       #000000AF;
-  backgroud-alt:    #0D0D0DAF;
-  background-light: #1c1c1cAF;
+  background:       #000000bf;
+  backgroud-alt:    #0D0D0Dbf;
+  background-light: #1c1c1cbf;
   background-light-solid: #1c1c1c;
   foreground:       #C5C8C6;
 //secondary
-  on:               #7B7B7A8F;
+  on:               #7b7b7abf;
 // alert
-  off:              #f28b828F;
+  off:              #f28b82bf;
 }

@@ -53,9 +53,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'mhinz/vim-startify'
 
 Plug 'tpope/vim-fugitive'
-
-Plug 'chrisbra/unicode.vim'
-
+" TYPE <C-X><C-E> TO OPEN EMOJIS
+Plug 'kyuhi/vim-emoji-complete'
 call plug#end()
 
 " { default, palenight, ocean, lighter, darker, default-community, palenight-community,
@@ -90,4 +89,5 @@ require'nvim-treesitter.configs'.setup {
 }
 EOF
 
+" emoji keyboard
 nnoremap <silent> <space>g  :<C-u>CocList --normal gstatus<CR>
