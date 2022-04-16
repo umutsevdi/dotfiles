@@ -43,7 +43,7 @@ exec_always --no-startup-id blueberry-tray
 exec_always --no-startup-id nm-applet
 exec_always --no-startup-id xfce4-power-manager
 exec_always --no-startup-id pasystray --notify=sink 
-exec_always --no-startup-id sleep 0.1;killall conky;conky --config=$HOME/.dotfiles/conky/.conkyrc --daemonize --pause=0 --interval=1
+# exec_always --no-startup-id sleep 0.1;killall conky;conky --config=$HOME/.dotfiles/conky/.conkyrc --daemonize --pause=0 --interval=1
 
 # color-set
 #                       border              background         text                 indicator
