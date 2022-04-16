@@ -4,8 +4,8 @@ echo "Begin: ./install.sh - $(date +%H:%M) - $(date +' '%a' '%d' '%b' '%Y) "
 cd $HOME
 
 mkdir /tmp/install
-echo "fastestmirror=true
-deltarpm=true" >> /etc/dnf/dnf.conf
+echo "fastestmirror=True
+deltarpm=True" >> /etc/dnf/dnf.conf
 
 ## UPATE ##
 echo "Installing RPM Repositories"
@@ -17,19 +17,40 @@ dnf update --refresh -y
 dnf group update -y core >> /tmp/install/update.logs
 dnf group update -y --with-optional Multimedia >> /tmp/install/update.logs
 
+## GRAPHIC UTILS ##
+echo "Installing and configuring Graphical Utility Tools"
+dnf install sddm -y >> /tmp/install/graphic.logs
+systemctl enable sddm >> /tmp/install/graphic.logs
+systemctl set-default graphical.target >> /tmp/install/graphic.logs
+
+## Directories ##
+mkdir .config .cache .themes .fonts
+mkdir Documents Downloads Music Pictures Public src Templates Videos
+
 echo "Installing i3 window manager & compositor"
-dnf install -y --allowerasing i3-gaps compton >> /tmp/install/i3.logs
-dnf install picom -y --allowerasing
+dnf install -y --allowerasing i3-gaps picom >> /tmp/install/i3.logs
 dnf install akmod-nvidia -y
 ## REQUIRED PROGRAMS ##
-echo "Installing rofi, conky, cheese, github-cli, lightdm-greeter settings and nitrogen\nUpdating Thunar plugins"
-dnf install -y rofi conky thunar* cheese gh lightdm-gtk-greeter-settings nitrogen
+echo "Installing basic programs" 
+dnf install -y thunar gh nitrogen gedit kitty
+
+## COMMONLY USED PROGRAMS ##
+echo "Installing neovim"
+dnf install neovim
+echo "Installing nodeJS"
+dnf module install nodejs:16/default -y
+dnf install g++ -y
+
+## neovim CONFIG ##
+echo "Configuring Neovim"
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+mkdir $HOME/.config/neovim
+echo "source $HOME/.dotfiles/nvim/init.vim" >> $HOME/.config/nvim/init.vim
 
 echo "Installing common programs:\ndiscord, telegram, steam"
-dnf install -y discord telegram steam
-echo "Installing neovim, flatpak"
-dnf install neovim
-
+dnf install -y discord telegram steam 
+dnf install -y rofi conky cheese
 dnf install -y flatpak >> /tmp/install/flatpak.logs
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo  
 flatpak update
@@ -52,22 +73,12 @@ rm  -rf $HOME/.config/conky
 ln -s $HOME/.dotfiles/conky $HOME/.config/conky
 cp $HOME/.dotfiles/gtk/bookmarks $HOME/.config/gtk-3.0/bookmarks
 
-echo "Installing nodeJS"
-dnf module install nodejs:16/default -y
-dnf install g++
-## neovim CONFIG ##
-echo "Configuring Neovim"
-sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-mkdir $HOME/.config/neovim
-echo "source $HOME/.dotfiles/nvim/init.vim" >> $HOME/.config/nvim/init.vim
-
 ## xfce4 CONFIG ##
 echo "Copying xfce config"
 cp -r $HOME/.dotfiles/xfce4 $HOME/.config/
 
 ## UNINSTALLING UNNECESSARY PROGRAMS ##
-echo "Uninstalling unnecessary programs
+echo "Uninstalling unnecessary programs"
 dnf -y remove galculator asunder gnumeric gparted parole rxvt xfburn xfdashboard claws-mail pidgin clamtk pragha
 dnf clean all
 echo "End: ./install.sh - $(date +%H:%M) - $(date +' '%a' '%d' '%b' '%Y) "

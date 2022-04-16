@@ -1,12 +1,12 @@
-source $HOME/.dotfiles/nvim/plug-config/coc/coc.vim
-source $HOME/.dotfiles/nvim/plug-config/coc/coc-snippets.vim
-source $HOME/.dotfiles/nvim/plug-config/startify/startify.vim
-source $HOME/.dotfiles/nvim/plug-config/lightline/lightline.vim
+source $HOME/.dotfiles/nvim/pkg/coc.vim
+source $HOME/.dotfiles/nvim/pkg/coc-snippets.vim
+source $HOME/.dotfiles/nvim/pkg/startify.vim
+source $HOME/.dotfiles/nvim/pkg/lightline.vim
+source $HOME/.dotfiles/nvim/pkg/nerdtree.vim
 
 call plug#begin()
 " The default plugin directory will be as follows:
 "   - Vim (Linux/macOS): '~/.vim/plugged'
-"   - Vim (Windows): '~/vimfiles/plugged'
 "   - Neovim (Linux/macOS/Windows): stdpath('data') . '/plugged'
 " You can specify a custom plugin directory by passing it as the argument
 "   - e.g. `call plug#begin('~/.vim/plugged')`
@@ -53,27 +53,24 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'mhinz/vim-startify'
 
 Plug 'tpope/vim-fugitive'
-" TYPE <C-X><C-E> TO OPEN EMOJIS
+" Emoji Keyboard
 Plug 'kyuhi/vim-emoji-complete'
 call plug#end()
 
+
+"colorscheme fleetish
+"let g:fleetish_italics=1
+"let g:lightline = { 'colorscheme': 'fleetish' }
 " { default, palenight, ocean, lighter, darker, default-community, palenight-community,
 "   ocean-community, lighter-community, darker-community }
 colorscheme material
-let g:material_theme_style = 'shadow'
+let g:material_theme_style = 'ocean'
 let g:material_terminal_italics = 1
-
-" NERDTree Config
-autocmd VimEnter * NERDTree | wincmd p
-" Exit Vim if NERDTree is the only window remaining in the only tab.
-autocmd Bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-" Open the existing NERDTree on each new tab.
-autocmd BufWinEnter * if &buftype != 'quickfix' && getcmdwintype() == '' | silent NERDTreeMirror | endif
 
 " nvim-tresitter config
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained",
+--  ensure_installed = "maintained",
   sync_install = false,
   ignore_install = {},
   highlight = {
@@ -89,5 +86,3 @@ require'nvim-treesitter.configs'.setup {
 }
 EOF
 
-" emoji keyboard
-nnoremap <silent> <space>g  :<C-u>CocList --normal gstatus<CR>
