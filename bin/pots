@@ -1,0 +1,14 @@
+#!/bin/bash
+# pots : Program of the Session
+# Prints a short description of a random command within your computer
+# Does not repeat the same command in a row
+# Does not pring commands without manpage or whatis info
+CMD="/bin/$(ls /bin | shuf -n 1)"
+LAST=$(cat /tmp/daily.log)
+while [[ "$CMD" = "$LAST" ]] || [[ "$CMD_INFO" = "" ]]; do
+    CMD="$(ls /bin/ | shuf -n 1)"
+    CMD_INFO=$(whatis $CMD 2> /dev/null)
+done
+echo -e "\e[01m\e[1;33mProgram of the Session: \e[01;36m$CMD"
+echo -e "\e[0m${CMD_INFO/$CMD/}\nLearn more from \e[1;34mman $CMD\e[0m"
+echo "$CMD"> /tmp/daily.log

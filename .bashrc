@@ -40,7 +40,7 @@ alias gs='git status'
 alias mv='mv -i'
 alias rm='rm -i'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-alias icat='kitty +kitten icat'
+alias kitcat='kitty +kitten icat'
 # ps
 #PS1='[\u@\h \W]\$ '
 t_value="\[\e[1;34m\t\e[01;37m\]"
@@ -50,5 +50,6 @@ l_value="\[\e[03;31m\]\W\[\e[03;37m\]"
 PS1="\[\e[01m$t_value $u_value $l_value → \[\e[0m\]"
 # launch
 echo -e "\n\e[01m$(whoami)@$(hostname)\e[0;33m 🔸 \e[01;36m$(date +%a' '%d' '%b' '%Y)\n"
+$HOME/.dotfiles/bin/pots
 # Name terminal tab
 PROMPT_COMMAND='echo -en "\033]0;$(pwd|cut -d "/" -f 4-100) Terminal\a"'
