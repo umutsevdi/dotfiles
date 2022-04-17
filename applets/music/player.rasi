@@ -17,7 +17,7 @@ configuration {
 @import "../colors.rasi"
 
 * {
-    background-color:               @background;
+    background-color:               @background-light;
     text-color:                     @foreground;
 }
 
@@ -33,7 +33,7 @@ window {
 prompt {
     enabled: 						true;
     padding:                        10px;
-	background-color: 				@background;
+	background-color: 				@nobg;
 	text-color: 					@accent;
     border-radius:                  0px;
     border-color:                  	@accent;
@@ -43,7 +43,7 @@ textbox-prompt-colon {
 	expand: 						false;
 	str: 							" ♫ ";
 	background-color: 				@accent;
-	text-color: 					@background;
+	text-color: 					@background-solid;
     padding:                        10px;
 }
 
@@ -70,23 +70,26 @@ listview {
 }
 
 mainbox {
-    background-color:               @background;
+    background-color:               @nobg;
     children:                       [ inputbar, listview ];
     spacing:                        12px;
     margin:                         10px;
 }
 
+listview {
+    background-color:               @nobg;
+}
 element {
-    background-color:               @background-light-solid;
+    background-color:               @background;
     text-color:                     @foreground;
     orientation:                    vertical;
     border-radius:                  10px;
 }
 
 element-text {
-    background-color: 				inherit;
+    background-color: 				@nobg;
     text-color:       				inherit;
-	font:							"JetBrains Mono 15";
+	font:							@nerdfont-big;
     expand:                         true;
     horizontal-align:               0.5;
     vertical-align:                 0.5;

@@ -4,8 +4,7 @@ echo "Begin: ./install.sh - $(date +%H:%M) - $(date +' '%a' '%d' '%b' '%Y) "
 cd $HOME
 
 mkdir /tmp/install
-echo "fastestmirror=True
-deltarpm=True" >> /etc/dnf/dnf.conf
+echo "write: \nfastestmirror=True\ndeltarpm=True\nto  /etc/dnf/dnf.conf"
 
 ## UPATE ##
 echo "Installing RPM Repositories"
@@ -22,13 +21,13 @@ echo "Installing and configuring Graphical Utility Tools"
 dnf install sddm -y >> /tmp/install/graphic.logs
 systemctl enable sddm >> /tmp/install/graphic.logs
 systemctl set-default graphical.target >> /tmp/install/graphic.logs
-
 ## Directories ##
 mkdir .config .cache .themes .fonts
 mkdir Documents Downloads Music Pictures Public src Templates Videos
 
 echo "Installing i3 window manager & compositor"
 dnf install -y --allowerasing i3-gaps picom >> /tmp/install/i3.logs
+echo "edit /etc/sddm.conf\nSet session to i3"
 dnf install akmod-nvidia -y
 ## REQUIRED PROGRAMS ##
 echo "Installing basic programs" 

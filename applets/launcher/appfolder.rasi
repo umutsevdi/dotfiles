@@ -7,8 +7,9 @@
  *
  */
 
+@import "../colors.rasi"
 configuration {
-	font:							"Roboto Regular 10";
+	font:							"Roboto Regular 11";
     show-icons:                     true;
 	icon-theme: 					"kora";
     display-drun: 					"";
@@ -17,7 +18,6 @@ configuration {
 	sidebar-mode: 					false;
 }
 
-@import "../colors.rasi"
 * {
     background-alt:              	#00000000;
     background-bar:                 @background-light;
@@ -32,7 +32,7 @@ window {
 	border:							0px;
 	border-color:					@border;
     border-radius:                  4px;
-	width:							27%;
+	width:							25%;
     location:                       center;
     x-offset:                       -20px;
     y-offset:                       0;
@@ -43,7 +43,7 @@ prompt {
 	padding: 						0.25% 0.75% 0% -0.25%;
 	background-color: 				@background-alt;
 	text-color: 					@foreground;
-	font:							"JetBrains Mono Regular 12";
+	font:							"Roboto Regular 12";
 }
 
 entry {
@@ -72,7 +72,7 @@ inputbar {
 listview {
     background-color:               @background-alt;
     columns:                        4;
-    lines:	                        4;
+    lines:	                        3;
     spacing:                        0%;
     cycle:                          false;
     dynamic:                        true;

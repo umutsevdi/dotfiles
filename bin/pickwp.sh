@@ -9,9 +9,6 @@ while [ "$IMG_PATH" = "$OLD_PATH" ]; do
     IMG_PATH="$HOME/.dotfiles/wallpapers/$(ls $HOME/.dotfiles/wallpapers | shuf -n 1)"
 done
 echo $IMG_PATH > /tmp/pickwp_img
-
-cp $IMG_PATH /home/chinstrap/.dotfiles/i3/default.jpg
-
 for (( i=0; i < 2; i++ )); do 
     nitrogen --set-scaled --head=$i $IMG_PATH --save
 done

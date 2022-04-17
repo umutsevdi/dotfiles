@@ -1,12 +1,15 @@
 * {
-  accent:           #2274ff;
-  background:       #000000bf;
-  backgroud-alt:    #0D0D0Dbf;
-  background-light: #1c1c1cbf;
-  background-light-solid: #1c1c1c;
-  foreground:       #C5C8C6;
-//secondary
-  on:               #7b7b7abf;
-// alert
-  off:              #f28b82bf;
+  accent:                   #2274ff;
+  background:               #0f111a8f;
+  background-solid:         #0f111a;
+  backgroud-alt:            #1a1c258f;
+  background-light:         #3b3e4c8f;
+  background-light-solid:   #3b3e4c;
+  nobg:                     #00000000;
+  foreground:               #ffffff;
+  on:                       #c3e88dbf;
+  off:                      #f07178bf;
+  nerdfont:                 "JetBrains Mono Nerd Font 11";
+  nerdfont-big:             "JetBrains Mono Nerd Font 20";
+  text:                     "Roboto Regular 11";
 }

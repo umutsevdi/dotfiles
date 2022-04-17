@@ -17,11 +17,11 @@ set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
-set $bg-color 	         #2274ff
-set $inactive-bg-color   #000000
-set $text-color          #fdfdfd
+set $bg-color 	         #367bf0
+set $inactive-bg-color   #1a1c25
+set $text-color          #ffffff
 set $inactive-text-color #546e7a
-set $urgent-bg-color     #EE524F
+set $urgent-bg-color     #f07178
 # global font
 font pango:Roboto Regular 10
 

@@ -8,18 +8,18 @@ s_artist="$(playerctl $ARGUMENTS metadata artist -s)";
 s_title=$(playerctl $ARGUMENTS metadata title -s);
 current="$s_artist - $s_title";
 
-stop=""
-next=""
-previous=""
+stop="栗"
+next="怜"
+previous="玲"
 
 if [ -n $status]; then
     exit;
 fi
 
 if [[ "$status" = "Playing" ]]; then
-    play_pause="";
+    play_pause="";
 else
-    play_pause="";
+    play_pause="契";
 fi
 options="$previous\n$play_pause\n$next\n$stop"
 current=${current:0:60}

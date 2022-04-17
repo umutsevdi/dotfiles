@@ -46,7 +46,7 @@ Plug 'itchyny/lightline.vim'
 
 Plug 'niklaas/lightline-gitdiff'
 " Theme
-Plug 'umutsevdi/material.vim', { 'branch': 'main' }
+Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 " COC Plugins
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Start page

@@ -3,15 +3,14 @@
 dir="$HOME/.dotfiles/applets/powermenu"
 rofi_command="rofi -theme $dir/powermenu.rasi"
 
-uptime=$(uptime -p | sed -e "s/up //g" | sed -e "s/hours/h/g" | sed -e  "s/hour/h/g" | sed -e "s/minutes/min/g")
+uptime="⟲ Uptime: $(uptime -p | sed -e "s/up //g" | sed -e "s/hours/h/g" | sed -e  "s/hour/h/g" | sed -e "s/minutes/min/g")" 
 
-shutdown=""
-reboot=""
-lock=""
-suspend=""
-logout=""
+shutdown=""
+reboot="勒"
+lock=""
+logout=""
 
-options="$shutdown\n$reboot\n$lock\n$suspend\n$logout"
+options="$shutdown\n$reboot\n$lock\n$logout"
 
 chosen="$(echo -e "$options" | $rofi_command -p "$uptime" -dmenu -selected-row 1)"
 case $chosen in
@@ -30,13 +29,9 @@ case $chosen in
         i3lock -i $PICTURE
         rm $PICTURE
         ;;
-    $suspend)
+    $logout)
 		playerctl pause
 		amixer set Master mute
 		systemctl suspend
-        ;;
-    $logout)
-        xfce4-session-logout --logout
-        
         ;;
 esac
