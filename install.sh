@@ -49,7 +49,8 @@ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.
 npm install -g neovim
 npm install -g coc-clangd
 npm install bash-language-server
-
+mkdir $HOME/.config/nvim
+echo "source $HOME/.dotfiles/nvim/init.vim" >> $HOME/.config/nvim/init.vim
 echo "Installing common programs:\ndiscord, telegram, steam"
 dnf install -y discord telegram steam 
 dnf install -y rofi conky cheese
@@ -81,6 +82,7 @@ echo "Installing Fonts"
 mkdir /usr/share/fonts/jetbrains-mono
 cd  /usr/share/fonts/jetbrains-mono
 wget https://download.jetbrains.com/fonts/JetBrainsMono-2.242.zip
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/JetBrainsMono.zip
 unzip JetBrainsMono*
 ..
 mkdir droidsans-nerd-fonts
