@@ -65,6 +65,7 @@ curl -fsSL https://raw.githubusercontent.com/nagygergo/jetbrains-toolbox-install
 
 ## Symbolic Links ##
 echo "Extracting .dotfile configurations"
+chmod +x $HOME/.dotfiles/bin/*
 rm -rf $HOME/.config/autostart
 ln -s $HOME/.dotfiles/autostart $HOME/.config/autostart
 $HOME/.dotfiles/bin/dotfetch --root
@@ -91,7 +92,8 @@ echo "Installing icons"
 cd /usr/share/icons/
 wget https://github.com/bikass/kora/archive/refs/tags/v1.5.1.zip
 unzip *.zip
-dnf install flat-remix-gtk2-theme flat-remix-gtk3-theme
+dnf install flat-remix-theme
+$HOME/.dotfiles/dotfetch
 ## Optional
 # vim
 # go install golang.org/x/tools/gopls@latest
