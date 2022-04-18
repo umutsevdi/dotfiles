@@ -39,7 +39,7 @@ dnf install -y thunar nitrogen gedit
 echo "Installing neovim"
 dnf install neovim gh -y
 echo "Installing nodeJS"
-dnf module install nodejs:16/default -y
+dnf module install nodejs:16/common -y
 dnf install g++ -y
 
 ## neovim CONFIG ##
@@ -92,7 +92,7 @@ echo "Installing icons"
 cd /usr/share/icons/
 wget https://github.com/bikass/kora/archive/refs/tags/v1.5.1.zip
 unzip *.zip
-dnf install flat-remix-theme
+dnf install flat-remix-theme -y
 $HOME/.dotfiles/dotfetch
 ## Optional
 # vim
