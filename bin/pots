@@ -10,5 +10,5 @@ while [[ "$CMD" = "$LAST" ]] || [[ "$CMD_INFO" = "" ]]; do
     CMD_INFO=$(whatis $CMD 2> /dev/null)
 done
 echo -e "\e[01m\e[1;33mProgram of the Session: \e[01;36m$CMD"
-echo -e "\e[0m${CMD_INFO/$CMD/}\nLearn more from \e[1;34mman $CMD\e[0m"
+echo -e "\e[0m${CMD_INFO//$CMD/}\nLearn more from \e[1;34mman $CMD\e[0m"
 echo "$CMD"> /tmp/daily.log

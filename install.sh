@@ -1,7 +1,7 @@
 #!/bin/bash
-
-echo "Begin: ./install.sh - $(date +%H:%M) - $(date +' '%a' '%d' '%b' '%Y) "
 cd $HOME
+mv $HOME/dotfiles $HOME/.dotfiles
+echo "Begin: ./install.sh - $(date +%H:%M) - $(date +' '%a' '%d' '%b' '%Y) "
 
 mkdir /tmp/install
 echo "write: \nfastestmirror=True\ndeltarpm=True\nto  /etc/dnf/dnf.conf"
@@ -22,20 +22,22 @@ dnf install sddm -y >> /tmp/install/graphic.logs
 systemctl enable sddm >> /tmp/install/graphic.logs
 systemctl set-default graphical.target >> /tmp/install/graphic.logs
 ## Directories ##
-mkdir .config .cache .themes .fonts
+mkdir .config .cache .themes
 mkdir Documents Downloads Music Pictures Public src Templates Videos
 
 echo "Installing i3 window manager & compositor"
 dnf install -y --allowerasing i3-gaps picom >> /tmp/install/i3.logs
+dnf install -y --allowerasing kitty polybar
 echo "edit /etc/sddm.conf\nSet session to i3"
-dnf install akmod-nvidia -y
+if [[ "$1" = "--enable-nvidia" ]];then
+    dnf install akmod-nvidia -y
+fi
 ## REQUIRED PROGRAMS ##
 echo "Installing basic programs" 
-dnf install -y thunar gh nitrogen gedit kitty
-
+dnf install -y thunar nitrogen gedit
 ## COMMONLY USED PROGRAMS ##
 echo "Installing neovim"
-dnf install neovim
+dnf install neovim gh -y
 echo "Installing nodeJS"
 dnf module install nodejs:16/default -y
 dnf install g++ -y
@@ -44,8 +46,9 @@ dnf install g++ -y
 echo "Configuring Neovim"
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-mkdir $HOME/.config/neovim
-echo "source $HOME/.dotfiles/nvim/init.vim" >> $HOME/.config/nvim/init.vim
+npm install -g neovim
+npm install -g coc-clangd
+npm install bash-language-server
 
 echo "Installing common programs:\ndiscord, telegram, steam"
 dnf install -y discord telegram steam 
@@ -62,19 +65,9 @@ curl -fsSL https://raw.githubusercontent.com/nagygergo/jetbrains-toolbox-install
 
 ## Symbolic Links ##
 echo "Extracting .dotfile configurations"
-cp $HOME/.dotfiles/.bashrc .bashrc
-cp $HOME/.dotfiles/.bashrc /root/.bashrc
-rm $HOME/.config/i3/config
-ln -s $HOME/.dotfiles/i3/config $HOME/.config/i3/config
 rm -rf $HOME/.config/autostart
 ln -s $HOME/.dotfiles/autostart $HOME/.config/autostart
-rm  -rf $HOME/.config/conky
-ln -s $HOME/.dotfiles/conky $HOME/.config/conky
-cp $HOME/.dotfiles/gtk/bookmarks $HOME/.config/gtk-3.0/bookmarks
-
-## xfce4 CONFIG ##
-echo "Copying xfce config"
-cp -r $HOME/.dotfiles/xfce4 $HOME/.config/
+$HOME/.dotfiles/bin/dotfetch --root
 
 ## UNINSTALLING UNNECESSARY PROGRAMS ##
 echo "Uninstalling unnecessary programs"
@@ -82,6 +75,23 @@ dnf -y remove galculator asunder gnumeric gparted parole rxvt xfburn xfdashboard
 dnf clean all
 echo "End: ./install.sh - $(date +%H:%M) - $(date +' '%a' '%d' '%b' '%Y) "
 
+mkdir $HOME/.local $HOME/.local/fonts $HOME/.themes
+echo "Installing Fonts"
+mkdir /usr/share/fonts/jetbrains-mono
+cd  /usr/share/fonts/jetbrains-mono
+wget https://download.jetbrains.com/fonts/JetBrainsMono-2.242.zip
+unzip JetBrainsMono*
+..
+mkdir droidsans-nerd-fonts
+cd droidsans-nerd-fonts
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/DroidSansMono.zip
+unzip DroidSansMono* 
+..
+echo "Installing icons"
+cd /usr/share/icons/
+wget https://github.com/bikass/kora/archive/refs/tags/v1.5.1.zip
+unzip *.zip
+dnf install flat-remix-gtk2-theme flat-remix-gtk3-theme
 ## Optional
 # vim
 # go install golang.org/x/tools/gopls@latest
