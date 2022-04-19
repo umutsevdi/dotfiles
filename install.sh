@@ -19,9 +19,7 @@ Install()
     cd $HOME
     cp $HOME/dotfiles $HOME/.dotfiles
     echo "Begin: ./install.sh - $(date +%H:%M) - $(date +' '%a' '%d' '%b' '%Y) "
-
     mkdir /tmp/install
-
     ## UPATE ##
     echo "Enabling RPM Repositories"
 
@@ -52,14 +50,14 @@ Install()
     fi
     ## REQUIRED PROGRAMS ##
     echo "Installing basic programs" 
-    dnf install -y firefox thunar nitrogen gedit
+    dnf install -y firefox nautilus nitrogen gedit
     ## CLI PROGRAMS ##
     echo "Installing CLI tools"
     dnf install neovim gh -y
     dnf module install nodejs:16/common -y
     dnf install g++ -y
     ## DOCKER
-    dnf install docker-ce docker-ce-cli containerd.io
+    dnf install docker
     systemctl start docker
     systemctl enable docker
     ## neovim CONFIG ##
@@ -106,7 +104,7 @@ Install()
     cd /usr/share/icons/
     wget https://github.com/bikass/kora/archive/refs/tags/v1.5.1.zip
     unzip *.zip
-    dnf install flat-remix-theme -y
+    dnf install flat-remix-gtk* -y
     gsettings set org.gnome.desktop.interface gtk-theme "Flat-Remix-GTK-Blue-Dark"
     $HOME/.dotfiles/dotfetch
     mv /tmp/install $HOME/install
