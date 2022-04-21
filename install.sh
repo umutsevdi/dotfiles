@@ -13,7 +13,7 @@ Help()
    echo
    echo "  Disclaimer: run --install with root privileges, --config"
    echo "with normal user. Run install first with your arguments"
-   echo "Syntax: scriptTemplate [-h/C/i [c|n]]"
+   echo "Syntax: [-h/C/i [c|n]]"
    echo
    echo "Options:"
    echo "-h/--help            Prints this menu."
