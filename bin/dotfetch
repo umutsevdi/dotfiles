@@ -1,6 +1,25 @@
 #! /bin/bash
-# Restarts all graphical services while updating their values
+# dotfetch.sh - Restart and update your configs
+# @umutsevdi 
+#   A script that updates the config files and restarts i3wm
+# @requires i3
 
+Help()
+{
+   # Display Help
+   echo "dotfetch - Dotfile Fetcher"
+   echo "  Updates config files and restarts the window manager"
+   echo
+   echo "Syntax: [-r]"
+   echo
+   echo "Options:"
+   echo "-h/--help      Prints this menu."
+   echo "-r/--root      Also updates root user's .bashrc"
+   echo
+}
+
+Fetch()
+{
 cd $HOME/.config
 rm -rf i3 kitty polybar gtk-3.0 conky awesome
 cp -r $HOME/.dotfiles/conky/ $HOME/.config/conky/
@@ -9,9 +28,24 @@ cp -r $HOME/.dotfiles/i3/ $HOME/.config/i3/
 cp -r $HOME/.dotfiles/kitty $HOME/.config/kitty
 cp -r $HOME/.dotfiles/polybar $HOME/.config/
 cp -r $HOME/.dotfiles/.bashrc $HOME/.bashrc
-cp -r $HOME/.dotfiles/awesome $HOME/.config/awesome
-if [[ "$1" = "--root" ]]; then
+if [[ "$ROOT" = "t" ]]; then
     sudo cp $HOME/.dotfiles/.bashrc /root/.bashrc
 fi
 i3-msg restart
-notify-send 'i3 Window Manager' 'WM has been restarted with updated configurations' --app-name="Resize Window" --icon=window_list --category='presence'
+notify-send 'i3 Window Manager' 'WM has been restarted with updated configurations' \
+    --app-name="Resize Window" --icon=window_list --category='presence'
+}
+
+for arg in $@;do
+    if   [[ "$arg" = "-h" ]] || [[ "$arg" = "--help" ]]; then
+        Help
+        exit
+    elif [[ "$arg" = "-r" ]] || [[ "$arg" = "--root" ]]; then 
+        ROOT="t"
+    else
+        echo -e "Error: Invalid arguments" 1>&2
+        exit
+    fi 
+done
+Fetch
+

@@ -1,12 +1,21 @@
 #!/bin/bash
-
+# install.sh 
+# @umutsevdi 
+# An script that installs and configures desktop enviroment to your needs.
+# Installs various tools.
+# Designed for Fedora 3X Server Editions
+# @requires git, dnf, https://www.github.com/umutsevdi/dotfiles
+# run --config first then --install with your arguments
 Help()
 {
    # Display Help
-   echo "Umut Sevdi\'s install script for Fedora Linux"
+   echo "install.sh - Umut Sevdi's install script for Fedora Server"
    echo
+   echo "  Disclaimer: run --install with root privileges, --config"
+   echo "with normal user. Run install first with your arguments"
    echo "Syntax: scriptTemplate [-h/C/i [c|n]]"
-   echo "options:"
+   echo
+   echo "Options:"
    echo "-h/--help            Prints this menu."
    echo "-i/--install         Starts installation. Requires sudo."
    echo "-C/--config          Configures system files."
@@ -73,7 +82,9 @@ Install()
         dnf install -y flatpak >> /tmp/install/flatpak.logs
         flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo  
         flatpak update
-        flatpak install com.getpostman.Postman  com.spotify.Client io.github.shiftey.Desktop com.github.tchx84.Flatseal com.microsoft.Teams fr.natron.Natron org.libreoffice.LibreOffice org.telegram.desktop org.videolan.VLC 
+        flatpak install com.getpostman.Postman  com.spotify.Client io.github.shiftey.Desktop \
+            com.github.tchx84.Flatseal com.microsoft.Teams fr.natron.Natron \
+            org.libreoffice.LibreOffice org.telegram.desktop org.videolan.VLC 
     fi
         echo "Installing JetBrains Toolbox"
     curl -fsSL https://raw.githubusercontent.com/nagygergo/jetbrains-toolbox-install/master/jetbrains-toolbox.sh | bash
@@ -128,6 +139,7 @@ Configure()
  
  
 }
+
 for arg in $@;do
     case $arg in
         -h | --help)
@@ -147,19 +159,22 @@ for arg in $@;do
         -C | --configure)
             CONFIG="t"
         ;;
-        \?)
-            echo -e "Error: Invalid arguments"
+        *)
+            echo -e "Error: Invalid arguments" 1>&2
+            Help
             exit
         ;;
     esac
 done
-if [[ "$INSTALL" = "t" ]];then
+
+if [[ "$INSTALL" = "t" ]]; then
     Install
 elif [[ "$HELP" = "t" ]]; then
     Help
-elif [[ "$CONFIG" = "t" ]];then
+elif [[ "$CONFIG" = "t" ]]; then
     Configure
     echo "CONFIGURATION SUCCESSFUL"
-
+elif [[ $# -eq 0 ]]; then
+    Help
 fi
 

@@ -1,20 +1,28 @@
-#!/usr/bin/env bash
-status=$(playerctl status -s)
-s_artist="$(playerctl $ARGUMENTS metadata artist -s)";
-s_title=$(playerctl $ARGUMENTS metadata title -s);
-current="$s_artist - $s_title";
+#!/bin/bash
+# panel-music.sh - Music Displayer
+# @umutsevdi 
+#   A script that displays the song that is playing with 
+# the singer's name 
+# @requires playerctl
 
-if [ "$status" = "" ]; then
-    echo " ";
+if ! command -v playerctl &> /dev/null ; then
+    sudo dnf install playerctl
+fi
+
+STATUS=$(playerctl status -s)
+S_ARTIST="$(playerctl $ARGUMENTS metadata artist -s)";
+S_TITLE=$(playerctl $ARGUMENTS metadata title -s);
+CURRENT="$S_ARTIST - $S_TITLE";
+
+if [ "$STATUS" = "" ]; then
+    echo
 else
-    if [[ "$status" = "Playing" ]]; then
-        play_pause="";
+    if [[ "$STATUS" = "Playing" ]]; then
+        PLAY_PAUSE=""
     else
-        play_pause="";
+        PLAY_PAUSE=""
     fi
 
     #Display output
-    echo "  ${current:0:40} $play_pause"
+    echo "  ${CURRENT:0:40} $PLAY_PAUSE"
 fi 
-# Displays the actively playing music with it's author
-# Exit the script if no music players running

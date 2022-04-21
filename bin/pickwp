@@ -1,16 +1,78 @@
-#! /bin/bash
-# Randomly picks a wallpaper from $HOME/.dotfiles/wallpapers
-# Selects a different wallpaper each time
-# Applies the wallpaper to all monitors
+#!/bin/bash
+# pickwp.sh - Wallpaper picker
+# @umutsevdi 
+# A script that randomly picks a wallpaper from a directory.
+# Selects a different wallpaper on each use.
+# Default path is $HOME/Pictures/wallpapers/ can be configured with --config
+# @requires nitrogen
 
-IMG_PATH="$HOME/.dotfiles/wallpapers/$(ls $HOME/.dotfiles/wallpapers | shuf -n 1)"
-OLD_PATH=$(cat /tmp/pickwp_img)
-while [ "$IMG_PATH" = "$OLD_PATH" ]; do
-    IMG_PATH="$HOME/.dotfiles/wallpapers/$(ls $HOME/.dotfiles/wallpapers | shuf -n 1)"
+if ! command -v nitrogen &> /dev/null ; then
+    sudo dnf install nitrogen
+fi
+
+# Default wallpaper search path
+SEARCH_PATH="$HOME/Pictures/wallpapers"
+# Default monitor count
+HEAD=2
+
+Help()
+{
+   # Display Help
+   echo "pickwp - Wallpaper Picker"
+   echo "  Picks a random wallpaper from your wallpaper directory. Does not"
+   echo "repeat same wallpaper twice" 
+   echo
+   echo "Syntax: [-h/c|m]"
+   echo
+   echo "Options:"
+   echo "-h/--help            Prints this menu."
+   echo "-m/--monitor \$COUNT  The number of monitors to change."
+   echo "-c/--config \$DIR     Picks wallpaper from custom directory."
+   echo
+}
+
+Pick()
+{
+    # Check if directory exists
+    if [[ ! -d $SEARCH_PATH ]]; then
+        echo "Error: Wallpaper directory $SEARCH_PATH does not exist" 1>&2
+        exit
+    fi
+
+    IMG_PATH="$SEARCH_PATH/$(ls $SEARCH_PATH/ | shuf -n 1  2> /dev/null)"
+    OLD_PATH=$(cat /tmp/pickwp_img  2> /dev/null)
+
+    while [ "$IMG_PATH" = "$OLD_PATH" ]; do
+        IMG_PATH="$SEARCH_PATH/$(ls $SEARCH_PATH/ | shuf -n 1  2> /dev/null)"
+    done
+
+    echo $IMG_PATH > /tmp/pickwp_img
+
+    for (( i=0; i < $HEAD; i++ )); do 
+        nitrogen --set-scaled --head=$i $IMG_PATH --save
+    done
+}
+
+for arg in $@; do
+    if [[ $GET_HEAD = "t" ]]; then
+        HEAD=$arg
+        GET_HEAD=""
+    elif [[ "$arg" = "-h" ]] || [[ "$arg" = "--help" ]]; then
+        Help
+        exit
+    elif [[ "$arg" = "-c" ]] || [[ "$arg" = "--config" ]]; then
+        GET_DIR="t"
+    elif [[ "$GET_DIR" = "t" ]]; then
+        SEARCH_PATH=$arg
+        Pick
+        exit
+    elif [[ "$arg" = "-m" ]] || [[ "$arg" = "--monitor" ]]; then
+        GET_HEAD="t" 
+    else
+        echo -e "Error: Invalid arguments" 1>&2
+        exit
+    fi
 done
-echo $IMG_PATH > /tmp/pickwp_img
-for (( i=0; i < 2; i++ )); do 
-    nitrogen --set-scaled --head=$i $IMG_PATH --save
-done
 
-
+# If there are no arguments pick from default directory
+Pick

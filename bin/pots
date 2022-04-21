@@ -1,8 +1,11 @@
 #!/bin/bash
-# pots : Program of the Session
-# Prints a short description of a random command within your computer
+# pots.sh - Program of the Session
+# @umutsevdi 
+# An script that displays a random command or program avaliable in your 
+# computer.
 # Does not repeat the same command in a row
-# Does not pring commands without manpage or whatis info
+# Ignores commands without manpage or whatis info
+
 CMD="/bin/$(ls /bin | shuf -n 1)"
 LAST=$(cat /tmp/daily.log)
 while [[ "$CMD" = "$LAST" ]] || [[ "$CMD_INFO" = "" ]]; do

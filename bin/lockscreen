@@ -1,4 +1,15 @@
 #! /bin/bash
+# lockscreen.sh - Screen locker based on i3lock
+# @umutsevdi 
+#   A script that locks screen while blurring the active
+# desktop
+# @requires i3lock, scrot
+
+if   ! command -v i3lock &> /dev/null ; then
+    echo "i3lock doesn't exist" 1>&2
+elif ! command -v scrot &> /dev/null; then
+    sudo dnf install scrot
+fi
 
 PICTURE=/tmp/i3lock.png
 SCREENSHOT="scrot $PICTURE"
