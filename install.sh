@@ -51,7 +51,7 @@ Install()
     dnf install -y --allowerasing i3-gaps picom rofi
     dnf install -y --allowerasing kitty polybar
     echo "edit /etc/sddm.conf\nSet session to i3"
-    if [[ "$NVIDIA" = "t" ]];then
+    if [[ "$get_nvidia" = "t" ]];then
         dnf install akmod-nvidia -y
     fi
     ## REQUIRED PROGRAMS ##
@@ -66,7 +66,7 @@ Install()
     dnf install docker -y
     systemctl start docker
     systemctl enable docker
-    ## neovim CONFIG ##
+    ## neovim get_config ##
     echo "Configuring Neovim"
     sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
            https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
@@ -75,7 +75,7 @@ Install()
     npm install bash-language-server
     mkdir $HOME/.config/nvim
     echo "source $HOME/.dotfiles/nvim/init.vim" >> $HOME/.config/nvim/init.vim
-    if [[ "$COMMON" = "t" ]];then
+    if [[ "$get_common" = "t" ]];then
         echo "Installing Common Programs"
         dnf install -y discord steam 
         dnf install -y conky
@@ -115,14 +115,14 @@ Install()
     # go install golang.org/x/tools/gopls@latest
     # npm i -g coc-clangd
     echo "write: \nfastestmirror=True\ndeltarpm=True\nto  /etc/dnf/dnf.conf"
-    ## END OF INSTALL ##
+    ## END OF get_install ##
     dnf clean all
     echo "End: ./install.sh - $(date +%H:%M) - $(date +' '%a' '%d' '%b' '%Y) "
-    echo "INSTALL SUCCESSFUL"
+    echo "get_install SUCCESSFUL"
     echo "Type Y to reboot"
-    read RESTART
+    read get_reboot
 
-    if [[ "$RESTART" = "Y" ]];then 
+    if [[ "$get_reboot" = "Y" ]];then 
         reboot
     fi
 }
@@ -143,21 +143,21 @@ Configure()
 for arg in $@;do
     case $arg in
         -h | --help)
-            HELP="t"
+            get_help="t"
         ;;
         -n | --nvidia)
             echo "Nvidia software updates are enabled"
-            NVIDIA="t"
+            get_nvidia="t"
         ;;
         -c | --common)
             echo "Common software install is enabled"
-            COMMON="t"
+            get_common="t"
         ;;
         -i | --install)
-            INSTALL="t"
+            get_install="t"
         ;;
         -C | --configure)
-            CONFIG="t"
+            get_config="t"
         ;;
         *)
             echo -e "Error: Invalid arguments" 1>&2
@@ -167,13 +167,13 @@ for arg in $@;do
     esac
 done
 
-if [[ "$INSTALL" = "t" ]]; then
+if [[ "$get_install" = "t" ]]; then
     Install
-elif [[ "$HELP" = "t" ]]; then
+elif [[ "$get_help" = "t" ]]; then
     Help
-elif [[ "$CONFIG" = "t" ]]; then
+elif [[ "$get_config" = "t" ]]; then
     Configure
-    echo "CONFIGURATION SUCCESSFUL"
+    echo "Configuration is successful"
 elif [[ $# -eq 0 ]]; then
     Help
 fi

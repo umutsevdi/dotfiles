@@ -1,40 +1,48 @@
-#!/usr/bin/env bash
+#! /bin/bash
+# player.sh - Rofi Music Player
+# @umutsevdi 
+# @requires playerctl
 
-rofi_command="rofi -theme $HOME/.dotfiles/applets/music/player.rasi"
+if ! command -v playerctl &> /dev/null; then
+    sudo dnf install playerctl
+fi
+
+rofi_cmd="rofi -theme $HOME/.dotfiles/applets/music/config.rasi"
 
 # Playerctl data initialization
-status=$(playerctl status -s)
-s_artist="$(playerctl $ARGUMENTS metadata artist -s)";
-s_title=$(playerctl $ARGUMENTS metadata title -s);
-current="$s_artist - $s_title";
+stat=$(playerctl status -s)
+artist=$(playerctl metadata artist -s)
+title=$(playerctl metadata title -s)
+title=${title:0:30}
+current="$artist - $title"
 
-stop="栗"
-next="怜"
-previous="玲"
+i_stop="栗"
+i_next="怜"
+i_prev="玲"
 
-if [ -n $status]; then
-    exit;
-fi
-
-if [[ "$status" = "Playing" ]]; then
-    play_pause="";
+if   [[ "$stat" = "" ]]; then
+    exit
+elif [[ "$stat" = "Playing" ]]; then
+    play_pause=""
 else
-    play_pause="契";
+    play_pause="契"
 fi
-options="$previous\n$play_pause\n$next\n$stop"
+
+options="$i_prev\n$play_pause\n$i_next\n$i_stop"
 current=${current:0:60}
-chosen="$(echo -e "$options" | $rofi_command -p "$current" -dmenu $active $urgent -selected-row 1)"
+chosen="$(echo -e "$options" | $rofi_cmd -p "$current" -dmenu $active $urgent -selected-row 1)"
+
 case $chosen in
-    $previous)
-        playerctl previous
-        ;;
+    $i_prev)
+        playerctl i_prev
+    ;;
     $play_pause)
         playerctl play-pause
-        ;;
-    $stop)
-        playerctl stop
-        ;;
-    $next)
-        playerctl next
-        ;;
+    ;;
+    $i_stop)
+        playerctl i_stop
+    ;;
+    $i_next)
+        playerctl i_next
+    ;;
 esac

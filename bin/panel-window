@@ -9,9 +9,9 @@ if ! command -v xdotool &> /dev/null; then
     sudo dnf install xdotool
 fi
 
-TITLE=$(xdotool getwindowfocus getwindowname) 
+title=$(xdotool getwindowfocus getwindowname) 
 
-if [[ -z "$TITLE" ]] && [[ "$TITLE" -ne "i3" ]]; then
-    TITLE=$(echo "$TITLE" | tr "—" "-")
-    echo "$TITLE"
+if [[ -z "$title" ]] && [[ "$title" -ne "i3" ]]; then
+    title=$(echo "$title" | tr "—" "-")
+    echo "$title"
 fi

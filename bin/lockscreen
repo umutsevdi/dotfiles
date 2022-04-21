@@ -11,10 +11,10 @@ elif ! command -v scrot &> /dev/null; then
     sudo dnf install scrot
 fi
 
-PICTURE=/tmp/i3lock.png
-SCREENSHOT="scrot $PICTURE"
-BLUR="16x9"
-$SCREENSHOT
-convert $PICTURE -blur $BLUR -flatten $PICTURE
-i3lock -i $PICTURE
-rm $PICTURE
+pic=/tmp/i3lock.png
+sc="scrot $pic"
+blur="16x9"
+$sc
+convert $pic -blur $blur -flatten $pic
+i3lock -i $pic
+rm $pic

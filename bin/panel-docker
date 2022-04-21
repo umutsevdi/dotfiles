@@ -9,10 +9,10 @@ if ! command -v docker &> /dev/null ; then
     echo "Docker doesn't exist" 1>&2
 fi
 
-COUNT=$(docker ps -q | wc -l | sed -r 's/^0$//g' 2> /dev/null)
-if (( COUNT > 0 )); then
+count=$(docker ps -q | wc -l | sed -r 's/^0$//g' 2> /dev/null)
+if (( count > 0 )); then
     data=$(docker ps 2> /dev/null| awk 'NR>1' | awk '{ print $2 }'  | tr '\n' '|')
-    echo "    ${data::-1} ($COUNT)"
+    echo "    ${data::-1} ($count)"
 else 
     echo
 fi

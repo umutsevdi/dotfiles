@@ -1,13 +1,13 @@
 /*
  *
- * Author  : Aditya Shakya
- * Mail    : adi1090x@gmail.com
- * Github  : @adi1090x
- * Twitter : @adi1090x
+ * Author  : Aditya Shakya, Umut Sevdi
+ * Mail    : adi1090x@gmail.com, sevdiumut@gmail.com
+ * Github  : @adi1090x, @umutsevdi
  *
  */
 
 @import "../colors.rasi"
+
 configuration {
 	font:							"Roboto Regular 11";
     show-icons:                     true;

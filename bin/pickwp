@@ -11,9 +11,9 @@ if ! command -v nitrogen &> /dev/null ; then
 fi
 
 # Default wallpaper search path
-SEARCH_PATH="$HOME/Pictures/wallpapers"
+path="$HOME/Pictures/wallpapers"
 # Default monitor count
-HEAD=2
+head=2
 
 Help()
 {
@@ -34,40 +34,40 @@ Help()
 Pick()
 {
     # Check if directory exists
-    if [[ ! -d $SEARCH_PATH ]]; then
-        echo "Error: Wallpaper directory $SEARCH_PATH does not exist" 1>&2
+    if [[ ! -d $path ]]; then
+        echo "Error: Wallpaper directory $path does not exist" 1>&2
         exit
     fi
 
-    IMG_PATH="$SEARCH_PATH/$(ls $SEARCH_PATH/ | shuf -n 1  2> /dev/null)"
-    OLD_PATH=$(cat /tmp/pickwp_img  2> /dev/null)
+    new_img="$path/$(ls $path/ | shuf -n 1  2> /dev/null)"
+    old_img=$(cat /tmp/pickwp_img  2> /dev/null)
 
-    while [ "$IMG_PATH" = "$OLD_PATH" ]; do
-        IMG_PATH="$SEARCH_PATH/$(ls $SEARCH_PATH/ | shuf -n 1  2> /dev/null)"
+    while [ "$new_img" = "$old_img" ]; do
+        new_img="$path/$(ls $path/ | shuf -n 1  2> /dev/null)"
     done
 
-    echo $IMG_PATH > /tmp/pickwp_img
+    echo $new_img > /tmp/pickwp_img
 
-    for (( i=0; i < $HEAD; i++ )); do 
-        nitrogen --set-scaled --head=$i $IMG_PATH --save
+    for (( i=0; i < $head; i++ )); do 
+        nitrogen --set-scaled --head=$i $new_img --save
     done
 }
 
 for arg in $@; do
-    if [[ $GET_HEAD = "t" ]]; then
-        HEAD=$arg
-        GET_HEAD=""
+    if [[ $get_head = "t" ]]; then
+        head=$arg
+        get_head=""
     elif [[ "$arg" = "-h" ]] || [[ "$arg" = "--help" ]]; then
         Help
         exit
     elif [[ "$arg" = "-c" ]] || [[ "$arg" = "--config" ]]; then
-        GET_DIR="t"
-    elif [[ "$GET_DIR" = "t" ]]; then
-        SEARCH_PATH=$arg
+        get_dir="t"
+    elif [[ "$get_dir" = "t" ]]; then
+        path=$arg
         Pick
         exit
     elif [[ "$arg" = "-m" ]] || [[ "$arg" = "--monitor" ]]; then
-        GET_HEAD="t" 
+        get_head="t" 
     else
         echo -e "Error: Invalid arguments" 1>&2
         exit

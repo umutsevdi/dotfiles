@@ -9,20 +9,20 @@ if ! command -v playerctl &> /dev/null ; then
     sudo dnf install playerctl
 fi
 
-STATUS=$(playerctl status -s)
-S_ARTIST="$(playerctl $ARGUMENTS metadata artist -s)";
-S_TITLE=$(playerctl $ARGUMENTS metadata title -s);
-CURRENT="$S_ARTIST - $S_TITLE";
+stat=$(playerctl status -s)
+artist="$(playerctl metadata artist -s)";
+title=$(playerctl metadata title -s);
+current="$artist - $title";
 
-if [ "$STATUS" = "" ]; then
+if [ "$stat" = "" ]; then
     echo
 else
-    if [[ "$STATUS" = "Playing" ]]; then
-        PLAY_PAUSE=""
+    if [[ "$stat" = "Playing" ]]; then
+        play_pause=""
     else
-        PLAY_PAUSE=""
+        play_pause=""
     fi
 
     #Display output
-    echo "  ${CURRENT:0:40} $PLAY_PAUSE"
+    echo "  ${current:0:40} $play_pause"
 fi 
