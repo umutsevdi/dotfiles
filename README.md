@@ -15,11 +15,11 @@ when I set up a new environment.
 
 - **Icons**: [Kora](https://www.gnome-look.org/p/1256209/)
 
+<img src="screenshots/neovim.png">
+
 <img src="screenshots/dual_screen.png">
 
 <img src="screenshots/main.png">
-
-<img src="screenshots/neovim.png">
 
 ---
 
