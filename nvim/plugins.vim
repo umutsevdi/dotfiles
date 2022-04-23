@@ -41,6 +41,9 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 " Tree on left
 Plug 'preservim/nerdtree'
+" Telescope
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 " Bottom line
 Plug 'itchyny/lightline.vim'
 

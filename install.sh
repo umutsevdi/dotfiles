@@ -50,6 +50,8 @@ Install()
     echo "Installing i3 window manager & compositor"
     dnf install -y --allowerasing i3-gaps picom rofi
     dnf install -y --allowerasing kitty polybar
+    dnf install -y --allowerasing pasystray blueberry nm-applet xfce4-xfce4-power-manager
+    dnf install -y pactl playerctl scrot xdotool 
     echo "edit /etc/sddm.conf\nSet session to i3"
     if [[ "$get_nvidia" = "t" ]];then
         dnf install akmod-nvidia -y
@@ -77,6 +79,7 @@ Install()
     echo "source $HOME/.dotfiles/nvim/init.vim" >> $HOME/.config/nvim/init.vim
     if [[ "$get_common" = "t" ]];then
         echo "Installing Common Programs"
+        dnf install -y gnome-calendar gnome-calculator clocks gnome-font-viewer gnome-disks
         dnf install -y discord steam 
         dnf install -y conky
         dnf install -y flatpak >> /tmp/install/flatpak.logs
