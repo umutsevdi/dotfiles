@@ -1,6 +1,6 @@
 #! /bin/bash
 # lockscreen.sh - Screen locker based on i3lock
-# @umutsevdi 
+# @author umutsevdi 
 #   A script that locks screen while blurring the active
 # desktop
 # @requires i3lock, scrot

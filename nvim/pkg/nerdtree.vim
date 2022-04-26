@@ -11,3 +11,5 @@ let NERDTreeCascadeChildDir=1
 let NERDTreeCascadeOpenSingleChildDir=1
 let NERDTreeDirArrowExpandable="▶"
 let NERDTreeDirArrowCollapsible="▼"
+let NERDTreeWinPos="right"
+let NERDTreeMinimalMenu=1

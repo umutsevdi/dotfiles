@@ -53,7 +53,7 @@ Install()
     dnf install -y --allowerasing pasystray blueberry nm-applet xfce4-xfce4-power-manager
     dnf install -y pactl playerctl scrot xdotool 
     echo "edit /etc/sddm.conf\nSet session to i3"
-    if [[ "$get_nvidia" = "t" ]];then
+    if [[ "$get_nvidia" = true ]];then
         dnf install akmod-nvidia -y
     fi
     ## REQUIRED PROGRAMS ##
@@ -77,7 +77,7 @@ Install()
     npm install bash-language-server
     mkdir $HOME/.config/nvim
     echo "source $HOME/.dotfiles/nvim/init.vim" >> $HOME/.config/nvim/init.vim
-    if [[ "$get_common" = "t" ]];then
+    if [[ "$get_common" = true ]];then
         echo "Installing Common Programs"
         dnf install -y gnome-calendar gnome-calculator clocks gnome-font-viewer gnome-disks
         dnf install -y discord steam 
@@ -146,21 +146,21 @@ Configure()
 for arg in $@;do
     case $arg in
         -h | --help)
-            get_help="t"
+            get_help=true
         ;;
         -n | --nvidia)
             echo "Nvidia software updates are enabled"
-            get_nvidia="t"
+            get_nvidia=true
         ;;
         -c | --common)
             echo "Common software install is enabled"
-            get_common="t"
+            get_common=true
         ;;
         -i | --install)
-            get_install="t"
+            get_install=true
         ;;
         -C | --configure)
-            get_config="t"
+            get_config=true
         ;;
         *)
             echo -e "Error: Invalid arguments" 1>&2
@@ -170,11 +170,11 @@ for arg in $@;do
     esac
 done
 
-if [[ "$get_install" = "t" ]]; then
+if [[ "$get_install" = true ]]; then
     Install
-elif [[ "$get_help" = "t" ]]; then
+elif [[ "$get_help" = true ]]; then
     Help
-elif [[ "$get_config" = "t" ]]; then
+elif [[ "$get_config" = true ]]; then
     Configure
     echo "Configuration is successful"
 elif [[ $# -eq 0 ]]; then

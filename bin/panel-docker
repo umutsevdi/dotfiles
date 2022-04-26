@@ -1,6 +1,6 @@
 #! /bin/bash
 # panel-docker.sh - Docker panel
-# @umutsevdi 
+# @author umutsevdi 
 #   A script that displays the number of active docker containers
 # and their names
 # @requires docker

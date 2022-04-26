@@ -1,0 +1,89 @@
+#!/bin/bash
+# duppterm - Create a new terminal session on a tab or window at your working directory
+# @author umutsevdi 
+#   A script that creates a new terminal in your process working directory
+# @requires i3
+
+session=kitty
+is_tab=false
+
+Help()
+{
+   # Display Help
+   echo "duppterm - Terminal Duplicator"
+   echo "  Creates a new independent terminal session in the same directory"
+   echo
+   echo "Syntax: [-h|s/w|t]"
+   echo
+   echo "Options:"
+   echo "-h/--help            Prints this menu."
+   echo "-w/--window          Creates a terminal session as a seperate window (Default)"
+   echo "-t/--tab             Creates a terminal session as a tab"
+   echo "-s/--session \$TERM   Configures the terminal emulator"
+   echo
+}
+
+MakeTerminal()
+{
+    case $session in
+    
+        gnome-terminal )
+             if [[ "$is_tab" = true ]]; then
+                win_param="--tab"
+            else
+                win_param="--window"
+            fi
+            directory_param="--working-directory=$(pwd)"
+        ;;
+        kitty )
+            directory_param="--directory $(pwd)"
+        ;;
+        xfce4-terminal )
+            if [[ "$is_tab" = true ]]; then
+                win_param="--tab"
+            else
+                win_param="--window"
+            fi
+            directory_param="--working-directory=$(pwd)"
+        ;;
+        xterm )
+            win_param="-e -c"
+            directory_param="'cd $(pwd);bash'"
+        ;;
+        konsole )
+            if [[ "$is_tab" = true ]]; then
+                win_param="--new-tab"
+            else
+                win_param="--seperate"
+            fi
+            directory_param="--workdir $(pwd)"
+        ;;
+        *)
+             if [[ "$is_tab" = true ]]; then
+                win_param="--tab"
+            else
+                win_param="--window"
+            fi
+            directory_param="--working-directory=$(pwd)"
+        ;;
+    esac
+    $session $win_param $directory_param &
+}
+
+for arg in $@;do
+    if   [[ "$arg" = "-h" ]] || [[ "$arg" = "--help" ]]; then
+        Help
+        exit
+    elif [[ "$arg" = "-t" ]] || [[ "$arg" = "--tab" ]]; then 
+        is_tab=true
+    elif [[ "$arg" = "-s" ]] || [[ "$arg" = "--session" ]]; then
+        custom_session=true
+    elif [[ "$custom_session" = true ]]; then
+        session=$arg
+        custom_session=false
+    else
+        echo -e "Error: Invalid arguments" 1>&2
+        exit
+    fi 
+done
+MakeTerminal

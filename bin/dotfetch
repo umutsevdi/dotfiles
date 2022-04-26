@@ -1,6 +1,6 @@
 #! /bin/bash
 # dotfetch.sh - Restart and update your configs
-# @umutsevdi 
+# @author umutsevdi 
 #   A script that updates the config files and restarts i3wm
 # @requires i3
 
@@ -28,7 +28,7 @@ cp -r $HOME/.dotfiles/i3/ $HOME/.config/i3/
 cp -r $HOME/.dotfiles/kitty $HOME/.config/kitty
 cp -r $HOME/.dotfiles/polybar $HOME/.config/
 cp -r $HOME/.dotfiles/.bashrc $HOME/.bashrc
-if [[ "$root" = "t" ]]; then
+if [[ "$root" = true ]]; then
     sudo cp $HOME/.dotfiles/.bashrc /root/.bashrc
 fi
 i3-msg restart
@@ -41,7 +41,7 @@ for arg in $@;do
         Help
         exit
     elif [[ "$arg" = "-r" ]] || [[ "$arg" = "--root" ]]; then 
-        root="t"
+        root=true
     else
         echo -e "Error: Invalid arguments" 1>&2
         exit

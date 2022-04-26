@@ -1,6 +1,6 @@
 #!/bin/bash
 # pickwp.sh - Wallpaper picker
-# @umutsevdi 
+# @author umutsevdi 
 # A script that randomly picks a wallpaper from a directory.
 # Selects a different wallpaper on each use.
 # Default path is $HOME/Pictures/wallpapers/ can be configured with --config
@@ -27,7 +27,7 @@ Help()
    echo "Options:"
    echo "-h/--help            Prints this menu."
    echo "-m/--monitor \$COUNT  The number of monitors to change."
-   echo "-c/--config \$DIR     Picks wallpaper from custom directory."
+   echo "-d/--directory \$DIR     Picks wallpaper from custom directory."
    echo
 }
 
@@ -54,20 +54,20 @@ Pick()
 }
 
 for arg in $@; do
-    if [[ $get_head = "t" ]]; then
+    if [[ $get_head = true ]]; then
         head=$arg
-        get_head=""
+        get_head=false
     elif [[ "$arg" = "-h" ]] || [[ "$arg" = "--help" ]]; then
         Help
         exit
-    elif [[ "$arg" = "-c" ]] || [[ "$arg" = "--config" ]]; then
-        get_dir="t"
-    elif [[ "$get_dir" = "t" ]]; then
+    elif [[ "$arg" = "-d" ]] || [[ "$arg" = "--directory" ]]; then
+        get_dir=true
+    elif [[ "$get_dir" = true ]]; then
         path=$arg
         Pick
         exit
     elif [[ "$arg" = "-m" ]] || [[ "$arg" = "--monitor" ]]; then
-        get_head="t" 
+        get_head=true
     else
         echo -e "Error: Invalid arguments" 1>&2
         exit

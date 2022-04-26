@@ -1,9 +1,9 @@
 #!/bin/bash
 # panel-window.sh - Active panel displayer
-# @umutsevdi 
+# @author umutsevdi 
 # An script that displays the focussed window.
 # Designed to be used with topbars/menubars.
-# @requires xprop, wmctrl
+# @requires xdotool
 
 if ! command -v xdotool &> /dev/null; then
     sudo dnf install xdotool
