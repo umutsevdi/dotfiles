@@ -4,14 +4,17 @@
 #   A script that creates a new terminal in your process working directory
 # @requires i3
 
-session=kitty
+# get default terminal session
+session=$(perl -lpe 's/\0/ /g' \
+           /proc/$(xdotool getwindowpid $(xdotool getactivewindow))/cmdline)
 is_tab=false
 
 Help()
 {
    # Display Help
    echo "duppterm - Terminal Duplicator"
-   echo "  Creates a new independent terminal session in the same directory"
+   echo "  Creates a new independent terminal session in the same directory. By default"
+   echo "uses the same terminal emulator"
    echo
    echo "Syntax: [-h|s/w|t]"
    echo
@@ -19,7 +22,7 @@ Help()
    echo "-h/--help            Prints this menu."
    echo "-w/--window          Creates a terminal session as a seperate window (Default)"
    echo "-t/--tab             Creates a terminal session as a tab"
-   echo "-s/--session \$TERM   Configures the terminal emulator"
+   echo "-s/--session \$TERM   Configures the terminal emulator of the duplicate session"
    echo
 }
 
@@ -27,47 +30,48 @@ MakeTerminal()
 {
     case $session in
     
-        gnome-terminal )
+        *gnome-terminal* )
              if [[ "$is_tab" = true ]]; then
                 win_param="--tab"
             else
                 win_param="--window"
             fi
-            directory_param="--working-directory=$(pwd)"
+            dir_param="--working-directory=$(pwd)"
         ;;
-        kitty )
-            directory_param="--directory $(pwd)"
+        *kitty* )
+            win_param=
+            dir_param="--directory $(pwd)"
         ;;
-        xfce4-terminal )
+        *xfce4-terminal* )
             if [[ "$is_tab" = true ]]; then
                 win_param="--tab"
             else
-                win_param="--window"
+                win_param=
             fi
-            directory_param="--working-directory=$(pwd)"
+            dir_param="--working-directory=$(pwd)"
         ;;
-        xterm )
+        *xterm* )
             win_param="-e -c"
-            directory_param="'cd $(pwd);bash'"
+            dir_param="'cd $(pwd);bash'"
         ;;
-        konsole )
+        *konsole* )
             if [[ "$is_tab" = true ]]; then
                 win_param="--new-tab"
             else
-                win_param="--seperate"
+                win_param=
             fi
-            directory_param="--workdir $(pwd)"
+            dir_param="--workdir $(pwd)"
         ;;
         *)
              if [[ "$is_tab" = true ]]; then
                 win_param="--tab"
             else
-                win_param="--window"
+                win_param=
             fi
-            directory_param="--working-directory=$(pwd)"
+            dir_param="--working-directory=$(pwd)"
         ;;
     esac
-    $session $win_param $directory_param &
+    $session $win_param $dir_param &
 }
 
 for arg in $@;do

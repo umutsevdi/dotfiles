@@ -51,5 +51,3 @@ PS1="\[\e[01m$t_value $u_value $l_value → \[\e[0m\]"
 # launch
 echo -e "\e[01m$(whoami)@$(hostname)\e[0;33m 🔸 \e[01;36m$(date +%a' '%d' '%b' '%Y)"
 $HOME/.dotfiles/bin/pots
-# Name terminal tab
-PROMPT_COMMAND='echo -en "\033]0;$(pwd|cut -d "/" -f 4-100) Terminal\a"'
