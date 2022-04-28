@@ -3,6 +3,7 @@ source $HOME/.dotfiles/nvim/pkg/coc-snippets.vim
 source $HOME/.dotfiles/nvim/pkg/startify.vim
 source $HOME/.dotfiles/nvim/pkg/lightline.vim
 source $HOME/.dotfiles/nvim/pkg/nerdtree.vim
+source $HOME/.dotfiles/nvim/pkg/tagbar.vim
 
 call plug#begin()
 " The default plugin directory will be as follows:
@@ -58,6 +59,9 @@ Plug 'mhinz/vim-startify'
 Plug 'tpope/vim-fugitive'
 " Emoji Keyboard
 Plug 'kyuhi/vim-emoji-complete'
+" Tag bar on the left
+Plug 'preservim/tagbar' 
+
 call plug#end()
 
 

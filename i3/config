@@ -1,6 +1,5 @@
 # i3 config file (v4)
 
-
 #################
 #  DEFINITIONS  #
 #################
@@ -87,21 +86,21 @@ bindsym $mod+Shift+q kill
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 #  switch workspace 
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+scedilla move right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 # move container to another location
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
+#bindsym $mod+Shift+Left move left
+#bindsym $mod+Shift+Down move down
+#bindsym $mod+Shift+Up move up
+#bindsym $mod+Shift+Right move right
 # enable horizontal split orientation
-bindsym $mod+h split h
+bindsym $mod+b split h
 # enable vertical split orientation
 bindsym $mod+v split v
 # toggle fullscreen
@@ -146,7 +145,7 @@ bindsym $mod+Escape exec ~/.dotfiles/applets/powermenu/powermenu.sh
 bindsym $mod+p exec xfce4-display-settings --minimal
 bindsym $mod+d exec ~/.dotfiles/applets/launcher/launcher.sh
 bindsym $mod+m exec ~/.dotfiles/applets/music/player.sh
-bindsym $mod+l exec ~/.dotfiles/bin/lockscreen
+bindsym $mod+Shift+Escape exec ~/.dotfiles/bin/lockscreen
 
 # window resizer
 # resize window (you can also use the mouse for that)
@@ -154,10 +153,10 @@ bindsym $mod+r mode "resize"  exec notify-send 'Resize Window' 'Resizing started
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
         # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt 
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+        bindsym h resize shrink width 10 px or 10 ppt 
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
         # back to normal: Enter or Escape or $mod+r
         bindsym Return mode "default"  exec notify-send 'Resize Window' 'Resizing confirmed' --app-name="Resize Window" --icon=window_list --category='presence'
         bindsym Escape mode "default" exec notify-send 'Resize Window' 'Resizing confirmed' --app-name="Resize Window" --icon=window_list --category='presence'
@@ -168,10 +167,10 @@ bindsym $mod+z mode "gaps"  exec notify-send 'Resize Window' 'Resizing window ga
 mode "gaps" {
         # These bindings trigger as soon as you enter the gaps mode mode
         # same bindings, but for the arrow keys
-        bindsym Left gaps inner current plus 5
-        bindsym Down gaps outer current minus 5
-        bindsym Up gaps outer current plus 5
-        bindsym Right gaps inner current minus 5
+        bindsym h gaps inner current plus 5
+        bindsym j gaps outer current minus 5
+        bindsym k gaps outer current plus 5
+        bindsym l gaps inner current minus 5
         # back to normal: Enter or Escape or $mod+r
         bindsym Return mode "default"  exec notify-send 'Resize Window' 'Resizing confirmed' --app-name="Resize Window" --icon=window_list --category='presence'
         bindsym Escape mode "default" exec notify-send 'Resize Window' 'Resizing confirmed' --app-name="Resize Window" --icon=window_list --category='presence'

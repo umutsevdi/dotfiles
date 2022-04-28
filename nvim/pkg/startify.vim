@@ -3,6 +3,12 @@
 " in a git repo, the list will be empty
 let g:webdevicons_enable_startify = 1
 
+autocmd BufEnter *
+       \ if !exists('t:startify_new_tab') && empty(expand('%')) && !exists('t:goyo_master') | 
+       \   let t:startify_new_tab = 1 |
+       \   Startify |
+       \ endif
+
 function! s:gitModified()
     let files = systemlist('git ls-files -m 2>/dev/null')
     return map(files, "{'line': v:val, 'path': v:val}")

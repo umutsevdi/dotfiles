@@ -41,7 +41,7 @@ nnoremap <A-n> :vsplit .<CR>
 
 " NerdTree
 nnoremap <leader>n :NERDTreeFocus<CR>
-nnoremap <A-t> :NERDTreeToggle<CR>
+nnoremap <A-t> :NERDTreeToggle \| TagbarToggle <CR>
 nnoremap <A-f> :NERDTreeFind<CR>
 
 " format code
@@ -105,3 +105,4 @@ nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 " nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
 " nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
 " nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+"For C, pressing K on the keyword will pull up the built-in manpage directly. For instance, place the cursor on the printf keyword:
