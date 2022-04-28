@@ -4,6 +4,7 @@ This directory contains scripts that I wrote.
 ```
 bin/
 ├── dotfetch
+├── duppterm
 ├── lockscreen
 ├── panel-docker
 ├── panel-music
