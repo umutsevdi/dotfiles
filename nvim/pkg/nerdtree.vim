@@ -16,6 +16,6 @@ let NERDTreeShowBookmarks=1
 let NERDTreeIgnore=['\\.swo$', '\\.swp$', '\\.git']
 let NERDTreeChDirMode=0
 " let NERDTreeQuitOnOpen=1
-let NERDTreeShowHidden=1
+let NERDTreeShowHidden=0
 let NERDTreeKeepTreeInNewTab=1
 let NERDTreeBookmarksFile=expand("$HOME/.dotfiles/nvim/.NERDTreeBookmarks")
