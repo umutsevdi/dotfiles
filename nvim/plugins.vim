@@ -44,6 +44,7 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'preservim/nerdtree'
 " Telescope
 Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 " Bottom line
 Plug 'itchyny/lightline.vim'
 
@@ -70,7 +71,7 @@ call plug#end()
 " { default, palenight, ocean, lighter, darker, default-community, palenight-community,
 "   ocean-community, lighter-community, darker-community }
 colorscheme material
-let g:material_theme_style = 'ocean'
+let g:material_theme_style = 'darker'
 let g:material_terminal_italics = 1
 
 " nvim-tresitter config
@@ -91,4 +92,3 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 EOF
-

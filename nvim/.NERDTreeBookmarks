@@ -1,4 +1,4 @@
 dotfiles ~/.dotfiles
+source ~/src
 
-src ~/source/
-active ~/source/active
+active ~/src/active

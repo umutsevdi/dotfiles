@@ -2,7 +2,7 @@
 
 GOPATH=$HOME/go/bin
 GOROOT=/lib/go/bin
-JAVA_HOME=/lib/jvm/java-11-openjdk-11.0.14.0.9-2.fc35.x86_64
+JAVA_HOME=$HOME/.config/java/corretto-17.0.3
 DOTFILES_PATH="$HOME/.dotfiles/bin"
 PATH="$JAVA_HOME$GOPATH:$GOROOT:$DOTFILES_PATH:$PATH"
 

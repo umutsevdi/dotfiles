@@ -95,7 +95,7 @@ nmap <silent> gt :call CocAction('jumpDefinition', 'tabe')<CR>
 " Telescope finder
 " Find files using Telescope command-line sugar.
 " nnoremap  <leader> <ff>: Telescope find_files<cr>
-nnoremap ff : FZF <CR>
+nnoremap ff : Telescope find_files <CR>
 " nnoremap ff : Telescope find_files <CR>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
