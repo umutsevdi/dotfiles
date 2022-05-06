@@ -29,20 +29,20 @@ else
 fi
 
 options="$i_prev\n$play_pause\n$i_next\n$i_stop"
-current=${current:0:60}
+current=${current:0:40}
 chosen="$(echo -e "$options" | $rofi_cmd -p "$current" -dmenu $active $urgent -selected-row 1)"
 
 case $chosen in
     $i_prev)
-        playerctl i_prev
+        playerctl prev
     ;;
     $play_pause)
         playerctl play-pause
     ;;
     $i_stop)
-        playerctl i_stop
+        playerctl stop
     ;;
     $i_next)
-        playerctl i_next
+        playerctl next
     ;;
 esac

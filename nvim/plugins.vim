@@ -62,6 +62,10 @@ Plug 'kyuhi/vim-emoji-complete'
 " Tag bar on the left
 Plug 'preservim/tagbar' 
 
+Plug 'pangloss/vim-javascript' " javascript syntax highlighting
+Plug 'mattn/emmet-vim' " good for html tags
+Plug 'othree/html5.vim', {'for': ['html', 'html5', 'htm']}
+
 call plug#end()
 
 
@@ -71,7 +75,7 @@ call plug#end()
 " { default, palenight, ocean, lighter, darker, default-community, palenight-community,
 "   ocean-community, lighter-community, darker-community }
 colorscheme material
-let g:material_theme_style = 'darker'
+let g:material_theme_style = 'ocean'
 let g:material_terminal_italics = 1
 
 " nvim-tresitter config

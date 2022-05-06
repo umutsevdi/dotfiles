@@ -1,6 +1,6 @@
 [Desktop Entry]
-Icon=/home/chinstrap/.local/share/JetBrains/Toolbox/toolbox.svg
-Exec=/home/chinstrap/.local/share/JetBrains/Toolbox/bin/jetbrains-toolbox --minimize
+Icon=/home/umutsevdi/.local/share/JetBrains/Toolbox/toolbox.svg
+Exec=/home/umutsevdi/.local/share/JetBrains/Toolbox/bin/jetbrains-toolbox --minimize
 Version=1.0
 Type=Application
 Categories=Development

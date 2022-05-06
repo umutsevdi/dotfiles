@@ -48,24 +48,31 @@ Install()
     mkdir .config .cache .themes
     mkdir Documents Downloads Music Pictures Public src Templates Videos
     echo "Installing i3 window manager & compositor"
-    dnf install -y --allowerasing i3-gaps picom rofi
+    dnf install -y --allowerasing i3-gaps picom rofi conky
     dnf install -y --allowerasing kitty polybar
-    dnf install -y --allowerasing pasystray blueberry nm-applet xfce4-xfce4-power-manager
-    dnf install -y pactl playerctl scrot xdotool 
+    dnf install -y --allowerasing pasystray blueberry xfce4-power-manager
+    dnf install -y playerctl scrot xdotool 
     echo "edit /etc/sddm.conf\nSet session to i3"
+    dnf install -y dbus-devel gcc git libconfig-devel libdrm-devel libev-devel libX11-devel libX11-xcb libXext-devel libxcb-devel mesa-libGL-devel meson pcre-devel pixman-devel uthash-devel xcb-util-image-devel xcb-util-renderutil-devel xorg-x11-proto-devel
     if [[ "$get_nvidia" = true ]];then
         dnf install akmod-nvidia -y
     fi
     ## REQUIRED PROGRAMS ##
     echo "Installing basic programs" 
-    dnf install -y firefox nautilus nitrogen gedit
+    dnf install -y firefox thunar nitrogen mousepad
     ## CLI PROGRAMS ##
     echo "Installing CLI tools"
-    dnf install neovim gh -y
+    dnf copr enable agriffis/neovim-nightly
+    dnf install neovim python3-neovim gh -y
     dnf module install nodejs:16/common -y
-    dnf install g++ -y
+    dnf install g++ fzf -y
+    dnf install pip -y
+    pip install neovim
+    dnf install lua luarocks -y
     ## DOCKER
     dnf install docker -y
+    groupadd docker
+    usermod -aG docker $USER
     systemctl start docker
     systemctl enable docker
     ## neovim get_config ##
@@ -79,15 +86,16 @@ Install()
     echo "source $HOME/.dotfiles/nvim/init.vim" >> $HOME/.config/nvim/init.vim
     if [[ "$get_common" = true ]];then
         echo "Installing Common Programs"
-        dnf install -y gnome-calendar gnome-calculator clocks gnome-font-viewer gnome-disks
-        dnf install -y discord steam 
-        dnf install -y conky
+        dnf install -y gnome-calculator gnome-font-viewer gnome-disk-utility telegram thunderbird
+	dnf install -y gimp obs-studio inkscape
+       
         dnf install -y flatpak >> /tmp/install/flatpak.logs
         flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo  
         flatpak update
         flatpak install com.getpostman.Postman  com.spotify.Client io.github.shiftey.Desktop \
-            com.github.tchx84.Flatseal com.microsoft.Teams fr.natron.Natron \
-            org.libreoffice.LibreOffice org.telegram.desktop org.videolan.VLC 
+            com.github.tchx84.Flatseal com.microsoft.Teams \
+            org.libreoffice.LibreOffice org.telegram.desktop org.videolan.VLC \
+discord
     fi
         echo "Installing JetBrains Toolbox"
     curl -fsSL https://raw.githubusercontent.com/nagygergo/jetbrains-toolbox-install/master/jetbrains-toolbox.sh | bash
@@ -98,30 +106,26 @@ Install()
     cd  /usr/share/fonts/jetbrains-mono
     wget https://download.jetbrains.com/fonts/JetBrainsMono-2.242.zip
     wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/JetBrainsMono.zip
-    unzip JetBrainsMono*
+    unzip JetBrainsMono-2.242.zip; unzip JetBrainsMono.zip
     cd ..
     mkdir droidsans-nerd-fonts
     cd droidsans-nerd-fonts
     wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/DroidSansMono.zip
-    unzip DroidSansMono* 
-    cd ..
+    unzip DroidSansMono.zip
     echo "Installing icons"
     cd /usr/share/icons/
     wget https://github.com/bikass/kora/archive/refs/tags/v1.5.1.zip
     unzip *.zip
     dnf install flat-remix-gtk* -y
     gsettings set org.gnome.desktop.interface gtk-theme "Flat-Remix-GTK-Blue-Dark"
-    $HOME/.dotfiles/dotfetch
     mv /tmp/install $HOME/install
     ## Optional
     # vim
     # go install golang.org/x/tools/gopls@latest
-    # npm i -g coc-clangd
     echo "write: \nfastestmirror=True\ndeltarpm=True\nto  /etc/dnf/dnf.conf"
     ## END OF get_install ##
     dnf clean all
-    echo "End: ./install.sh - $(date +%H:%M) - $(date +' '%a' '%d' '%b' '%Y) "
-    echo "get_install SUCCESSFUL"
+    echo "Installation Complete  - $(date +%H:%M) - $(date +' '%a' '%d' '%b' '%Y) "
     echo "Type Y to reboot"
     read get_reboot
 
@@ -139,8 +143,16 @@ Configure()
     ln -s $HOME/.dotfiles/autostart $HOME/.config/autostart
     $HOME/.dotfiles/bin/dotfetch --root
     mkdir $HOME/.local $HOME/.local/fonts $HOME/.themes
- 
- 
+    echo -e \
+    " For Neovim run following commands on install:\n\
+    - :PlugInstall\n\
+    - :TSInstall all\n\
+    - :CocInstall coc-webview coc-tailwindcss coc-stylelintplus coc-spell-checker\n\
+     coc-snippets coc-prettier coc-just-complete coc-html-css-support coc-html\n\
+     coc-explorer coc-diagnostic coc-cssmodules coc-browser coc-yaml coc-xml\n\
+     coc-vue coc-tsserver coc-texlab coc-svelte coc-sumneko-lua coc-stylua coc-sh\n\
+     coc-rust-analyzer coc-rls coc-markdownlint coc-markdown-preview-enhanced\n\
+     coc-json coc-htmlhint coc-golines coc-go coc-docker coc-css coc-cmake coc-clangd "
 }
 
 for arg in $@;do

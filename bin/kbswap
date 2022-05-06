@@ -1,0 +1,11 @@
+#! /bin/bash
+# kbswap - Swap keyboard layout between two 
+# @author umutsevdi 
+layout1=$1
+layout2=$2
+current=$(setxkbmap -query  | grep layout | awk '{print $2}')
+if [[ "$current" = "$1,$2" ]]; then
+    setxkbmap $2,$1
+else
+    setxkbmap $1,$2
+fi

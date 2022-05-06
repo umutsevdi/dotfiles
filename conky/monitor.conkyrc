@@ -42,8 +42,6 @@ conky.config = {
 };
 
 conky.text = [[
-${font JetBrains Mono:bold:size=10}Battery: $alignr  ${font JetBrains Mono :italic:size=9}$color${battery}
-${battery_bar}
 ${font JetBrains Mono:bold:size=10}RAM: $alignr ${font JetBrains Mono :italic:size=9}$color $mem/$memmax - $memperc%
 ${membar}
 ${font JetBrains Mono:bold:size=10}Disk:$alignr ${font JetBrains Mono :italic:size=9}$color ${fs_used /}/${fs_size /}

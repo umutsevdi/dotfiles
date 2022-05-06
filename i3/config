@@ -32,17 +32,20 @@ font pango:Roboto Regular 10
 # select a random wallpaper on start and save it for the future sessions
 exec --no-startup-id sleep 0.1;$HOME/.dotfiles/bin/pickwp
 # anytime i3 wm restarts kills all existing polybars and creates one
-exec_always --no-startup-id killall polybar; polybar secondary; sleep 0.3; polybar primary;
+exec_always --no-startup-id killall polybar; polybar secondary; sleep 0.3; polybar primary; polybar music
 # initialize compositor
-exec_always --no-startup-id picom -b  --experimental-backends 
+exec_always --no-startup-id picom -b --config ~/.dotfiles/picom/picom.conf  --experimental-backends 
 # initialize applets 
-exec_always --no-startup-id pkill -f blueberry-tray; pkill -f nm-applet; pkill xfce4-power-manager
+exec_always --no-startup-id pkill -f blueman-applet; pkill -f nm-applet; pkill xfce4-power-manager
+exec_always --no-startup-id killall dnfdragora-updater
 exec_always --no-startup-id killall pasystray
-exec_always --no-startup-id blueberry-tray
+exec_always --no-startup-id blueman-applet
 exec_always --no-startup-id nm-applet
 exec_always --no-startup-id xfce4-power-manager
+exec_always --no-startup-id dnfdragora-updater
 exec_always --no-startup-id pasystray --notify=sink 
 exec_always --no-startup-id killall conky; sleep 0.1; conky --config=$HOME/.dotfiles/conky/time.conkyrc --daemonize --pause=0 --interval=1;conky --config=$HOME/.dotfiles/conky/monitor.conkyrc --daemonize --pause=0 --interval=1
+exec_always --no-startup-id geary --gapplication-service
 
 # color-set
 #                       border              background         text                 indicator
@@ -50,17 +53,17 @@ client.focused          $bg-color           $bg-color          $text-color      
 client.unfocused        $inactive-bg-color $inactive-bg-color $inactive-text-color #2e323d
 client.focused_inactive $inactive-bg-color $inactive-bg-color $inactive-text-color #2e323d
 client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color          #2e323d
-gaps outer 10
-gaps inner 20
-for_window [class="^.*"] border pixel 2
+gaps outer 23
+gaps inner 7
+for_window [class="^.*"] border pixel 3
 #smart_gaps on
 smart_borders on
 hide_edge_borders smart_no_gaps
 # floating window exceptions
-for_window [instance="gnome-font-viewer"] floating enable
-for_window [instance="clocks"] floating enable
-for_window [instance="gnome-calendar"] floating enable
-for_window [instance="gnome-disk"] floating enable
+# for_window [instance="gnome-font-viewer"] floating enable
+# for_window [instance="clocks"] floating enable
+# for_window [instance="gnome-calendar"] floating enable
+# for_window [instance="gnome-disk"] floating enable
 for_window [instance="gnome-calculator"] floating enable
 for_window [instance="xfce4*"] floating enable
 for_window [instance="xfce-*"] floating enable
@@ -78,6 +81,8 @@ bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym $mod+space exec kbswap tr us
+
 # bindsym --locked XF86MonBrightnessUp exec --no-startup-id light -A 10
 # bindsym --locked XF86MonBrightnessDown exec --no-startup-id light -U 10
 # using mod + shift + c refreshes i3 and i3 blocks
