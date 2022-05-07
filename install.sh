@@ -1,7 +1,7 @@
 #!/bin/bash
 # install.sh 
 # @umutsevdi 
-# An script that installs and configures desktop enviroment to your needs.
+# A script that installs and configures desktop enviroment to your needs.
 # Installs various tools.
 # Designed for Fedora 3X Server Editions
 # @requires git, dnf, https://www.github.com/umutsevdi/dotfiles
