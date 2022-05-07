@@ -75,7 +75,7 @@ call plug#end()
 " { default, palenight, ocean, lighter, darker, default-community, palenight-community,
 "   ocean-community, lighter-community, darker-community }
 colorscheme material
-let g:material_theme_style = 'ocean'
+let g:material_theme_style = 'darker'
 let g:material_terminal_italics = 1
 
 " nvim-tresitter config

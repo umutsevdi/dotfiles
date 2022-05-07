@@ -1,8 +1,7 @@
 /*
  *
- * Author  : Aditya Shakya, Umut Sevdi
- * Mail    : adi1090x@gmail.com, sevdiumut@gmail.com
- * Github  : @adi1090x, @umutsevdi
+ * Author  : Umut Sevdi
+ * Github  : @umutsevdi
  *
  */
 
@@ -11,7 +10,7 @@
 configuration {
 	font:							"Roboto Regular 11";
     show-icons:                     true;
-	icon-theme: 					"kora";
+	icon-theme: 					"kora-yellow";
     display-drun: 					"";
     drun-display-format:            "{name}";
     disable-history:                false;
@@ -20,15 +19,15 @@ configuration {
 
 * {
     background-alt:              	#00000000;
-    background-bar:                 @background-light;
-    border:		               		@accent;
-    selected:               		@background;
+    background-bar:                 @bg;
+    border:		               		@focus;
+    selected:               		@bg-none;
 }
 
 window {
     transparency:                   "real";
-    background-color:               @background;
-    text-color:                     @foreground;
+    background-color:               @bg-dark;
+    text-color:                     @fg;
 	border:							0px;
 	border-color:					@border;
     border-radius:                  4px;
@@ -40,37 +39,46 @@ window {
 
 prompt {
     enabled: 						true;
-	padding: 						0.25% 0.75% 0% -0.25%;
-	background-color: 				@background-alt;
-	text-color: 					@foreground;
-	font:							"Roboto Regular 12";
+    padding:                        10px;
+	background-color: 				@bg-none;
+    text-color: 					@solid-focus;
+    border-radius:                  0px;
+    border-color:                  	@solid-focus;
+    horizontal-align:               0.5;
+    vertical-align:               0.5;
+
 }
 
 entry {
-    background-color:               @background-alt;
-    text-color:                     @foreground;
-    placeholder-color:              @foreground;
+    font:							"Roboto Regular 12";
+
+    background-color:               @bg-selection;
+    text-color: 					@solid-focus;
+
+    placeholder-color:              @solid-focus;
     expand:                         true;
-    horizontal-align:               0.5;
-    placeholder:                    "⌘ Search...";
-    padding:                        -0.15% 0% 0% 0%;
+    horizontal-align:               0.48;
+    vertical-align:               0.5;
+    placeholder:                    "Search...";
+    padding:                        0px 0px 0px 0px;
     blink:                          true;
 }
 
 inputbar {
-	children: 						[ entry ];
-    background-color:               @background-bar;
-    text-color:                     @foreground;
-    expand:                         false;
-	border:							0% 0% 0.2% 0%;
-    border-radius:                  4px;
-	border-color:					@accent;
-    margin:                         0% 0% 0% 0%;
-    padding:                        1.00%;
+	children: 						[ textbox-prompt-colon , entry ];
+    spacing:                        0px;
+    background-color:               @bg-selection;
+    text-color:                     @fg;
+    border:                  		2px;
+    border-radius:                  5px;
+    border-color:                  	@solid-focus;
+    margin:                         0px 0px 0px 0px;
+    padding:                        0px;
+    position:                       center;
 }
 
 listview {
-    background-color:               @background-alt;
+    background-color:               @bg-none;
     columns:                        4;
     lines:	                        3;
     spacing:                        0%;
@@ -80,18 +88,18 @@ listview {
 }
 
 mainbox {
-    background-color:               @background-alt;
+    background-color:               @bg-dark;
 	border:							0% 0% 0% 0%;
     border-radius:                  0% 0% 0% 0%;
-	border-color:					@accent;
+	border-color:					@solid-focus;
     children:                       [ inputbar, listview ];
     spacing:                       	1.00%;
     padding:                        1.25% 0.75% 1.25% 0.75%;
 }
 
 element {
-    background-color:               @background-alt;
-    text-color:                     @foreground;
+    background-color:               @bg-dark;
+    text-color:                     @fg-dark;
     orientation:                    vertical;
     border-radius:                  0%;
     padding:                        1.5% 0% 1.5% 0%;
@@ -116,9 +124,19 @@ element-text {
 }
 
 element selected {
-    background-color:               @background-light-solid;
-    text-color:                     @foreground;
-	border:							0% 0.2% 0.2% 0.2%;
-    border-radius:                  4px;
-    border-color:                  	@border;
+    background-color:               @bg-selection;
+    text-color:                     @solid-fg;
+    border:                  		2px;
+    border-radius:                  5px;
+    border-color:                  	@solid-focus;
 }
+
+textbox-prompt-colon {
+    font:							@nerdfont;
+	expand: 						false;
+	str: 							"  ";
+	background-color: 				@solid-focus;
+	text-color: 					@solid-bg;
+    padding:                        10px;
+}
+

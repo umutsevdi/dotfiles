@@ -1,8 +1,7 @@
 /*
  *
- * Author  : Aditya Shakya, Umut Sevdi
- * Mail    : adi1090x@gmail.com, sevdiumut@gmail.com
- * Github  : @adi1090x, @umutsevdi
+ * Author  : Umut Sevdi
+ * Github  : @umutsevdi
  *
  */
 
@@ -16,8 +15,8 @@ configuration {
 @import "../colors.rasi"
 
 * {
-    background-color:               @background-light;
-    text-color:                     @foreground;
+    background-color:               @bg;
+    text-color:                     @solid-fg;
 }
 
 window {
@@ -32,28 +31,28 @@ window {
 prompt {
     enabled: 						true;
     padding:                        10px;
-	background-color: 				@nobg;
-	text-color: 					@accent;
+	background-color: 				@bg-none;
+	text-color: 					@solid-focus;
     border-radius:                  0px;
-    border-color:                  	@accent;
+    border-color:                  	@solid-focus;
 }
 
 textbox-prompt-colon {
 	expand: 						false;
 	str: 							" ♫ ";
-	background-color: 				@accent;
-	text-color: 					@background-solid;
+	background-color: 				@solid-focus;
+	text-color: 					@solid-bg;
     padding:                        10px;
 }
 
 inputbar {
 	children: 						[ textbox-prompt-colon, prompt ];
     spacing:                        0px;
-    background-color:               @background;
-    text-color:                     @foreground;
+    background-color:               @bg-selection;
+    text-color:                     @fg;
     border:                  		2px;
-    border-radius:                  10px;
-    border-color:                  	@accent;
+    border-radius:                  5px;
+    border-color:                  	@solid-focus;
     margin:                         0px 0px 0px 0px;
     padding:                        0px;
     position:                       center;
@@ -69,24 +68,24 @@ listview {
 }
 
 mainbox {
-    background-color:               @nobg;
+    background-color:               @bg-none;
     children:                       [ inputbar, listview ];
     spacing:                        12px;
     margin:                         10px;
 }
 
 listview {
-    background-color:               @nobg;
+    background-color:               @bg-none;
 }
 element {
-    background-color:               @background;
-    text-color:                     @foreground;
+    background-color:               @bg-selection;
+    text-color:                     @fg;
     orientation:                    vertical;
-    border-radius:                  10px;
+    border-radius:                  5px;
 }
 
 element-text {
-    background-color: 				@nobg;
+    background-color: 				@bg-none;
     text-color:       				inherit;
 	font:							@nerdfont-big;
     expand:                         true;
@@ -98,30 +97,30 @@ element-text {
 element normal.urgent,
 element alternate.urgent {
     background-color:               @off;
-    text-color:                     @background;
-    border-radius:                  10px;
+    text-color:                     @bg-selection;
+    border-radius:                  5px;
 }
 
 element normal.active,
 element alternate.active {
     background-color:               @on;
-    text-color:                     @background;
+    text-color:                     @bg-selection;
 }
 
 element selected {
-    background-color:               @accent;
-    text-color:                     @background;
+    background-color:               @solid-focus;
+    text-color:                     @bg-selection;
     border:                  		0px;
-    border-radius:                  10px;
+    border-radius:                  5px;
     border-color:                  	@border;
 }
 
 element selected.urgent {
     background-color:               @on;
-    text-color:                     @background;
+    text-color:                     @bg-selection;
 }
 
 element selected.active {
     background-color:               @off;
-    color:                          @background;
+    color:                          @bg-selection;
 }

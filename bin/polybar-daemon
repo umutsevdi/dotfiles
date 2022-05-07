@@ -1,0 +1,65 @@
+#! /bin/bash
+# polybar-daemon.sh - Listens certain events and manages bars
+# @author umutsevdi 
+#   A script that updates the config files and restarts i3wm
+# @requires i3
+
+ListenMusicEvent()
+{
+    echo "Listening $(playerctl status 2>/dev/null)"
+}
+
+ListenDockerEvent()
+{
+    echo "Listening $(docker ps 2>/dev/null)"
+}
+
+
+
+Help()
+{
+   # Display Help
+   echo "polybar-daemon"
+   echo "  Listens Docker and audio events to manage Polybar"
+   echo
+   echo "Syntax: [-h|d/a|i]"
+   echo
+   echo "Options:"
+   echo "-h/--help            Prints this menu."
+   echo "-d/--docker          Listens the docker and manages docker bar"
+   echo "-a/--audio           Listens playerctl and manages audio bar"
+   echo "-i/--interval \$time  Set the interval"
+   echo
+
+}
+
+interval=2
+
+for arg in $@;do
+    if   [[ "$arg" = "-h" ]] || [[ "$arg" = "--help" ]]; then
+        Help
+        exit
+    elif [[ "$is_interval" = "true" ]]; then
+        is_interval=false
+        interval=$arg
+    elif [[ "$arg" = "-d" ]] || [[ "$arg" = "--docker" ]]; then
+        event=ListenDockerEvent
+    elif [[ "$arg" = "-a" ]] || [[ "$arg" =  "--audio" ]]; then
+        event=ListenMusicEvent
+    elif [[ "$arg" = "-i" ]] || [[ "$arg" = "--interval" ]]; then
+        is_interval=true
+    else
+        echo -e "Error: Invalid arguments" 1>&2
+        exit
+    fi 
+done
+
+if [[ "$event" = "" ]];then
+    echo -e "Error: Set a daemon" 1>&2
+    exit
+fi
+
+while true; do
+    sleep $interval
+    $event
+done

@@ -21,9 +21,12 @@ Help()
 Fetch()
 {
     cd $HOME/.config
-    rm -rf i3 kitty polybar gtk-3.0 conky awesome dunst
+    rm -rf i3 kitty polybar conky awesome dunst
     cp -r $HOME/.dotfiles/conky $HOME/.config/conky
-    cp -r $HOME/.dotfiles/gtk/ $HOME/.config/gtk-3.0/
+    cp -r $HOME/.dotfiles/gtk/settings.ini $HOME/.config/gtk-3.0/
+    cp -r $HOME/.dotfiles/gtk/gtk.css $HOME/.config/gtk-3.0/
+    cp -r $HOME/.dotfiles/gtk/bookmarks $HOME/.config/gtk-3.0/
+    cp -r $HOME/.dotfiles/gtk/.gtkrc-2.0 $HOME
     cp -r $HOME/.dotfiles/i3 $HOME/.config/
     cp -r $HOME/.dotfiles/kitty $HOME/.config/
     cp -r $HOME/.dotfiles/polybar $HOME/.config/

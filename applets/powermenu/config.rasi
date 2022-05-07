@@ -16,21 +16,21 @@ configuration {
 @import "../colors.rasi"
 
 * {
-    background-color:               @background-light;
-    text-color:                     @foreground;
+    background-color:               @bg;
+    text-color:                     @solid-fg;
 }
 
 window {
     transparency:                   "real";
-    border-radius:                  10px;
-    width:                         25%;
+    border-radius:                   5px;
+    width:                          25%;
     location:                       north;
     x-offset:                       0px;
     y-offset:                       3%;
 }
 
 listview {
-    background-color:               @nobg;
+    background-color:               @bg-none;
     columns:                        4;
     lines:							1;
     margin:                         8px;
@@ -41,82 +41,94 @@ listview {
 }
 
 mainbox {
-    background-color:               @background;
+    background-color:               @bg-none;
     children:                       [inputbar, listview ];
+    margin:                         10px;
+    spacing:                        12px;
+
+
 }
 
 element {
-    background-color:               @background;
-    text-color:                     @foreground;
+    background-color:               @bg-selection;
+    text-color:                     @fg;
     orientation:                    vertical;
-    border-radius:                  10px;
+    border-radius:                   5px;
 }
 
 element-text {
-    background-color: 				@nobg;
+    background-color: 				@bg-none;
     text-color:       				inherit;
 	font:							@nerdfont-big;
     expand:                         true;
     horizontal-align:               0.5;
     vertical-align:                 0.5;
-    margin:                         26px 26px 26px 26px;
+    margin:                         25px 25px 25px 25px;
 }
 
 element normal.urgent,
 element alternate.urgent {
-    background-color:               @urgent;
-    text-color:                     @foreground;
-    border-radius:                  10px;
+    background-color:               @bg-warn;
+    text-color:                     @fg;
+    border-radius:                   5px;
 }
 
 element normal.active,
 element alternate.active {
-    background-color:               @background-alt;
-    text-color:                     @foreground;
+    background-color:               @bg-selection;
+    text-color:                     @fg;
 }
 
 element selected {
-    background-color:               @accent;
-    text-color:                     @background;
+    background-color:               @solid-focus;
+    text-color:                     @solid-bg-dark;
     border:                  		0px;
-    border-radius:                  10px;
+    border-radius:                   5px;
     border-color:                  	@border;
 }
 
 element selected.urgent {
     background-color:               @urgent;
-    text-color:                     @foreground;
+    text-color:                     @fg;
 }
 
 element selected.active {
-    background-color:               @background-alt;
-    color:                          @foreground;
+    background-color:               @bg-selected;
+    color:                          @fg;
 }
 
 
 inputbar {
 	children: 						[ textbox-prompt-colon, prompt ];
     spacing:                        0px;
-    background-color:               @background;
-    text-color:                     @foreground;
-    expand:                         false;
-    margin:                         10px 10px 10px 10px;
-    padding:                        10px;
-    border-radius:                  10px;
+    background-color:               @bg-selection;
+    text-color:                     @fg;
+    border:                  		2px;
+    border-radius:                  5px;
+    border-color:                  	@solid-focus;
+    margin:                         0px 0px 0px 0px;
+    padding:                        0px;
     position:                       center;
 }
 
 
 prompt {
-    background-color:               @nobg;
-    text-color:                     @foreground;
+    padding:                        10px;
+	background-color: 				@bg-none;
+	text-color: 					@solid-focus;
+    border-radius:                  0px;
     horizontal-align:               0.5;
     vertical-align:                 0.5;
+    border-color:                  	@solid-focus;
 }
 
 textbox-prompt-colon {
-    background-color:               @nobg;
+	expand: 						false;
+	str: 							" ⟲  ";
+	background-color: 				@solid-focus;
+	text-color: 					@background-solid;
+    padding:                        10px;
+
     horizontal-align:               0.5;
     vertical-align:                 0.5;
 }
-

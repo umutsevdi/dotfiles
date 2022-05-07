@@ -1,14 +1,23 @@
 * {
-  accent:                   #2274ff;
-  background:               #0f111a8f;
-  background-solid:         #0f111a;
-  backgroud-alt:            #1a1c258f;
-  background-light:         #3b3e4c8f;
-  background-light-solid:   #3b3e4c;
-  nobg:                     #00000000;
-  foreground:               #ffffff;
-  on:                       #c3e88dbf;
-  off:                      #f07178bf;
+  solid-focus:                    #f5ad3f;
+  solid-focus-dark:               #ff8a65;
+  solid-bg:                       #2c2c2c;
+  solid-bg-dark:                  #242424;
+  solid-bg-selection:             #3d3d3d;
+  solid-fg:                       #ffffff;
+  solid-fg-dark:                  #686e72;
+  solid-bg-warn:                  #f07178;
+
+  focus:                    #f5ad3fe6;
+  focus-dark:               #ff8a65e6;
+  bg:                       #2c2c2ce6;
+  bg-dark:                  #242424e6;
+  bg-selection:             #3d3d3de6;
+  fg:                       #ffffffe6;
+  fg-dark:                  #686e72e6;
+  bg-none:                  #00000000;
+  bg-warn:                  #f07178e6;
+
   nerdfont:                 "JetBrains Mono Nerd Font 11";
   nerdfont-big:             "JetBrains Mono Nerd Font 20";
   text:                     "Roboto Regular 11";

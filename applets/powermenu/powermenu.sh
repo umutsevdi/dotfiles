@@ -4,7 +4,7 @@
 
 dir="$HOME/.dotfiles/applets/powermenu"
 rofi_cmd="rofi -theme $dir/config.rasi"
-uptime="⟲ Uptime: $(uptime -p | sed -e "s/up //g" | sed -e "s/hours/h/g" | sed -e  "s/hour/h/g" | sed -e "s/minutes/min/g")" 
+uptime="Uptime: $(uptime -p | sed -e "s/up //g" | sed -e "s/hours/h/g" | sed -e  "s/hour/h/g" | sed -e "s/minutes/min/g")" 
 
 shutdown=""
 reboot="勒"

@@ -46,9 +46,9 @@ alias kitcat='kitty +kitten icat'
 #PS1='[\u@\h \W]\$ '
 t_value="\[\e[1;34m\t\e[01;37m\]"
 u_type=$(if [[ "$(whoami)" == "root" ]]; then echo /; else echo $; fi; )
-u_value="\e[1;33m$u_type\e[01;37m"
-l_value="\[\e[03;31m\]\W\[\e[03;37m\]"
+u_value="\e[1;31m$u_type\e[01;37m"
+l_value="\[\e[03;33m\]\W\[\e[03;37m\]"
 PS1="\[\e[01m$t_value $u_value $l_value → \[\e[0m\]"
 # launch
-echo -e "\e[01m$(whoami)@$(hostname)\e[0;33m 🔸 \e[01;36m$(date +%a' '%d' '%b' '%Y)"
+echo -e "\e[01m$(whoami)@$(hostname)\e[0;34m 🔸 \e[01;36m$(date +%a' '%d' '%b' '%Y)"
 $HOME/.dotfiles/bin/pots
