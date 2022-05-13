@@ -1,3 +1,7 @@
+/* gtk.css 
+ * a config file that overwrites certain elements on gtk.themes 
+ * /
+
 /* shrink headerbars (don't forget semicolons after each property) */
 headerbar {
   min-height: 0px;

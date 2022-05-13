@@ -1,11 +1,11 @@
 #!/bin/bash
 # install.sh 
-# @umutsevdi 
+# @author umutsevdi 
 # A script that installs and configures desktop enviroment to your needs.
 # Installs various tools.
 # Designed for Fedora 3X Server Editions
 # @requires git, dnf, https://www.github.com/umutsevdi/dotfiles
-# run --config first then --install with your arguments
+
 Help()
 {
    # Display Help
@@ -69,6 +69,15 @@ Install()
     dnf install pip -y
     pip install neovim
     dnf install lua luarocks -y
+    dnf install -y java-1.8.0-openjdk-devel.x86_64 java-11-openjdk-devel.x86_64 java-latest-openjdk-devel.x86_64 maven
+
+    cd /tmp
+    wget https://go.dev/dl/go1.18.2.linux-amd64.tar.gz
+    tar -xvf go1.18.2.linux-amd64.tar.gz -C /lib/
+    for i in $(ls /home/); do
+        path="/home/$i";
+        tar -xvf go1.18.2.linux-amd64.tar.gz -C $path
+    done
     ## DOCKER
     dnf install docker -y
     groupadd docker

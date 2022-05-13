@@ -21,7 +21,7 @@ let g:lightline = {
   \   ],
   \ },
   \ 'component':{
-  \ 'gitbranch': ' %{fugitive#head()}',
+  \ 'gitbranch': ' %{FugitiveHead()}',
   \},
   \ 'component_expand': {
   \   'gitdiff': 'lightline#gitdiff#get',

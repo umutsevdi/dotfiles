@@ -1,10 +1,10 @@
 /*
- *
- * Author  : Aditya Shakya, Umut Sevdi
- * Mail    : adi1090x@gmail.com, sevdiumut@gmail.com
- * Github  : @adi1090x, @umutsevdi
- *
+ * powermenu/config.rasi - Power Menu Applet
+ * Layout configuration for power applet
+ * @author umutsevdi
  */
+
+@import "../colors.rasi"
 
 configuration {
     show-icons:                     false;
@@ -12,8 +12,6 @@ configuration {
 	sidebar-mode: 					false;
 	font:                      		"Roboto Regular 12";
 }
-
-@import "../colors.rasi"
 
 * {
     background-color:               @bg;

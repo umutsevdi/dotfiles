@@ -1,6 +1,6 @@
 #! /bin/bash
 # powermenu.sh - Rofi Powermenu
-# @umutsevdi 
+# @author umutsevdi 
 
 dir="$HOME/.dotfiles/applets/powermenu"
 rofi_cmd="rofi -theme $dir/config.rasi"

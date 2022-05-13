@@ -11,11 +11,13 @@ then
 fi
 export PATH
 
-GOPATH=$HOME/go/bin
-GOROOT=/lib/go/bin
-JAVA_HOME=/lib/jvm/java-11-openjdk-11.0.14.0.9-2.fc35.x86_64
+GOPATH=$HOME/go
+GOROOT=/lib/go
+JAVA_HOME="$(ls /lib/jvm | grep java-11-openjdk.)"
 DOTFILES_PATH="$HOME/.dotfiles/bin"
-PATH="$JAVA_HOME$GOPATH:$GOROOT:$DOTFILES_PATH:$PATH"
+PATH="$JAVA_HOME:$GOPATH/bin:$GOROOT/bin:$DOTFILES_PATH:$PATH"
+# sudo alternatives --config java
+
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
 
@@ -50,5 +52,5 @@ u_value="\e[1;31m$u_type\e[01;37m"
 l_value="\[\e[03;33m\]\W\[\e[03;37m\]"
 PS1="\[\e[01m$t_value $u_value $l_value → \[\e[0m\]"
 # launch
-echo -e "\e[01m$(whoami)@$(hostname)\e[0;34m 🔸 \e[01;36m$(date +%a' '%d' '%b' '%Y)"
+echo -e "\e[01m$(whoami)@$(hostname)\e[0;34m - \e[01;36m$(date +%a' '%d' '%b' '%Y)"
 $HOME/.dotfiles/bin/pots

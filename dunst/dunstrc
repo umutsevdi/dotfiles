@@ -1,3 +1,7 @@
+# dunstrc - Dunst Configuration File
+# Dunst is a notification implementation
+# @author umutsevdi
+
 [frame]
     width = 0
     color = "#f5ad3f"

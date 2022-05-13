@@ -5,11 +5,10 @@ This directory contains scripts that I wrote.
 bin/
 ├── dotfetch
 ├── duppterm
+├── kbswap
 ├── lockscreen
-├── panel-docker
-├── panel-music
-├── panel-window
 ├── pickwp
+├── polybar-daemon
 └── pots
 ```
 To execute any use

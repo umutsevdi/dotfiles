@@ -1,6 +1,6 @@
 #! /bin/bash
-# launcher.sh - Rofi App Launcher
-# @umutsevdi 
+# launcher.sh - Rofi App Launcher, is a dmenu like graphical app launcher
+# @author umutsevdi 
 # @requires rofi
 
 theme="config"

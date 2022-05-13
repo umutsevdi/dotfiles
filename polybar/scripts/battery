@@ -1,4 +1,10 @@
-#!/bin/sh 
+#! /bin/bash
+# polybar.sh - Screen locker based on i3lock
+# @author umutsevdi 
+#   A script that locks screen while blurring the active
+# desktop
+# @requires i3lock, scrot
+
 PATH_AC="/sys/class/power_supply/AC"
 PATH_BATTERY_0="/sys/class/power_supply/BAT0"
 PATH_BATTERY_1="/sys/class/power_supply/BAT1"

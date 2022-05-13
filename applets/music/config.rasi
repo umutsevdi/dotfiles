@@ -1,9 +1,10 @@
 /*
- *
- * Author  : Umut Sevdi
- * Github  : @umutsevdi
- *
+ * music/config.rasi - Music Applet
+ * Layout configuration for music applet
+ * @author umutsevdi
  */
+
+@import "../colors.rasi"
 
 configuration {
     show-icons:                     false;
@@ -11,8 +12,6 @@ configuration {
     disable-history:                false;
 	sidebar-mode: 					false;
 }
-
-@import "../colors.rasi"
 
 * {
     background-color:               @bg;

@@ -1,12 +1,13 @@
+-- Conky is a monitoring application that is displayed on the desktop
+-- @author umutsevdi 
+
 conky.config = {
+
 -- Conky settings
 	update_interval = 1,
-
 	override_utf8_locale = true,
-
 	double_buffer = true,
 	no_buffers = true,
-
 	text_buffer_size = 2048,
 
 -- Window specifications
@@ -14,14 +15,11 @@ conky.config = {
 	own_window_class = 'conky',
 	own_window_transparent = true,
 	own_window_type = 'override',
-
 	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
-
 	border_inner_margin = 0,
 	border_outer_margin = 0,
-
 	alignment = 'bottom_left',
-	gap_x = 30,
+	gap_x = 35,
 	gap_y = 30,
 
 -- Graphics settings
@@ -36,9 +34,7 @@ conky.config = {
 	text_buffer_size = 2048,
 	font = 'JetBrains Mono:size=11',
 	uppercase = false,
-
-	default_color = '#FFFFFF',
-
+	default_color = '#ffffff',
 };
 
 conky.text = [[

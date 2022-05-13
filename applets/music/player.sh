@@ -1,6 +1,6 @@
 #! /bin/bash
-# player.sh - Rofi Music Player
-# @umutsevdi 
+# player.sh - Rofi Music Player Applet
+# @author umutsevdi 
 # @requires playerctl
 
 if ! command -v playerctl &> /dev/null; then

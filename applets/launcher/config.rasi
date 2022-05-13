@@ -1,8 +1,7 @@
 /*
- *
- * Author  : Umut Sevdi
- * Github  : @umutsevdi
- *
+ * launcher/config.rasi - Launcher
+ * Layout configuration for launcher applet
+ * @author umutsevdi
  */
 
 @import "../colors.rasi"
