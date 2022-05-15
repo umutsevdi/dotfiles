@@ -31,8 +31,9 @@ Install()
     ## UPATE ##
     echo "Enabling RPM Repositories"
     dnf -y install dnf-plugins-core
-    dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm >> /tmp/install/rpm.logs
-    dnf install -y  https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm >> /tmp/install/rpm.logs
+    sudo dnf install -y \
+    https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm \
+    https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
     dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo >> /tmp/install/rpm.logs
     dnf config-manager \
         --add-repo \
@@ -59,7 +60,7 @@ Install()
     fi
     ## REQUIRED PROGRAMS ##
     echo "Installing basic programs" 
-    dnf install -y firefox thunar nitrogen mousepad
+    dnf install -y firefox pcmanfm nitrogen mousepad
     ## CLI PROGRAMS ##
     echo "Installing CLI tools"
     dnf copr enable agriffis/neovim-nightly
@@ -70,7 +71,8 @@ Install()
     pip install neovim
     dnf install lua luarocks -y
     dnf install -y java-1.8.0-openjdk-devel.x86_64 java-11-openjdk-devel.x86_64 java-latest-openjdk-devel.x86_64 maven
-
+    sudo mkdir /usr/local/share/lombok
+    sudo wget https://projectlombok.org/downloads/lombok.jar -O /usr/local/share/lombok/lombok.jar
     cd /tmp
     wget https://go.dev/dl/go1.18.2.linux-amd64.tar.gz
     tar -xvf go1.18.2.linux-amd64.tar.gz -C /lib/
@@ -78,6 +80,10 @@ Install()
         path="/home/$i";
         tar -xvf go1.18.2.linux-amd64.tar.gz -C $path
     done
+    dnf install kdeconnectd
+    firewall-cmd --zone=public --permanent --add-port=1714-1764/tcp
+    firewall-cmd --zone=public --permanent --add-port=1714-1764/udp
+    systemctl restart firewalld.service
     ## DOCKER
     dnf install docker -y
     groupadd docker
@@ -90,12 +96,13 @@ Install()
            https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
     npm install -g neovim
     npm install -g coc-clangd
-    npm install bash-language-server
+    npm install -g bash-language-server
+    npm install -g instant-markdown-d
     mkdir $HOME/.config/nvim
     echo "source $HOME/.dotfiles/nvim/init.vim" >> $HOME/.config/nvim/init.vim
     if [[ "$get_common" = true ]];then
         echo "Installing Common Programs"
-        dnf install -y gnome-calculator gnome-font-viewer gnome-disk-utility telegram thunderbird
+        dnf install -y gnome-calculator gnome-font-viewer gnome-disk-utility telegram geary gnome-calendar
 	dnf install -y gimp obs-studio inkscape
        
         dnf install -y flatpak >> /tmp/install/flatpak.logs
@@ -103,12 +110,12 @@ Install()
         flatpak update
         flatpak install com.getpostman.Postman  com.spotify.Client io.github.shiftey.Desktop \
             com.github.tchx84.Flatseal com.microsoft.Teams \
-            org.libreoffice.LibreOffice org.telegram.desktop org.videolan.VLC \
-discord
+            org.libreoffice.LibreOffice org.videolan.VLC 
     fi
         echo "Installing JetBrains Toolbox"
     curl -fsSL https://raw.githubusercontent.com/nagygergo/jetbrains-toolbox-install/master/jetbrains-toolbox.sh | bash
 
+    dnf install lxrandr lxappearance 
     ## Symbolic Links ##
    echo "Installing Fonts"
     mkdir /usr/share/fonts/jetbrains-mono
@@ -125,13 +132,16 @@ discord
     cd /usr/share/icons/
     wget https://github.com/bikass/kora/archive/refs/tags/v1.5.1.zip
     unzip *.zip
-    dnf install flat-remix-gtk* -y
-    gsettings set org.gnome.desktop.interface gtk-theme "Flat-Remix-GTK-Blue-Dark"
     mv /tmp/install $HOME/install
     ## Optional
     # vim
     # go install golang.org/x/tools/gopls@latest
     echo "write: \nfastestmirror=True\ndeltarpm=True\nto  /etc/dnf/dnf.conf"
+    # Theme config
+    $HOME/src/active/Colloid-gtk-theme/install.sh --dest ~/.themes/ --name Colloid-orange --theme orange --tweaks rimless 
+    $HOME/src/active/Colloid-gtk-theme/install.sh --dest /usr/share/themes/  --name Colloid-orange --theme orange --tweaks rimless 
+    flatpak override --filesystem=$HOME/.themes
+    sudo flatpak override --env=GTK_THEME=Colloid-orange
     ## END OF get_install ##
     dnf clean all
     echo "Installation Complete  - $(date +%H:%M) - $(date +' '%a' '%d' '%b' '%Y) "
@@ -156,12 +166,6 @@ Configure()
     " For Neovim run following commands on install:\n\
     - :PlugInstall\n\
     - :TSInstall all\n\
-    - :CocInstall coc-webview coc-tailwindcss coc-stylelintplus coc-spell-checker\n\
-     coc-snippets coc-prettier coc-just-complete coc-html-css-support coc-html\n\
-     coc-explorer coc-diagnostic coc-cssmodules coc-browser coc-yaml coc-xml\n\
-     coc-vue coc-tsserver coc-texlab coc-svelte coc-sumneko-lua coc-stylua coc-sh\n\
-     coc-rust-analyzer coc-rls coc-markdownlint coc-markdown-preview-enhanced\n\
-     coc-json coc-htmlhint coc-golines coc-go coc-docker coc-css coc-cmake coc-clangd "
 }
 
 for arg in $@;do

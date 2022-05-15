@@ -4,6 +4,8 @@
   "diagnostic.checkCurrentLine": true,
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "diagnostic.displayByAle": false,
+  "codeLens.enable": true,
+  "java.referencesCodeLens.enabled": true,
   "languageserver": {
     "bash": {
       "command": "bash-language-server",

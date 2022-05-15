@@ -5,6 +5,7 @@ source $HOME/.dotfiles/nvim/pkg/lightline.vim
 source $HOME/.dotfiles/nvim/pkg/nerdtree.vim
 source $HOME/.dotfiles/nvim/pkg/tagbar.vim
 source $HOME/.dotfiles/nvim/pkg/vimtex.vim
+source $HOME/.dotfiles/nvim/pkg/markdown.vim
 
 call plug#begin()
 " The default plugin directory will be as follows:
@@ -56,6 +57,8 @@ Plug 'mattn/emmet-vim'                                              " Better htm
 Plug 'othree/html5.vim', {'for': ['html', 'html5', 'htm']}          " HTML5 support for html tags
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'lervag/vimtex',
+Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown', 'do': 'yarn install'} " live markdown renderer server
+
 call plug#end()
 
 "colorscheme fleetish
@@ -71,6 +74,11 @@ let g:material_terminal_italics = 1
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
 --  ensure_installed = "maintained",
+  ensure_installed = { "c", "cmake", "comment", "cpp", "dockerfile",
+  "go", "gomod", "html", "http", "java", "javascript", "jsdoc", "json",
+  "kotlin", "latex", "lua", "make", "perl", "python", "regex", "ruby",
+  "rust", "scheme", "scss", "svelte", "todotxt", "toml", "tsx","typescript",
+  "vim", "vue", "yaml"},
   sync_install = false,
   ignore_install = {},
   highlight = {
@@ -112,7 +120,6 @@ let g:coc_global_extensions = [
 \ 'coc-rust-analyzer',
 \ 'coc-sh',
 \ 'coc-snippets',
-\ 'coc-spell-checker',
 \ 'coc-stylelintplus',
 \ 'coc-stylua',
 \ 'coc-sumneko-lua',
