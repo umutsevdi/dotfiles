@@ -4,7 +4,7 @@
 # @requires playerctl
 
 if ! command -v playerctl &> /dev/null; then
-    sudo dnf install playerctl
+    echo playerctl was not found 
 fi
 
 rofi_cmd="rofi -theme $HOME/.dotfiles/applets/music/config.rasi"

@@ -6,20 +6,20 @@
  */
 
 * {
-  solid-focus:                    #f5ad3f;
-  solid-focus-dark:               #ff8a65;
-  solid-bg:                       #2c2c2c;
-  solid-bg-dark:                  #242424;
-  solid-bg-selection:             #3d3d3d;
+  solid-focus:                    #5294e2;
+  solid-focus-dark:               #2b75cc;
+  solid-bg:                       #32343d;
+  solid-bg-dark:                  #282a33;
+  solid-bg-selection:             #35373f;
   solid-fg:                       #ffffff;
   solid-fg-dark:                  #686e72;
   solid-bg-warn:                  #f07178;
 
-  focus:                    #f5ad3fe6;
-  focus-dark:               #ff8a65e6;
-  bg:                       #2c2c2ce6;
-  bg-dark:                  #242424e6;
-  bg-selection:             #3d3d3de6;
+  focus:                    #5294e2e6;
+  focus-dark:               #2b75cce6;
+  bg:                       #32343de6;
+  bg-dark:                  #282a33e6;
+  bg-selection:             #35373fe6;
   fg:                       #ffffffe6;
   fg-dark:                  #686e72e6;
   bg-none:                  #00000000;

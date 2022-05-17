@@ -18,8 +18,8 @@ set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
-set $bg-color 	         #ff8a65
-set $inactive-bg-color   #2c2c2c
+set $bg-color 	         #5294e2
+set $inactive-bg-color   #282a33
 set $text-color          #ffffff
 set $inactive-text-color #3d3d3d
 set $urgent-bg-color     #f07178
@@ -31,6 +31,8 @@ font pango:Roboto Regular 10
 #   EXECUTION   #  
 #################
 
+exec --no-startup-id /usr/libexec/gsd-xsettings
+exec --no-startup-id colorscheme
 # select a random wallpaper on start and save it for the future sessions
 exec --no-startup-id sleep 0.1;$HOME/.dotfiles/bin/pickwp
 # anytime i3 wm restarts kills all existing polybars and creates one
@@ -69,6 +71,7 @@ hide_edge_borders smart_no_gaps
 # for_window [instance="gnome-calendar"] floating enable
 # for_window [instance="gnome-disk"] floating enable
 for_window [instance="gnome-calculator"] floating enable
+for_window [instance="Gnome-screenshot"] floating enable
 for_window [instance="xfce4*"] floating enable
 for_window [instance="xfce-*"] floating enable
 for_window [instance="pavucontrol"] floating enable

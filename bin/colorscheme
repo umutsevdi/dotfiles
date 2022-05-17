@@ -1,0 +1,66 @@
+#! /bin/bash
+# colorscheme.sh - Switch between light and dark mode
+# @author umutsevdi 
+# @requires i3, xsettingsd
+
+color_value="$(cat /tmp/colorscheme 2>/dev/null)"
+
+# if 
+if [[ "$color_value" = true ]]; then
+    is_dark=true
+    echo "false" > /tmp/colorscheme
+else
+    is_dark=false
+    echo "true" > /tmp/colorscheme
+fi
+
+gtk_light="Qogir-Light"
+gtk_dark="Qogir-Dark"
+kitty="Doom One"
+kitty_light_default=" Light"
+kitty_dark_default=
+vim_dark="palenight"
+vim_light="lighter"
+vim_var="material_theme_style"
+
+#   Help()
+#   {
+#      # Display Help
+#      echo "colorscheme.sh - Toggle between light and dark mode"
+#      echo
+#      echo "Syntax: [-r]"
+#      echo
+#      echo "Options:"
+#      echo "-h/--help                 Prints this menu."
+#      echo "-t/--theme \$THEME         GTK Theme"
+#      echo "-k/--kitty_theme \$THEME   Kitty Theme"
+#      echo "-vv/--vimvariable \$VAR    Vim variable to set colorscheme" 
+#      echo "-vl/--vimlight \$THEME    Light Colorscheme name for Neovim"
+#      echo "-vd/--vimdark \$THEME    Dark Colorscheme name for Neovim"
+#      echo
+#   }
+
+Set()
+{
+    if [[ "$is_dark" = true ]]; then 
+        kitty +kitten themes --reload-in=all "$kitty$kitty_light_default"
+        echo "let g:$vim_var = '$vim_light'" > $HOME/.dotfiles/nvim/pkg/colorscheme.vim
+        # for gnome 3+
+        gsettings set org.gnome.desktop.interface gtk-theme $gtk_light
+        # for legacy applications
+        sed -i s/$gtk_dark/$gtk_light/ ~/.dotfiles/gtk/settings.ini
+        sed -i s/$gtk_dark/$gtk_light/ ~/.dotfiles/gtk/.gtkrc-2.0
+        sed -i s/$gtk_dark/$gtk_light/ ~/.config/gtk-3.0/settings.ini
+        sed -i s/$gtk_dark/$gtk_light/ ~/.gtkrc-2.0 
+    else
+        kitty +kitten themes --reload-in=all "$kitty$kitty_dark_default"
+        echo "let g:$vim_var = '$vim_dark'" > $HOME/.dotfiles/nvim/pkg/colorscheme.vim
+        gsettings set org.gnome.desktop.interface gtk-theme $gtk_dark
+        # for legacy applications
+        sed -i s/$gtk_light/$gtk_dark/ ~/.dotfiles/gtk/settings.ini
+        sed -i s/$gtk_light/$gtk_dark/ ~/.dotfiles/gtk/.gtkrc-2.0
+        sed -i s/$gtk_light/$gtk_dark/ ~/.config/gtk-3.0/settings.ini
+        sed -i s/$gtk_light/$gtk_dark/ ~/.gtkrc-2.0
+    fi
+}
+Set

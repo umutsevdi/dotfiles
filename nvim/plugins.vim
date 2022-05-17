@@ -66,10 +66,9 @@ call plug#end()
 "let g:lightline = { 'colorscheme': 'fleetish' }
 " { default, palenight, ocean, lighter, darker, default-community, palenight-community,
 "   ocean-community, lighter-community, darker-community }
-colorscheme material
-let g:material_theme_style = 'darker'
-let g:material_terminal_italics = 1
-
+" colorscheme material
+" let g:material_terminal_italics = 1
+" let g:material_theme_style = 'darker'
 " nvim-tresitter config
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
@@ -94,6 +93,31 @@ require'nvim-treesitter.configs'.setup {
 }
 EOF
 
+lua << EOF
+    local colorFile = vim.fn.expand('~/.dotfiles/nvim/pkg/colorscheme.vim')
+    local function reload() 
+        vim.cmd("source ".. colorFile)
+    end
+
+    local w = vim.loop.new_fs_event()
+    local on_change
+    local function watch_file(fname)
+        w:start(fname, {}, vim.schedule_wrap(on_change))
+    end
+    on_change = function()
+        reload()
+        -- Debounce: stop/start.
+        w:stop()
+        watch_file(colorFile)
+    end
+
+    -- reload vim config when background changes
+    watch_file(colorFile)
+    reload()
+    
+    vim.opt.termguicolors = true
+    vim.cmd("colorscheme material")
+EOF
 
 " Coc Extensions
 let g:coc_global_extensions = [

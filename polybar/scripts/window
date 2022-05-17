@@ -6,7 +6,7 @@
 # @requires xdotool
 
 if ! command -v xdotool &> /dev/null; then
-    sudo dnf install xdotool
+    echo xdotool was not found
 fi
 
 title=$(xdotool getwindowfocus getwindowname) 

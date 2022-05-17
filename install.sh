@@ -128,20 +128,25 @@ Install()
     cd droidsans-nerd-fonts
     wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/DroidSansMono.zip
     unzip DroidSansMono.zip
-    echo "Installing icons"
-    cd /usr/share/icons/
-    wget https://github.com/bikass/kora/archive/refs/tags/v1.5.1.zip
-    unzip *.zip
     mv /tmp/install $HOME/install
     ## Optional
     # vim
     # go install golang.org/x/tools/gopls@latest
     echo "write: \nfastestmirror=True\ndeltarpm=True\nto  /etc/dnf/dnf.conf"
     # Theme config
-    $HOME/src/active/Colloid-gtk-theme/install.sh --dest ~/.themes/ --name Colloid-orange --theme orange --tweaks rimless 
-    $HOME/src/active/Colloid-gtk-theme/install.sh --dest /usr/share/themes/  --name Colloid-orange --theme orange --tweaks rimless 
+    cd /tmp/
+    git clone https://github.com/vinceliuice/Qogir-theme.git
+    cd Qogir-theme
+
+    sh install.sh --dest ~/.themes/ --theme default --theme orange --tweaks round
+    sh install.sh --dest /usr/share/themes/ --theme default --theme orange --tweaks round 
     flatpak override --filesystem=$HOME/.themes
-    sudo flatpak override --env=GTK_THEME=Colloid-orange
+    git clone https://github.com/vinceliuice/Qogir-icon-theme/archive/refs/tags/2022-01-12.zip
+    unzip Qogir-icon-theme-2022-01-12.zip 
+    cd Qogir-icon-theme-2022-01-12
+    sh install.sh
+    flatpak override --env=GTK_THEME=Qogir
+
     ## END OF get_install ##
     dnf clean all
     echo "Installation Complete  - $(date +%H:%M) - $(date +' '%a' '%d' '%b' '%Y) "

@@ -6,7 +6,7 @@
 # @requires playerctl
 
 if ! command -v playerctl &> /dev/null ; then
-    sudo dnf install playerctl
+    echo playerctl was not found
 fi
 
 stat=$(playerctl status -s 2>/dev/null)

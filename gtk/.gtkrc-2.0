@@ -2,10 +2,10 @@
 # Any customization should be done in ~/.gtkrc-2.0.mine instead.
 
 include "/home/umutsevdi/.gtkrc-2.0.mine"
-gtk-theme-name="Colloid-orange-dark"
-gtk-icon-theme-name="kora-yellow"
+gtk-theme-name="Qogir-Dark"
+gtk-icon-theme-name="Qogir"
 gtk-font-name="Roboto 10"
-gtk-cursor-theme-name="Adwaita"
+gtk-cursor-theme-name="Qogir"
 gtk-cursor-theme-size=0
 gtk-toolbar-style=GTK_TOOLBAR_ICONS
 gtk-toolbar-icon-size=GTK_ICON_SIZE_LARGE_TOOLBAR
@@ -16,3 +16,4 @@ gtk-enable-input-feedback-sounds=1
 gtk-xft-antialias=1
 gtk-xft-hinting=1
 gtk-xft-hintstyle="hintmedium"
+
