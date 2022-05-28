@@ -5,15 +5,6 @@
 
 color_value="$(cat /tmp/colorscheme 2>/dev/null)"
 
-# if 
-if [[ "$color_value" = true ]]; then
-    is_dark=true
-    echo "false" > /tmp/colorscheme
-else
-    is_dark=false
-    echo "true" > /tmp/colorscheme
-fi
-
 gtk_light="Qogir-Light"
 gtk_dark="Qogir-Dark"
 kitty="Doom One"
@@ -23,28 +14,27 @@ vim_dark="palenight"
 vim_light="lighter"
 vim_var="material_theme_style"
 
-#   Help()
-#   {
-#      # Display Help
-#      echo "colorscheme.sh - Toggle between light and dark mode"
-#      echo
-#      echo "Syntax: [-r]"
-#      echo
-#      echo "Options:"
-#      echo "-h/--help                 Prints this menu."
-#      echo "-t/--theme \$THEME         GTK Theme"
-#      echo "-k/--kitty_theme \$THEME   Kitty Theme"
-#      echo "-vv/--vimvariable \$VAR    Vim variable to set colorscheme" 
-#      echo "-vl/--vimlight \$THEME    Light Colorscheme name for Neovim"
-#      echo "-vd/--vimdark \$THEME    Dark Colorscheme name for Neovim"
-#      echo
-#   }
+
+Help()
+{
+   # Display Help
+   echo "colorscheme.sh - Toggle between light and dark mode"
+   echo
+   echo "Syntax: [-r]"
+   echo
+   echo "Options:"
+   echo "-h/--help          Prints this menu."
+   echo "-r/--refresh       Refreshes the display"
+   echo
+}
 
 Set()
 {
     if [[ "$is_dark" = true ]]; then 
         kitty +kitten themes --reload-in=all "$kitty$kitty_light_default"
-        echo "let g:$vim_var = '$vim_light'" > $HOME/.dotfiles/nvim/pkg/colorscheme.vim
+
+        sed -i s/"let g:$vim_var = '$vim_dark"/"let g:$vim_var = '$vim_light"/ $HOME/.dotfiles/nvim/pkg/colorscheme.vim
+        sed -i s/"set background=dark"/"set background=light"/ $HOME/.dotfiles/nvim/pkg/colorscheme.vim
         # for gnome 3+
         gsettings set org.gnome.desktop.interface gtk-theme $gtk_light
         # for legacy applications
@@ -54,7 +44,8 @@ Set()
         sed -i s/$gtk_dark/$gtk_light/ ~/.gtkrc-2.0 
     else
         kitty +kitten themes --reload-in=all "$kitty$kitty_dark_default"
-        echo "let g:$vim_var = '$vim_dark'" > $HOME/.dotfiles/nvim/pkg/colorscheme.vim
+        sed -i s/"let g:$vim_var = '$vim_light"/"let g:$vim_var = '$vim_dark"/ $HOME/.dotfiles/nvim/pkg/colorscheme.vim
+        sed -i s/"set background=light"/"set background=dark"/ $HOME/.dotfiles/nvim/pkg/colorscheme.vim
         gsettings set org.gnome.desktop.interface gtk-theme $gtk_dark
         # for legacy applications
         sed -i s/$gtk_light/$gtk_dark/ ~/.dotfiles/gtk/settings.ini
@@ -63,4 +54,25 @@ Set()
         sed -i s/$gtk_light/$gtk_dark/ ~/.gtkrc-2.0
     fi
 }
+
+for arg in $@;do
+    if   [[ "$arg" = "-h" ]] || [[ "$arg" = "--help" ]]; then
+        Help
+        exit
+    elif [[ "$arg" = "-r" ]] || [[ "$arg" = "--refresh" ]]; then 
+        refresh=true
+    else
+        echo -e "Error: Invalid arguments" 1>&2
+        exit
+    fi 
+done
+
+if [[ "$refresh" = true  ]];then
+    is_dark=$( if [[ "$color_value" = true ]]; then echo false; else echo true; fi) 
+else
+    is_dark=$( if [[ "$color_value" = true ]]; then echo true; else echo false; fi) 
+    write=$( if [[ "$color_value" = true ]]; then echo false; else echo true; fi)
+    echo $write > /tmp/colorscheme
+fi
 Set
+

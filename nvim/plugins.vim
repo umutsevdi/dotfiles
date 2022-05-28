@@ -6,6 +6,7 @@ source $HOME/.dotfiles/nvim/pkg/nerdtree.vim
 source $HOME/.dotfiles/nvim/pkg/tagbar.vim
 source $HOME/.dotfiles/nvim/pkg/vimtex.vim
 source $HOME/.dotfiles/nvim/pkg/markdown.vim
+source $HOME/.dotfiles/nvim/pkg/colorscheme.vim
 
 call plug#begin()
 " The default plugin directory will be as follows:
@@ -46,30 +47,24 @@ Plug 'nvim-lua/plenary.nvim'                                        " Telescope 
 Plug 'nvim-telescope/telescope.nvim'                                " Telescope is a FZF extension that displays preview
 Plug 'itchyny/lightline.vim'                                        " Lightline is the bar on the bottom that displays variues elements
 Plug 'niklaas/lightline-gitdiff'                                    " Lightline git extension
-Plug 'kaicataldo/material.vim', { 'branch': 'main' }                " Material Theme with aditional 
+" Plug 'kaicataldo/material.vim', { 'branch': 'main' }                " Material Theme with aditional 
 Plug 'mhinz/vim-startify'                                           " Start page
 Plug 'tpope/vim-fugitive'                                           " Git Integration
-Plug 'kyuhi/vim-emoji-complete'                                     " Emoji Keyboard
 Plug 'preservim/tagbar'                                             " Tag bar displays functions, classes and variables of files on the left 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}         " Syntax highlighting 
 Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install()}}                    " Conqueror of Completions: Language server for any language
-Plug 'mattn/emmet-vim'                                              " Better html tags
+" Plug 'mattn/emmet-vim'                                              " Better html tags
 Plug 'othree/html5.vim', {'for': ['html', 'html5', 'htm']}          " HTML5 support for html tags
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'lervag/vimtex',
-Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown', 'do': 'yarn install'} " live markdown renderer server
+Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' },
+Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown', 'do': 'yarn install'}", live markdown renderer server
+Plug 'rakr/vim-one' " colorscheme
 
 call plug#end()
 
-"colorscheme fleetish
-"let g:fleetish_italics=1
-"let g:lightline = { 'colorscheme': 'fleetish' }
-" { default, palenight, ocean, lighter, darker, default-community, palenight-community,
-"   ocean-community, lighter-community, darker-community }
-" colorscheme material
-" let g:material_terminal_italics = 1
-" let g:material_theme_style = 'darker'
-" nvim-tresitter config
+colorscheme one
+
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
 --  ensure_installed = "maintained",
@@ -93,35 +88,8 @@ require'nvim-treesitter.configs'.setup {
 }
 EOF
 
-lua << EOF
-    local colorFile = vim.fn.expand('~/.dotfiles/nvim/pkg/colorscheme.vim')
-    local function reload() 
-        vim.cmd("source ".. colorFile)
-    end
-
-    local w = vim.loop.new_fs_event()
-    local on_change
-    local function watch_file(fname)
-        w:start(fname, {}, vim.schedule_wrap(on_change))
-    end
-    on_change = function()
-        reload()
-        -- Debounce: stop/start.
-        w:stop()
-        watch_file(colorFile)
-    end
-
-    -- reload vim config when background changes
-    watch_file(colorFile)
-    reload()
-    
-    vim.opt.termguicolors = true
-    vim.cmd("colorscheme material")
-EOF
-
 " Coc Extensions
 let g:coc_global_extensions = [
-\ 'coc-browser', 
 \ 'coc-clangd',
 \ 'coc-cmake',
 \ 'coc-css',
@@ -145,13 +113,13 @@ let g:coc_global_extensions = [
 \ 'coc-sh',
 \ 'coc-snippets',
 \ 'coc-stylelintplus',
-\ 'coc-stylua',
-\ 'coc-sumneko-lua',
+\ 'coc-sql',
 \ 'coc-svelte',
 \ 'coc-tailwindcss',
 \ 'coc-tsserver',
 \ 'coc-ultisnips',
 \ 'coc-vimlsp',
+\ 'coc-vimtex',
 \ 'coc-vue',
 \ 'coc-webview',
 \ 'coc-xml',

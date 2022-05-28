@@ -29,7 +29,7 @@ window {
     text-color:                     @fg;
 	border:							0px;
 	border-color:					@border;
-    border-radius:                  4px;
+    border-radius:                  5px;
 	width:							25%;
     location:                       center;
     x-offset:                       -20px;
@@ -93,7 +93,7 @@ mainbox {
 	border-color:					@solid-focus;
     children:                       [ inputbar, listview ];
     spacing:                       	1.00%;
-    padding:                        1.25% 0.75% 1.25% 0.75%;
+    border-radius:                  5px;
 }
 
 element {
@@ -101,7 +101,8 @@ element {
     text-color:                     @fg-dark;
     orientation:                    vertical;
     border-radius:                  0%;
-    padding:                        1.5% 0% 1.5% 0%;
+    padding:                        1.25% 0% 1.25% 0%;
+    margin:                         5px;
 }
 
 element-icon {
@@ -125,7 +126,7 @@ element-text {
 element selected {
     background-color:               @bg-selection;
     text-color:                     @solid-fg;
-    border:                  		2px;
+    border:                  		3px;
     border-radius:                  5px;
     border-color:                  	@solid-focus;
 }

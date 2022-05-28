@@ -23,8 +23,8 @@ window {
     border-radius:                  0px;
     location:                       southeast;
 	width:							400px;
-    x-offset:                       -15px;
-    y-offset:                       -15px;
+    x-offset:                       -30px;
+    y-offset:                       -30px;
 }
 
 prompt {
@@ -70,7 +70,6 @@ mainbox {
     background-color:               @bg-none;
     children:                       [ inputbar, listview ];
     spacing:                        12px;
-    margin:                         10px;
 }
 
 listview {
@@ -81,6 +80,7 @@ element {
     text-color:                     @fg;
     orientation:                    vertical;
     border-radius:                  5px;
+    margin:                         5px;
 }
 
 element-text {

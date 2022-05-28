@@ -2,5 +2,5 @@
 Type=Application
 Name=LXRandR autostart
 Comment=Start xrandr with settings done in LXRandR
-Exec=sh -c 'xrandr --output HDMI-A-0 --auto --output eDP --mode 1920x1080 --rate 60.05 --left-of HDMI-A-0'
+Exec=sh -c 'xrandr --output HDMI-A-0 --auto --output eDP --mode 1920x1080 --rate 60.05 --same-as HDMI-A-0'
 OnlyShowIn=LXDE

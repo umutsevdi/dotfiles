@@ -21,7 +21,6 @@ set nowritebackup   " Disables backup files
 set cmdheight=1 " height of command-line at the bottom
 set shortmess+=c
 set signcolumn=yes "always show sign column, otherwise it will shift text
-set background=dark
 set showtabline=2
 
 " set manual folding for functions, conditions etc.

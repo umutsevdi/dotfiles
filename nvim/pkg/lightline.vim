@@ -7,7 +7,7 @@ let g:lightline#gitdiff#indicator_deleted = '⊖ '
 let g:lightline#gitdiff#separator = ' | '
 
 let g:lightline = {
-  \ 'colorscheme' : 'material_vim',
+  \ 'colorscheme' : 'one',
   \ 'active': {
   \   'left': [
   \     [ 'mode', 'paste'],

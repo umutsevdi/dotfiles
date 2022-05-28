@@ -39,6 +39,7 @@ Fetch()
     i3-msg restart
     notify-send 'i3 Window Manager' 'WM has been restarted with updated configurations' \
         --app-name="Resize Window" --icon=window_list --category='presence'
+    colorscheme -r
 }
 
 for arg in $@;do

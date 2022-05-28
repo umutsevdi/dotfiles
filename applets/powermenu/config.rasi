@@ -20,17 +20,17 @@ configuration {
 
 window {
     transparency:                   "real";
-    border-radius:                   5px;
-    width:                          25%;
-    location:                       north;
-    x-offset:                       0px;
-    y-offset:                       3%;
+    border-radius:                   8px;
+    width:                          115px;
+    location:                       east;
+    x-offset:                       -30px;
+    y-offset:                       0px;
 }
 
 listview {
     background-color:               @bg-none;
-    columns:                        4;
-    lines:							1;
+    columns:                        1;
+    lines:							4;
     margin:                         8px;
     spacing:                        8px;
     cycle:                          true;
@@ -39,12 +39,9 @@ listview {
 }
 
 mainbox {
-    background-color:               @bg-none;
+    background-color:               @bg-selection;
     children:                       [inputbar, listview ];
-    margin:                         10px;
     spacing:                        12px;
-
-
 }
 
 element {
@@ -118,6 +115,7 @@ prompt {
     horizontal-align:               0.5;
     vertical-align:                 0.5;
     border-color:                  	@solid-focus;
+    font:                           "Roboto Italic 12px";
 }
 
 textbox-prompt-colon {

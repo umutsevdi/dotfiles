@@ -31,16 +31,17 @@ font pango:Roboto Regular 10
 #   EXECUTION   #  
 #################
 
-exec --no-startup-id /usr/libexec/gsd-xsettings
+exec_always --no-startup-id /usr/libexec/gsd-xsettings
 exec --no-startup-id colorscheme
 # select a random wallpaper on start and save it for the future sessions
 exec --no-startup-id sleep 0.1;$HOME/.dotfiles/bin/pickwp
 # anytime i3 wm restarts kills all existing polybars and creates one
 exec_always --no-startup-id killall polybar; sleep 0.1;  polybar bottom & polybar main; 
 # initialize compositor
-exec_always --no-startup-id picom -b --config ~/.dotfiles/picom/picom.conf  --experimental-backends 
+exec_always --no-startup-id killall picom; picom -b --config ~/.dotfiles/picom/picom.conf  --experimental-backends 
 # initialize applets 
-exec_always --no-startup-id pkill -f blueberry-tray; pkill -f nm-applet; pkill xfce4-power-manager;killall dunst; pkill -f kdeconnect-indicator
+exec_always --no-startup-id pkill -f blueberry-tray; pkill -f nm-applet; pkill xfce4-power-manager;killall dunst;
+# pkill -f kdeconnect-indicator
 exec --no-startup-id killall dnfdragora-updater
 exec_always --no-startup-id killall pasystray
 exec_always --no-startup-id blueberry-tray
@@ -51,7 +52,12 @@ exec_always --no-startup-id dunst -conf $HOME/.dotfiles/dunst/dunstrc
 exec_always --no-startup-id pasystray --notify=sink 
 exec_always --no-startup-id killall conky; sleep 0.1; conky --config=$HOME/.dotfiles/conky/.conkyrc --daemonize --pause=0 --interval=1;
 exec_always --no-startup-id geary --gapplication-service
-exec_always --no-startup-id  kdeconnect-indicator 
+# exec_always --no-startup-id  kdeconnect-indicator 
+# exec_always --no-startup-id protonvpn --gapplication-service
+
+#################
+#     RULES     #  
+#################
 
 # color-set
 #                       border              background         text                 indicator
@@ -62,14 +68,10 @@ client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color      
 gaps outer 25
 gaps inner 7
 for_window [class="^.*"] border pixel 3
-#smart_gaps on
 smart_borders on
 hide_edge_borders smart_no_gaps
+# smart_gaps on
 # floating window exceptions
-# for_window [instance="gnome-font-viewer"] floating enable
-# for_window [instance="clocks"] floating enable
-# for_window [instance="gnome-calendar"] floating enable
-# for_window [instance="gnome-disk"] floating enable
 for_window [instance="gnome-calculator"] floating enable
 for_window [instance="Gnome-screenshot"] floating enable
 for_window [instance="xfce4*"] floating enable
@@ -120,10 +122,6 @@ bindsym $mod+b split h
 bindsym $mod+v split v
 # toggle fullscreen
 bindsym $mod+f fullscreen toggle
-# change container layout (stacked, tabbed, toggle split)
-bindsym $mod+q layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
 # toggle floating status
 bindsym $mod+Shift+s floating toggle
 # focus the parent container
@@ -164,8 +162,8 @@ bindsym $mod+Shift+Escape exec ~/.dotfiles/bin/lockscreen
 
 # window resizer
 # resize window (you can also use the mouse for that)
-bindsym $mod+r mode "resize"  exec notify-send 'Resize Window' 'Resizing started' --app-name="Resize Window" --icon=window_list --category='presence'
-mode "resize" {
+bindsym $mod+r mode "resize mode" 
+mode "resize mode" {
         # These bindings trigger as soon as you enter the resize mode
         # same bindings, but for the arrow keys
         bindsym h resize shrink width 10 px or 10 ppt 
@@ -173,13 +171,13 @@ mode "resize" {
         bindsym k resize shrink height 10 px or 10 ppt
         bindsym l resize grow width 10 px or 10 ppt
         # back to normal: Enter or Escape or $mod+r
-        bindsym Return mode "default"  exec notify-send 'Resize Window' 'Resizing confirmed' --app-name="Resize Window" --icon=window_list --category='presence'
-        bindsym Escape mode "default" exec notify-send 'Resize Window' 'Resizing confirmed' --app-name="Resize Window" --icon=window_list --category='presence'
-        bindsym $mod+r mode "default"  exec notify-send 'Resize Window' 'Resizing confirmed' --app-name="Resize Window" --icon=window_list --category='presence'
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
 }
 # change gaps
-bindsym $mod+z mode "gaps"  exec notify-send 'Resize Window' 'Resizing window gaps' --app-name="Resize Window" --icon=window_list --category='presence'
-mode "gaps" {
+bindsym $mod+e mode "gap mode"
+mode "gap mode" {
         # These bindings trigger as soon as you enter the gaps mode mode
         # same bindings, but for the arrow keys
         bindsym h gaps inner current plus 5
@@ -187,7 +185,25 @@ mode "gaps" {
         bindsym k gaps outer current plus 5
         bindsym l gaps inner current minus 5
         # back to normal: Enter or Escape or $mod+r
-        bindsym Return mode "default"  exec notify-send 'Resize Window' 'Resizing confirmed' --app-name="Resize Window" --icon=window_list --category='presence'
-        bindsym Escape mode "default" exec notify-send 'Resize Window' 'Resizing confirmed' --app-name="Resize Window" --icon=window_list --category='presence'
-        bindsym $mod+r mode "default"  exec notify-send 'Resize Window' 'Resizing confirmed' --app-name="Resize Window" --icon=window_list --category='presence'
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+e mode "default"
+}
+# change gaps
+bindsym $mod+w mode "layout mode"
+mode "layout mode" {
+        # change container layout (stacked, tabbed, toggle split)
+        # bindsym $mod+q layout stacking
+        # bindsym $mod+w layout tabbed
+        # bindsym $mod+e layout toggle split
+
+        # These bindings trigger as soon as you enter the resize mode
+        # same bindings, but for the arrow keys
+        bindsym q layout stacking 
+        bindsym w layout tabbed
+        bindsym e layout toggle split 
+        # back to normal: Enter or Escape or $mod+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+w mode "default"
 }

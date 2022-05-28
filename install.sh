@@ -138,8 +138,8 @@ Install()
     git clone https://github.com/vinceliuice/Qogir-theme.git
     cd Qogir-theme
 
-    sh install.sh --dest ~/.themes/ --theme default --theme orange --tweaks round
-    sh install.sh --dest /usr/share/themes/ --theme default --theme orange --tweaks round 
+    sh ./install.sh -d ~/.themes/ -t default  -l fedora --tweaks round 
+    sh ./install.sh -d /usr/share/themes/ -t default  -l fedora --tweaks round 
     flatpak override --filesystem=$HOME/.themes
     git clone https://github.com/vinceliuice/Qogir-icon-theme/archive/refs/tags/2022-01-12.zip
     unzip Qogir-icon-theme-2022-01-12.zip 
