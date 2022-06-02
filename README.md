@@ -13,10 +13,10 @@
 
 ## About
 
-This repository contains all the configuration files and scripts that I've been using on my device. I use <a href="https://getfedora.org/en/server/download/">Fedora 35 Server Edition</a>. These are the base dotfiles that I start with
+This repository contains all the configuration files and scripts that I've been using on my device. I use <a href="https://getfedora.org/en/server/download/">Fedora 36 Server Edition</a>. These are the base dotfiles that I start with
 when I set up a new environment.
 
-I'm using Fedora 35 on my personal computer. I use a fork of
+I'm using Fedora 36 on my personal computer. I use a fork of
 <a href="https://github.com/i3/i3">i3 Window Manager</a> called <a href="https://github.com/Airblader/i3">i3-gaps</a>.
 
 <details open="open">

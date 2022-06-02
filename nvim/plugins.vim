@@ -4,7 +4,6 @@ source $HOME/.dotfiles/nvim/pkg/startify.vim
 source $HOME/.dotfiles/nvim/pkg/lightline.vim
 source $HOME/.dotfiles/nvim/pkg/nerdtree.vim
 source $HOME/.dotfiles/nvim/pkg/tagbar.vim
-source $HOME/.dotfiles/nvim/pkg/vimtex.vim
 source $HOME/.dotfiles/nvim/pkg/markdown.vim
 source $HOME/.dotfiles/nvim/pkg/colorscheme.vim
 
@@ -56,8 +55,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install()}} 
 " Plug 'mattn/emmet-vim'                                              " Better html tags
 Plug 'othree/html5.vim', {'for': ['html', 'html5', 'htm']}          " HTML5 support for html tags
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'lervag/vimtex',
-Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' },
+" Plug 'lervag/vimtex',
+" Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' },
 Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown', 'do': 'yarn install'}", live markdown renderer server
 Plug 'rakr/vim-one' " colorscheme
 
@@ -119,7 +118,6 @@ let g:coc_global_extensions = [
 \ 'coc-tsserver',
 \ 'coc-ultisnips',
 \ 'coc-vimlsp',
-\ 'coc-vimtex',
 \ 'coc-vue',
 \ 'coc-webview',
 \ 'coc-xml',

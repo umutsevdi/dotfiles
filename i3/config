@@ -23,6 +23,10 @@ set $inactive-bg-color   #282a33
 set $text-color          #ffffff
 set $inactive-text-color #3d3d3d
 set $urgent-bg-color     #f07178
+
+set $pm "eDP"
+set $sm "HDMI-A-0"
+
 # global font
 font pango:Roboto Regular 10
 
@@ -30,7 +34,7 @@ font pango:Roboto Regular 10
 #################
 #   EXECUTION   #  
 #################
-
+exec /usr/lib/gnome-online-accounts/goa-daemon --replace
 exec_always --no-startup-id /usr/libexec/gsd-xsettings
 exec --no-startup-id colorscheme
 # select a random wallpaper on start and save it for the future sessions
@@ -155,15 +159,14 @@ bindsym $mod+Shift+c exec dotfetch;
 
 # applets
 bindsym $mod+Escape exec ~/.dotfiles/applets/powermenu/powermenu.sh
-bindsym $mod+p exec xfce4-display-settings --minimal
 bindsym $mod+d exec ~/.dotfiles/applets/launcher/launcher.sh
 bindsym $mod+m exec ~/.dotfiles/applets/music/player.sh
 bindsym $mod+Shift+Escape exec ~/.dotfiles/bin/lockscreen
 
 # window resizer
 # resize window (you can also use the mouse for that)
-bindsym $mod+r mode "resize mode" 
-mode "resize mode" {
+bindsym $mod+r mode "resize mode: use vim keys to grow or shrink windows" 
+mode "resize mode: use vim keys to grow or shrink windows" {
         # These bindings trigger as soon as you enter the resize mode
         # same bindings, but for the arrow keys
         bindsym h resize shrink width 10 px or 10 ppt 
@@ -190,8 +193,8 @@ mode "gap mode" {
         bindsym $mod+e mode "default"
 }
 # change gaps
-bindsym $mod+w mode "layout mode"
-mode "layout mode" {
+bindsym $mod+w mode "layout mode: (w)toggle stack-tab, (e)toggle-split"
+mode "layout mode: (w)toggle stack-tab, (e)toggle-split" {
         # change container layout (stacked, tabbed, toggle split)
         # bindsym $mod+q layout stacking
         # bindsym $mod+w layout tabbed
@@ -199,11 +202,22 @@ mode "layout mode" {
 
         # These bindings trigger as soon as you enter the resize mode
         # same bindings, but for the arrow keys
-        bindsym q layout stacking 
-        bindsym w layout tabbed
+        bindsym w layout toggle tabbed stacking
         bindsym e layout toggle split 
         # back to normal: Enter or Escape or $mod+r
         bindsym Return mode "default"
         bindsym Escape mode "default"
         bindsym $mod+w mode "default"
 }
+bindsym $mod+p mode "display mode: (1)auto, (2)extend-right, (3)extend-left, (4)set-primary, (5)set-secondary"
+mode "display mode: (1)auto, (2)extend-right, (3)extend-left, (4)set-primary, (5)set-secondary"  {
+        bindsym 1 exec xrandr --auto 
+        bindsym 2 exec xrandr --output $pm --left-of $sm
+        bindsym 3 exec xrandr --output $pm --right-of $s
+        bindsym 4 exec xrandr --output $pm --primary
+        bindsym 5 exec xrandr --output $sm --primary
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+w mode "default"
+}
+
