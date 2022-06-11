@@ -103,7 +103,6 @@ let g:coc_global_extensions = [
 \ 'coc-htmlhint',
 \ 'coc-java',
 \ 'coc-json',
-\ 'coc-just-complete',
 \ 'coc-markdown-preview-enhanced',
 \ 'coc-markdownlint',
 \ 'coc-prettier',

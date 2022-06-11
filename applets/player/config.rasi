@@ -4,7 +4,7 @@
  * @author umutsevdi
  */
 
-@import "../colors.rasi"
+@import "../global.rasi"
 
 configuration {
     show-icons:                     false;
@@ -50,7 +50,7 @@ inputbar {
     background-color:               @bg-selection;
     text-color:                     @fg;
     border:                  		2px;
-    border-radius:                  5px;
+    border-radius:                  @round;
     border-color:                  	@solid-focus;
     margin:                         0px 0px 0px 0px;
     padding:                        0px;
@@ -79,7 +79,7 @@ element {
     background-color:               @bg-selection;
     text-color:                     @fg;
     orientation:                    vertical;
-    border-radius:                  5px;
+    border-radius:                  @round;
     margin:                         5px;
 }
 
@@ -97,7 +97,7 @@ element normal.urgent,
 element alternate.urgent {
     background-color:               @off;
     text-color:                     @bg-selection;
-    border-radius:                  5px;
+    border-radius:                  @round;
 }
 
 element normal.active,
@@ -110,7 +110,7 @@ element selected {
     background-color:               @solid-focus;
     text-color:                     @bg-selection;
     border:                  		0px;
-    border-radius:                  5px;
+    border-radius:                  @round;
     border-color:                  	@border;
 }
 

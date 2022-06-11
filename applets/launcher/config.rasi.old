@@ -19,26 +19,26 @@ configuration {
 * {
     background-alt:              	#00000000;
     background-bar:                 @bg;
-    border-color:		               		@focus;
+    border:		               		@focus;
     selected:               		@bg-none;
 }
 
 window {
     transparency:                   "real";
-    background-color:               @bg-none;
+    background-color:               @bg-dark;
     text-color:                     @fg;
 	border:							0px;
 	border-color:					@border;
     border-radius:                  @round;
-	width:							30%;
-    location:                       north;
-    x-offset:                       -25px;
+	width:							25%;
+    location:                       center;
+    x-offset:                       -20px;
     y-offset:                       0;
 }
 
 prompt {
     enabled: 						true;
-    padding:                        0px;
+    padding:                        10px;
 	background-color: 				@bg-none;
     text-color: 					@solid-focus;
     border-radius:                  0px;
@@ -49,12 +49,12 @@ prompt {
 }
 
 entry {
-    font:							"Roboto Regular 10";
+    font:							"Roboto Regular 12";
 
-    background-color:               @bg-none;
-    text-color: 					@solid-fg;
+    background-color:               @bg-selection;
+    text-color: 					@solid-focus;
 
-    placeholder-color:              @solid-fg;
+    placeholder-color:              @solid-focus;
     expand:                         true;
     horizontal-align:               0.48;
     vertical-align:               0.5;
@@ -66,34 +66,33 @@ entry {
 inputbar {
 	children: 						[ textbox-prompt-colon , entry ];
     spacing:                        0px;
-    background-color:               @bg-none;
+    background-color:               @bg-selection;
     text-color:                     @fg;
+    border:                  		2px;
     border-radius:                  @round;
-    margin:                         0px 0px -1px 0px;
+    border-color:                  	@solid-focus;
+    margin:                         0px 0px 0px 0px;
     padding:                        0px;
     position:                       center;
 }
 
 listview {
-    border:                  		2px 0px 0px 0px;
-    border-radius:                  @round-small;
-    border-color:                  	@solid-fg;
-    background-color:               @bg-dark;
+    background-color:               @bg-none;
     columns:                        4;
-    lines:	                        4;
-    spacing:                        0.5%;
+    lines:	                        3;
+    spacing:                        0%;
     cycle:                          false;
     dynamic:                        true;
     layout:                         vertical;
 }
 
 mainbox {
-    background-color:               @bg-none;
-    padding:                        0px 0px 0px 0px;
+    background-color:               @bg-dark;
 	border:							0% 0% 0% 0%;
 /*  border-radius:                  0% 0% 0% 0%;*/
 	border-color:					@solid-focus;
     children:                       [ inputbar, listview ];
+    spacing:                       	1.00%;
     border-radius:                  @round;
 }
 
@@ -101,7 +100,7 @@ element {
     background-color:               @bg-dark;
     text-color:                     @fg-dark;
     orientation:                    vertical;
-    border-radius:                  @round-small;
+    border-radius:                  0%;
     padding:                        1.25% 0% 1.25% 0%;
     margin:                         5px;
 }
@@ -136,7 +135,8 @@ textbox-prompt-colon {
     font:							@nerdfont;
 	expand: 						false;
 	str: 							"  ";
-	background-color: 				@bg-none;
-	text-color: 					@solid-fg;
+	background-color: 				@solid-focus;
+	text-color: 					@solid-bg;
+    padding:                        10px;
 }
 

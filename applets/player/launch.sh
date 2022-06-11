@@ -7,7 +7,7 @@ if ! command -v playerctl &> /dev/null; then
     echo playerctl was not found 
 fi
 
-rofi_cmd="rofi -theme $HOME/.dotfiles/applets/music/config.rasi"
+rofi_cmd="rofi -theme $HOME/.dotfiles/applets/player/config.rasi"
 
 # Playerctl data initialization
 stat=$(playerctl status -s)

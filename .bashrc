@@ -11,7 +11,7 @@ then
 fi
 export PATH
 
-GOPATH=$HOME/go
+GOPATH=$HOME/.config/go
 GOROOT=/lib/go
 JAVA_HOME="$(ls /lib/jvm | grep java-11-openjdk.)"
 DOTFILES_PATH="$HOME/.dotfiles/bin"
@@ -44,6 +44,15 @@ alias mv='mv -i'
 alias rm='rm -i'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 alias kitcat='kitty +kitten icat'
+
+# typo aliases
+alias sl=ls
+alias nivm=nvim
+alias n=nvim
+alias v=vim
+alias nuvm=nvim
+alias novm=nvim
+
 # ps
 #PS1='[\u@\h \W]\$ '
 t_value="\[\e[1;34m\t\e[01;37m\]"

@@ -28,4 +28,7 @@
   nerdfont:                 "JetBrains Mono Nerd Font 11";
   nerdfont-big:             "JetBrains Mono Nerd Font 20";
   text:                     "Roboto Regular 11";
+  
+  round:                    8px;
+  round-small:              5px;
 }

@@ -3,7 +3,7 @@
 
 include "/home/umutsevdi/.gtkrc-2.0.mine"
 gtk-theme-name="Qogir-Dark"
-gtk-icon-theme-name="Qogir"
+gtk-icon-theme-name="kora-pgrey"
 gtk-font-name="Roboto 10"
 gtk-cursor-theme-name="Qogir"
 gtk-cursor-theme-size=0

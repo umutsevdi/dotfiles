@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Exec=\sconky --config=$HOME/.dotfiles/conky/.conkyrc --daemonize --pause=0 --interval=1
+X-GNOME-Autostart-enabled=true
+NoDisplay=false
+Hidden=false
+Name[en_US]=Conky
+Comment[en_US]=System Monitor
+X-GNOME-Autostart-Delay=0

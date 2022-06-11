@@ -141,6 +141,13 @@ Install()
     sh ./install.sh -d ~/.themes/ -t default  -l fedora --tweaks round 
     sh ./install.sh -d /usr/share/themes/ -t default  -l fedora --tweaks round 
     flatpak override --filesystem=$HOME/.themes
+
+    cd /tmp/
+    wget https://github.com/bikass/kora/archive/refs/tags/v1.5.2.tar.gz
+    tar -xvf kora-1.5.2.tar.gz
+    cd kora-1.5.2
+    cp kora* /usr/share/icons/ -r
+
     git clone https://github.com/vinceliuice/Qogir-icon-theme/archive/refs/tags/2022-01-12.zip
     unzip Qogir-icon-theme-2022-01-12.zip 
     cd Qogir-icon-theme-2022-01-12
