@@ -120,11 +120,11 @@ prompt {
 
 textbox-prompt-colon {
 	expand: 						false;
-	str: 							" ⟲  ";
+	str: 							"   ";
 	background-color: 				@solid-focus;
 	text-color: 					@background-solid;
-    padding:                        10px;
-
+    padding:                        6px 0px 6px 6px;
+    font:                           "JetBrains Mono Nerd Font 11";
     horizontal-align:               0.5;
     vertical-align:                 0.5;
 }

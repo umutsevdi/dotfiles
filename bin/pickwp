@@ -13,8 +13,8 @@ fi
 # Default wallpaper search path
 path="$HOME/Pictures/wallpapers"
 # Default monitor count
-head=2
-
+head=$(xrandr -q | grep ' connected' | awk '{print $1}' | tr '\n' ' ' )
+head_count=$(xrandr -q | grep ' connected' | awk '{print $1}' | tr '\n' ' ' | wc -w)
 Help()
 {
    # Display Help
@@ -26,7 +26,6 @@ Help()
    echo
    echo "Options:"
    echo "-h/--help            Prints this menu."
-   echo "-m/--monitor \$COUNT  The number of monitors to change."
    echo "-d/--directory \$DIR     Picks wallpaper from custom directory."
    echo
 }
@@ -47,17 +46,17 @@ Pick()
     done
 
     echo $new_img > /tmp/pickwp_img
-
-    for (( i=0; i < $head; i++ )); do 
-        nitrogen --set-scaled --head=$i $new_img --save
+    echo "selected wallpaper: $new_img"
+    for (( i=0; i < $head_count; i++ )); do 
+        nitrogen --set-scaled --head=$i $new_img --save 2>/dev/null
+    done
+    for i in $head; do
+        echo wallpaper applied to $i
     done
 }
 
 for arg in $@; do
-    if [[ $get_head = true ]]; then
-        head=$arg
-        get_head=false
-    elif [[ "$arg" = "-h" ]] || [[ "$arg" = "--help" ]]; then
+    if [[ "$arg" = "-h" ]] || [[ "$arg" = "--help" ]]; then
         Help
         exit
     elif [[ "$arg" = "-d" ]] || [[ "$arg" = "--directory" ]]; then
@@ -66,8 +65,6 @@ for arg in $@; do
         path=$arg
         Pick
         exit
-    elif [[ "$arg" = "-m" ]] || [[ "$arg" = "--monitor" ]]; then
-        get_head=true
     else
         echo -e "Error: Invalid arguments" 1>&2
         exit

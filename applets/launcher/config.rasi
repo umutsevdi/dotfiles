@@ -30,9 +30,9 @@ window {
 	border:							0px;
 	border-color:					@border;
     border-radius:                  @round;
-	width:							30%;
+	width:							25%;
     location:                       north;
-    x-offset:                       -25px;
+    x-offset:                       0;
     y-offset:                       0;
 }
 
@@ -57,7 +57,7 @@ entry {
     placeholder-color:              @solid-fg;
     expand:                         true;
     horizontal-align:               0.48;
-    vertical-align:               0.5;
+    vertical-align:                 0.5;
     placeholder:                    "Search...";
     padding:                        0px 0px 0px 0px;
     blink:                          true;
@@ -81,8 +81,8 @@ listview {
     background-color:               @bg-dark;
     columns:                        4;
     lines:	                        4;
-    spacing:                        0.5%;
-    cycle:                          false;
+    spacing:                        2px;
+    cycle:                          true;
     dynamic:                        true;
     layout:                         vertical;
 }
@@ -103,7 +103,7 @@ element {
     orientation:                    vertical;
     border-radius:                  @round-small;
     padding:                        1.25% 0% 1.25% 0%;
-    margin:                         5px;
+    margin:                         4px;
 }
 
 element-icon {
