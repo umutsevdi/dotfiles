@@ -30,7 +30,7 @@ I'm using Fedora 36 on my personal computer. I use a fork of
   <li><a href="picom/picom.conf">Picom Configurations</a></li>
   </ol>
 </details>
-<img src="screenshots/neovim.png">
+<img src="screenshots/dual_screen.png">
 
 ---
 
@@ -57,15 +57,14 @@ Options:
 
 It will then download all required files and replace config files with my configurations.
 
-<img src="screenshots/dual_screen.png">
 <img src="screenshots/main.png">
-
+<img src="screenshots/neovim.png">
 
 ## Credits
 
 - **Wallpaper**: [Pexels Wallpaper Packs](https://www.pexels.com)
 
-- **GTK**: [Flat-Remix-GTK](https://www.gnome-look.org/p/1214931)
+- **GTK**: [Qogir](https://www.gnome-look.org/p/1230631)
 
 - **Icons**: [Kora](https://www.gnome-look.org/p/1256209/)
 
