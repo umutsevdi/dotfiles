@@ -95,14 +95,12 @@ element-text {
 
 element normal.urgent,
 element alternate.urgent {
-    background-color:               @off;
     text-color:                     @bg-selection;
     border-radius:                  @round;
 }
 
 element normal.active,
 element alternate.active {
-    background-color:               @on;
     text-color:                     @bg-selection;
 }
 
@@ -115,11 +113,9 @@ element selected {
 }
 
 element selected.urgent {
-    background-color:               @on;
     text-color:                     @bg-selection;
 }
 
 element selected.active {
-    background-color:               @off;
     color:                          @bg-selection;
 }

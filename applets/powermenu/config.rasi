@@ -82,11 +82,6 @@ element selected {
     border-color:                  	@border;
 }
 
-element selected.urgent {
-    background-color:               @urgent;
-    text-color:                     @fg;
-}
-
 element selected.active {
     background-color:               @bg-selected;
     color:                          @fg;

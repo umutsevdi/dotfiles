@@ -34,7 +34,7 @@ chosen="$(echo -e "$options" | $rofi_cmd -p "$current" -dmenu $active $urgent -s
 
 case $chosen in
     $i_prev)
-        playerctl prev
+        playerctl previous
     ;;
     $play_pause)
         playerctl play-pause

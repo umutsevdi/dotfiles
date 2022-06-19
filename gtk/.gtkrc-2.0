@@ -2,7 +2,7 @@
 # Any customization should be done in ~/.gtkrc-2.0.mine instead.
 
 include "/home/umutsevdi/.gtkrc-2.0.mine"
-gtk-theme-name="Qogir-Dark"
+gtk-theme-name="Qogir-Light"
 gtk-icon-theme-name="kora"
 gtk-font-name="Roboto 10"
 gtk-cursor-theme-name="Qogir"
