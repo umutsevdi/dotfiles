@@ -1,11 +1,11 @@
 source $HOME/.dotfiles/nvim/pkg/coc.vim
 source $HOME/.dotfiles/nvim/pkg/coc-snippets.vim
-source $HOME/.dotfiles/nvim/pkg/startify.vim
-source $HOME/.dotfiles/nvim/pkg/lightline.vim
-source $HOME/.dotfiles/nvim/pkg/nerdtree.vim
-source $HOME/.dotfiles/nvim/pkg/tagbar.vim
-source $HOME/.dotfiles/nvim/pkg/markdown.vim
 source $HOME/.dotfiles/nvim/pkg/colorscheme.vim
+source $HOME/.dotfiles/nvim/pkg/lightline.vim
+source $HOME/.dotfiles/nvim/pkg/markdown.vim
+source $HOME/.dotfiles/nvim/pkg/nerdtree.vim
+source $HOME/.dotfiles/nvim/pkg/startify.vim
+source $HOME/.dotfiles/nvim/pkg/tagbar.vim
 
 call plug#begin()
 " The default plugin directory will be as follows:
@@ -53,7 +53,7 @@ Plug 'preservim/tagbar'                                             " Tag bar di
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}         " Syntax highlighting 
 Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install()}}                    " Conqueror of Completions: Language server for any language
 " Plug 'mattn/emmet-vim'                                              " Better html tags
-Plug 'othree/html5.vim', {'for': ['html', 'html5', 'htm']}          " HTML5 support for html tags
+"Plug 'othree/html5.vim', {'for': ['html', 'html5', 'htm']}          " HTML5 support for html tags
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " Plug 'lervag/vimtex',
 " Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' },
@@ -68,7 +68,7 @@ lua <<EOF
 require'nvim-treesitter.configs'.setup {
 --  ensure_installed = "maintained",
   ensure_installed = { "c", "cmake", "comment", "cpp", "dockerfile",
-  "go", "gomod", "html", "http", "java", "javascript", "jsdoc", "json",
+  "go", "gomod","gdscript", "html", "http", "java", "javascript", "jsdoc", "json",
   "kotlin", "latex", "lua", "make", "perl", "python", "regex", "ruby",
   "rust", "scheme", "scss", "svelte", "todotxt", "toml", "tsx","typescript",
   "vim", "vue", "yaml"},
@@ -98,6 +98,7 @@ let g:coc_global_extensions = [
 \ 'coc-emmet',
 \ 'coc-eslint',
 \ 'coc-explorer',
+\ 'coc-godot',
 \ 'coc-html',
 \ 'coc-html-css-support',
 \ 'coc-htmlhint',
