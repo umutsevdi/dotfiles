@@ -26,6 +26,7 @@ Fetch()
     cp -r $HOME/.dotfiles/gtk/settings.ini $HOME/.config/gtk-3.0/
     cp -r $HOME/.dotfiles/gtk/gtk.css $HOME/.config/gtk-3.0/
     cp -r $HOME/.dotfiles/gtk/bookmarks $HOME/.config/gtk-3.0/
+    cat $HOME/.dotfiles/alacritty/base.yaml $HOME/.dotfiles/alacritty/dark.yaml > $HOME/.config/alacritty/alacritty.yaml
     cp -r $HOME/.dotfiles/gtk/.gtkrc-2.0 $HOME
     cp -r $HOME/.dotfiles/i3 $HOME/.config/
     cp -r $HOME/.dotfiles/kitty $HOME/.config/

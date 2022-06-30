@@ -1,5 +1,5 @@
-let g:material_theme_style = 'lighter'
-set background=light
+let g:material_theme_style = 'palenight'
+set background=dark
 let g:one_allow_italics = 1 " I love italic for comments
 
 

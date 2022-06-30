@@ -95,7 +95,8 @@ inoremap ";<CR> "<CR>";<ESC>O
 inoremap '<CR> '<CR>'<ESC>O
 inoremap ';<CR> '<CR>';<ESC>O
 
-nmap <silent> gs :call CocAction('jumpDefinition', 'split')<CR>
+" Jump definition
+nmap <silent> jd :call CocAction('jumpDefinition', 'split')<CR>
 nmap <silent> gd :call CocAction('jumpDefinition', 'vsplit')<CR>
 nmap <silent> gt :call CocAction('jumpDefinition', 'tabe')<CR>
 
@@ -114,3 +115,6 @@ nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 " nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
 " nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 "For C, pressing K on the keyword will pull up the built-in manpage directly. For instance, place the cursor on the printf keyword:
+
+" Snippet runner
+vnoremap rr : SnipRun <CR>

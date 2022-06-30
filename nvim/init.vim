@@ -52,4 +52,5 @@ set expandtab
 set smarttab
 set smartindent
 set number
+set relativenumber
 set clipboard=unnamedplus

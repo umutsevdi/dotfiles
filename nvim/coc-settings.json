@@ -12,11 +12,11 @@
       "args": ["start"],
       "filetypes": ["sh"]
     },
-    "clangd": {
+    /*    "clangd": {
       "command": "clangd",
       "rootPatterns": ["compile_flags.txt", "compile_commands.json"],
       "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"]
-    },
+    },*/
     "go": {
       "command": "gopls",
       "rootPatterns": ["go.mod"],

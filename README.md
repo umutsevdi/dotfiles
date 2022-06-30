@@ -34,6 +34,9 @@ I'm using Fedora 36 on my personal computer. I use a fork of
 
 ---
 
+<img src="screenshots/main.png">
+
+
 ## How To Install
 
 If you are using Fedora as your operating system, you can just run `install.sh`.
@@ -57,7 +60,25 @@ Options:
 
 It will then download all required files and replace config files with my configurations.
 
-<img src="screenshots/main.png">
+## Aditional Notes
+
+Neovim requires following packages to run seamless.
+```sh
+ cd $HOME/.local/share/nvim/plugged/bracey.vim/
+ npm install --prefix server
+```
+```sh
+22:35:24 $ ~ →  npm list -g
+/usr/local/lib
+├── bash-language-server@2.0.0
+├── coc-clangd@0.20.1
+├── instant-markdown-d@0.2.0
+├── live-server@1.2.2
+├── neovim@4.10.1
+├── npm-check-updates@12.4.0
+├── npm@8.5.2
+└── vls@0.7.6
+```
 <img src="screenshots/neovim.png">
 
 ## Credits

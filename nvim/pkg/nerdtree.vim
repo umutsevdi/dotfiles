@@ -5,7 +5,7 @@ autocmd Bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 " Open the existing NERDTree on each new tab.
 autocmd BufWinEnter * if &buftype != 'quickfix' && getcmdwintype() == '' | silent NERDTreeMirror | endif
 
-
+let NERDTreeMinimalUI=1
 let NERDTreeCascadeChildDir=1
 let NERDTreeCascadeOpenSingleChildDir=1
 let NERDTreeDirArrowExpandable="▶"
