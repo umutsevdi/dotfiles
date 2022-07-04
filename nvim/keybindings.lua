@@ -52,7 +52,7 @@ vim.keymap.set('n', "<A-n>", ":vsplit .<CR>")
 
 --NerdTree
 vim.keymap.set('n', "<leader>n", ":NERDTreeFocus<CR>")
-vim.keymap.set('n', "<A-t>", ":NERDTreeToggle \\| TagbarToggle <CR>")
+vim.keymap.set('n', "<A-t>", ":NERDTreeToggle | TagbarToggle <CR>")
 vim.keymap.set('n', "<A-f>", ":NERDTreeFind<CR>")
 
 --format code

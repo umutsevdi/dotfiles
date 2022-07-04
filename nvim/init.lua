@@ -1,3 +1,17 @@
+--
+-- ╭────────────╮
+-- │  init.lua  │
+-- ╰────────────╯
+--╭──────────────────────────────────────────────────────────────────────────────╮
+--│  init.lua is the primary configuration file that initializes                 │
+--│ basic settings and initializes basic Lua configurations.                     │
+--│ It also links the configuration files of plugins respectively.               │
+--│  - {@link plugins.lua} manages all plugins and their configuration.          │
+--│  - {@link keybinding.lua} manages most of the keybindings.                   │
+--╰──────────────────────────────────────────────────────────────────────────────╯
+-- @author umutsevdi
+
+
 vim.cmd([[
 set shell=$SHELL
 set encoding=UTF-8
@@ -34,7 +48,7 @@ set mouse=a
 set scrolloff=4 " number of screen lines to always keep above and below the cursor
 
 set undofile
-set undodir=~.config/nvim/undodir
+set undodir=~/.config/nvim/undodir
 
 set inccommand=nosplit
 set splitright
@@ -53,5 +67,5 @@ set number
 set relativenumber
 set clipboard=unnamedplus
 ]])
-require('plugins')
+require("plugins")
 require("keybindings")

@@ -1,43 +1,42 @@
-" Lightline Configuration
+vim.g.coc_symbol_line_render = "echo"
+vim.g["lightline#gitdiff#indicator_added"] = "⊕ "
+vim.g["lightline#gitdiff#indicator_modified"] = "⊛ "
+vim.g["lightline#gitdiff#indicator_deleted"] = "⊖ "
+vim.g["lightline#gitdiff#separator"] = " | "
 
-let g:coc_symbol_line_render = 'echo'
-let g:lightline#gitdiff#indicator_added = '⊕ '
-let g:lightline#gitdiff#indicator_modified = '⊛ '
-let g:lightline#gitdiff#indicator_deleted = '⊖ '
-let g:lightline#gitdiff#separator = ' | '
+vim.g.lightline = {
+	colorscheme = "one",
+	active = {
+		left = {
+			{ "mode", "paste" },
+			{ "gitbranch", "filename" },
+			{ "readonly", "currentfunction" },
+		},
+		right = {
+			{ "lineinfo", "filetype", "fileencoding" },
+			{ "lint" },
+			{ "gitdiff" },
+		},
+	},
+	component = {
+		gitbranch = " %{FugitiveHead()}",
+	},
+	component_expand = {
+		gitdiff = "lightline#gitdiff#get",
+	},
+	component_function = {
+		blame = "lightlineGitBlame",
+		lint = "LintInfo",
+		filename = "LightlineFilename",
+		filetype = "Filetype",
+		readonly = "LightlineReadonly",
+		currentfunction = "CurrentFunction",
+	},
+	separator = { left = "", right = "" },
+	subseparator = { left = "|", right = "|" },
+}
 
-let g:lightline = {
-  \ 'colorscheme' : 'one',
-  \ 'active': {
-  \   'left': [
-  \     [ 'mode', 'paste'],
-  \     ['gitbranch','filename'],
-  \     ['readonly','currentfunction'],
-  \   ],
-  \   'right':[
-  \     [ 'lineinfo','filetype', 'fileencoding'],
-  \     [ 'lint' ],
-  \     ['gitdiff'],
-  \   ],
-  \ },
-  \ 'component':{
-  \ 'gitbranch': ' %{FugitiveHead()}',
-  \},
-  \ 'component_expand': {
-  \   'gitdiff': 'lightline#gitdiff#get',
-  \ },
-  \ 'component_function': {
-  \   'blame': 'lightlineGitBlame',
-  \   'lint' : 'LintInfo',
-  \   'filename' : 'LightlineFilename',
-  \   'filetype': 'Filetype',
-  \   'readonly': 'LightlineReadonly',
-  \   'currentfunction': 'CurrentFunction',
-  \ },
-  \ 'separator': { 'left': '', 'right': '' },
-  \ 'subseparator': { 'left': '|', 'right': '|' },
-\ }
-
+vim.cmd([[ 
 function! LightlineFilename()
     let filename = expand('%:t') !=# '' ? expand('%:t') : '[No Name]'
     let modified = &modified ? '*' : ''
@@ -73,5 +72,4 @@ endfunction
 function! Filetype()
     return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
 endfunction
-  
-
+]])
