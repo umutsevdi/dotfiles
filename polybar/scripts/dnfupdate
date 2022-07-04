@@ -1,0 +1,9 @@
+# !/bin/bash 
+PACKAGE_ICON="  "
+update_wc=`dnf check-update | awk '{print $1}' | grep [.] | wc -l`
+
+if [[ "$update_wc" -gt "0" ]]; then
+    echo "$PACKAGE_ICON$update_wc"
+else 
+    echo
+fi

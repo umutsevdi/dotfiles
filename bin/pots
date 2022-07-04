@@ -5,10 +5,7 @@
 # computer.
 # Does not repeat the same command in a row
 # Ignores commands without manpage or whatis info
-
-cmd="/bin/$(ls /bin | shuf -n 1)"
-last=$(cat /tmp/daily.log 2> /dev/null)
-while [[ "$cmd" = "$last" ]] || [[ "$cmd_INFO" = "" ]]; do
+while [ "$cmd_INFO" == "" ]; do
     cmd="$(ls /bin/ | shuf -n 1)"
     cmd_INFO=$(whatis $cmd 2> /dev/null)
 done

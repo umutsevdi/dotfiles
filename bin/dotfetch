@@ -22,6 +22,8 @@ Fetch()
 {
     cd $HOME/.config
     rm -rf i3 kitty polybar conky awesome dunst
+    echo "package.path = package.path .. ';$HOME/.dotfiles/nvim/?.lua;$HOME/.dotfiles/nvim/pkg/?.lua'
+vim.cmd('source /home/umutsevdi/.dotfiles/nvim/init.lua')" > ~/.config/nvim/init.lua
     cp -r $HOME/.dotfiles/conky $HOME/.config/conky
     cp -r $HOME/.dotfiles/gtk/settings.ini $HOME/.config/gtk-3.0/
     cp -r $HOME/.dotfiles/gtk/gtk.css $HOME/.config/gtk-3.0/

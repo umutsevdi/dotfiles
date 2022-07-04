@@ -1,6 +1,4 @@
-source $HOME/.dotfiles/nvim/plugins.vim
-source $HOME/.dotfiles/nvim/keybindings.vim
-
+vim.cmd([[
 set shell=$SHELL
 set encoding=UTF-8
 
@@ -36,7 +34,7 @@ set mouse=a
 set scrolloff=4 " number of screen lines to always keep above and below the cursor
 
 set undofile
-set undodir=~/.config/nvim/undodir
+set undodir=~.config/nvim/undodir
 
 set inccommand=nosplit
 set splitright
@@ -54,3 +52,6 @@ set smartindent
 set number
 set relativenumber
 set clipboard=unnamedplus
+]])
+require('plugins')
+require("keybindings")

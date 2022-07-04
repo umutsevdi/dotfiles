@@ -33,8 +33,8 @@ Set()
 {
     if [[ "$is_dark" = true ]]; then 
         kitty +kitten themes --reload-in=all "$kitty$kitty_light_default" 2>/dev/null
-        sed -i s/"let g:$vim_var = '$vim_dark"/"let g:$vim_var = '$vim_light"/ $HOME/.dotfiles/nvim/pkg/colorscheme.vim
-        sed -i s/"set background=dark"/"set background=light"/ $HOME/.dotfiles/nvim/pkg/colorscheme.vim
+        sed -i s/"vim.g.$vim_var = '$vim_dark"/"vim.g.$vim_var = '$vim_light"/ $HOME/.dotfiles/nvim/pkg/colorscheme.lua
+        sed -i s/"set background=dark"/"set background=light"/ $HOME/.dotfiles/nvim/pkg/colorscheme.lua
         # for gnome 3+
         gsettings set org.gnome.desktop.interface gtk-theme $gtk_light
         gsettings set org.gnome.desktop.interface icon-theme $icon_light
@@ -46,8 +46,8 @@ Set()
     cat $HOME/.dotfiles/alacritty/base.yaml $HOME/.dotfiles/alacritty/light.yaml > $HOME/.config/alacritty/alacritty.yml
     else
         kitty +kitten themes --reload-in=all "$kitty$kitty_dark_default" 2>/dev/null
-        sed -i s/"let g:$vim_var = '$vim_light"/"let g:$vim_var = '$vim_dark"/ $HOME/.dotfiles/nvim/pkg/colorscheme.vim
-        sed -i s/"set background=light"/"set background=dark"/ $HOME/.dotfiles/nvim/pkg/colorscheme.vim
+        sed -i s/"vim.g.$vim_var = '$vim_light"/"vim.g.$vim_var = '$vim_dark"/ $HOME/.dotfiles/nvim/pkg/colorscheme.lua
+        sed -i s/"set background=light"/"set background=dark"/ $HOME/.dotfiles/nvim/pkg/colorscheme.lua
         gsettings set org.gnome.desktop.interface gtk-theme $gtk_dark
         gsettings set org.gnome.desktop.interface icon-theme $icon_dark
         # for legacy applications

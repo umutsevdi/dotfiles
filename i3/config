@@ -34,6 +34,10 @@ font pango:Roboto Regular 10
 #################
 #   EXECUTION   #  
 #################
+# enable tap to click
+exec  xinput set-prop "PNP0C50:0e 06CB:7E7E Touchpad" "libinput Tapping Enabled" 1
+
+
 exec /usr/lib/gnome-online-accounts/goa-daemon --replace
 exec_always --no-startup-id /usr/libexec/gsd-xsettings
 exec --no-startup-id colorscheme
