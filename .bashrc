@@ -14,8 +14,9 @@ export PATH
 GOPATH=$HOME/.config/go
 GOROOT=/lib/go
 JAVA_HOME="$(ls /lib/jvm | grep java-11-openjdk.)"
-DOTFILES_PATH="$HOME/.dotfiles/bin"
-PATH="$JAVA_HOME:$GOPATH/bin:$GOROOT/bin:$DOTFILES_PATH:$PATH"
+GRADLE_PATH=/usr/local/gradle/bin
+DOTFILES_PATH=$HOME/.dotfiles/bin
+export PATH="$GRADLE_PATH:$JAVA_HOME:$GOPATH/bin:$GOROOT/bin:$DOTFILES_PATH:$PATH"
 # sudo alternatives --config java
 
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
@@ -43,7 +44,7 @@ alias gs='git status'
 alias mv='mv -i'
 alias rm='rm -i'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-alias kitcat='kitty +kitten icat'
+
 
 # typo aliases
 alias sl=ls
@@ -53,6 +54,7 @@ alias v=vim
 alias nuvm=nvim
 alias novm=nvim
 alias nvm=nvim
+alias vim=nvim
 
 # ps
 #PS1='[\u@\h \W]\$ '

@@ -2,28 +2,16 @@
 -- ╭─────────────╮
 -- │ Plugins.lua │
 -- ╰─────────────╯
---╭──────────────────────────────────────────────────────────────────────────────╮
---│ Plugins.lua is the configuration file that imports necessary plugins.        │
---│ It also links the configuration files of plugins respectively.               │
---│  - {@link plug} contains the list of imported VimPlug plugins.               │
---│  - {@link nvim-treesitter.configs} contains treesitter language support list.│
---│  - {@link coc_global_extensions} includes Conqueror of Completions(CoC)      │
---│  related configurations.                                                     │
---│  - {@link sniprun} contains snippet runner configurations                    │
---╰──────────────────────────────────────────────────────────────────────────────╯
+-- ╭──────────────────────────────────────────────────────────────────────────────╮
+-- │ Plugins.lua is the configuration file that imports necessary plugins.        │
+-- │ It also links the configuration files of plugins respectively.               │
+-- │  - {@link plug} contains the list of imported VimPlug plugins.               │
+-- │  - {@link nvim-treesitter.configs} contains treesitter language support list.│
+-- │  - {@link coc_global_extensions} includes Conqueror of Completions(CoC)      │
+-- │  related configurations.                                                     │
+-- │  - {@link sniprun} contains snippet runner configurations                    │
+-- ╰──────────────────────────────────────────────────────────────────────────────╯
 -- @author umutsevdi
-
--- import configurations
-require("pkg/colorscheme")
-require("pkg/markdown")
-require("pkg/nerdtree")
-require("pkg/tagbar")
-require("pkg/bracey")
-require("pkg/test")
-vim.cmd([[
-    source $HOME/.dotfiles/nvim/pkg/coc.vim
-    source $HOME/.dotfiles/nvim/pkg/startify.vim
-]])
 
 -- VimPlug Plugins
 vim.cmd([[
@@ -37,7 +25,7 @@ call plug#begin()
     Plug 'nvim-lua/plenary.nvim'                                                             " Telescope requires this package
     Plug 'nvim-telescope/telescope.nvim'                                                     " Telescope is a FZF extension that displays preview
     Plug 'nvim-lualine/lualine.nvim'                                                         " Lualine is the bar on the bottom that displays variues elements
-    Plug 'mhinz/vim-startify'                                                                " Start page
+    Plug 'glepnir/dashboard-nvim'                                                                " Start page
     Plug 'tpope/vim-fugitive'                                                                " Git Integration
     Plug 'gitgutter/Vim'                                                                     " Displays git diff
     Plug 'preservim/tagbar'                                                                  " Tag bar displays functions, classes and variables of files on the left 
@@ -54,6 +42,19 @@ call plug#begin()
     call plug#end()
 
     colorscheme one
+]])
+
+-- import configurations
+require("pkg/colorscheme")
+require("pkg/markdown")
+require("pkg/nerdtree")
+require("pkg/tagbar")
+require("pkg/bracey")
+require("pkg/test")
+require('pkg/dashconfig')
+-- require("dashboard")
+vim.cmd([[
+    source $HOME/.dotfiles/nvim/pkg/coc.vim
 ]])
 
 -- Treesitter Language List
@@ -135,7 +136,6 @@ vim.g.coc_global_extensions = {
 	"coc-stylua",
 	"coc-sumneko-lua",
 	"coc-sql",
-	"coc-svelte",
 	"coc-tailwindcss",
 	"coc-tsserver",
 	"coc-ultisnips",

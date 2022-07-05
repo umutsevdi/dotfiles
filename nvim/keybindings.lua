@@ -2,9 +2,9 @@
 -- ╭───────────────────╮
 -- │  keybindings.lua  │
 -- ╰───────────────────╯
---╭──────────────────────────────────────────────────────────────────────────────╮
---│  keybindings.lua contains custom keybindings for various things.             │
---╰──────────────────────────────────────────────────────────────────────────────╯
+-- ╭──────────────────────────────────────────────────────────────────────────────╮
+-- │  keybindings.lua contains custom keybindings for various things.             │
+-- ╰──────────────────────────────────────────────────────────────────────────────╯
 -- @author umutsevdi
 
 vim.cmd([[
@@ -66,7 +66,7 @@ vim.keymap.set("n", "<A-Tab>", ":NERDTreeToggle | TagbarToggle <CR>")
 -- vim.keymap.set('n', "<A-f>", ":NERDTreeFind<CR>")
 
 --format code
-vim.keymap.set("n", "<A-f>", "<CR>   :Format <CR>")
+vim.keymap.set("n", "<A-f>", ":Format <CR>")
 --Coc Diagnostic Menu
 vim.keymap.set("n", "<silent> <A-d>", "<CR>  :CocDiagnostics <CR>")
 
