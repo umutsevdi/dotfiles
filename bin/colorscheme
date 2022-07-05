@@ -43,7 +43,9 @@ Set()
         sed -i s/$gtk_dark/$gtk_light/ ~/.dotfiles/gtk/.gtkrc-2.0
         sed -i s/$gtk_dark/$gtk_light/ ~/.config/gtk-3.0/settings.ini
         sed -i s/$gtk_dark/$gtk_light/ ~/.gtkrc-2.0 
-    cat $HOME/.dotfiles/alacritty/base.yaml $HOME/.dotfiles/alacritty/light.yaml > $HOME/.config/alacritty/alacritty.yml
+        sed -i s/gtk-application-prefer-dark-theme=1/gtk-application-prefer-dark-theme=0/ ~/.config/gtk-3.0/settings.ini 
+
+        cat $HOME/.dotfiles/alacritty/base.yaml $HOME/.dotfiles/alacritty/light.yaml > $HOME/.config/alacritty/alacritty.yml
     else
         kitty +kitten themes --reload-in=all "$kitty$kitty_dark_default" 2>/dev/null
         sed -i s/"vim.g.$vim_var = '$vim_light"/"vim.g.$vim_var = '$vim_dark"/ $HOME/.dotfiles/nvim/pkg/colorscheme.lua
@@ -55,7 +57,8 @@ Set()
         sed -i s/$gtk_light/$gtk_dark/ ~/.dotfiles/gtk/.gtkrc-2.0
         sed -i s/$gtk_light/$gtk_dark/ ~/.config/gtk-3.0/settings.ini
         sed -i s/$gtk_light/$gtk_dark/ ~/.gtkrc-2.0
-    cat $HOME/.dotfiles/alacritty/base.yaml $HOME/.dotfiles/alacritty/dark.yaml > $HOME/.config/alacritty/alacritty.yml
+        sed -i s/gtk-application-prefer-dark-theme=0/gtk-application-prefer-dark-theme=1/ ~/.config/gtk-3.0/settings.ini 
+        cat $HOME/.dotfiles/alacritty/base.yaml $HOME/.dotfiles/alacritty/dark.yaml > $HOME/.config/alacritty/alacritty.yml
     fi
 }
 

@@ -174,10 +174,10 @@ Configure()
     ln -s $HOME/.dotfiles/autostart $HOME/.config/autostart
     $HOME/.dotfiles/bin/dotfetch --root
     mkdir $HOME/.local $HOME/.local/fonts $HOME/.themes
-    echo -e \
-    " For Neovim run following commands on install:\n\
+    echo -e " For Neovim run following commands on install:\n\
     - :PlugInstall\n\
-    - :TSInstall all\n\
+    - :TSInstall all\n"\
+    
 }
 
 for arg in $@;do
@@ -217,4 +217,3 @@ elif [[ "$get_config" = true ]]; then
 elif [[ $# -eq 0 ]]; then
     Help
 fi
-

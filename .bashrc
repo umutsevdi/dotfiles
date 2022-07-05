@@ -17,6 +17,7 @@ JAVA_HOME="$(ls /lib/jvm | grep java-11-openjdk.)"
 GRADLE_PATH=/usr/local/gradle/bin
 DOTFILES_PATH=$HOME/.dotfiles/bin
 export PATH="$GRADLE_PATH:$JAVA_HOME:$GOPATH/bin:$GOROOT/bin:$DOTFILES_PATH:$PATH"
+export EDITOR=/usr/bin/nvim
 # sudo alternatives --config java
 
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
