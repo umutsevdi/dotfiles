@@ -18,9 +18,9 @@ conky.config = {
 	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
 	border_inner_margin = 0,
 	border_outer_margin = 0,
-	alignment = 'bottom_left',
-	gap_x = 35,
-	gap_y = 30,
+	alignment = 'bottom_middle',
+	gap_x = 0,
+	gap_y = -10,
 
 -- Graphics settings
 	draw_shades = false,
@@ -35,20 +35,23 @@ conky.config = {
 	font = 'JetBrains Mono:size=11',
 	uppercase = false,
 	default_color = '#ffffff',
+    color2 = '#E5832F',
 };
 
 conky.text = [[
-${font Rogoto Regular:size=35}${time %A}
-${time %B %e}${voffset -10}
-${font JetBrains:size=80}${time %I:%M %p}${font}
+${alignc}${font Roboto Bold:size=25}${time %A}${voffset -10}
+${alignc}${font Roboto Regular:size=55}${time %B%e}${voffset -30}
+${alignc}${font JetBrains Mono Bold:size=100}${time %k:%M}${font}
 ${voffset 10}
 ${font JetBrains Mono:bold:size=10}${color1}Top Processes:${font JetBrains Mono :italic:size=9}  ${cpu}%  ${cpubar}
-${font}${color1}Name              PID${alignr}CPU%  MEM%    TIME${font JetBrains Mono :italic:size=9}
+
+${execi 100 ~/.dotfiles/conky/scripts/weather.sh}
+${font}${color1}Name           PID${alignr}CPU%   TIME${font JetBrains Mono :italic:size=9}
 ${voffset -10}$hr
-${voffset -3}${color}${top name 1} ${top pid 1} ${alignr}${top cpu 1} ${top mem 1} ${top time 1}
-${voffset -3}${color}${top name 2} ${top pid 2} ${alignr}${top cpu 2} ${top mem 2} ${top time 2}
-${voffset -3}${color}${top name 3} ${top pid 3} ${alignr}${top cpu 3} ${top mem 3} ${top time 3}
-${voffset -3}${color}${top name 4} ${top pid 4} ${alignr}${top cpu 4} ${top mem 4} ${top time 4}
-${voffset -3}${color}${top name 5} ${top pid 5} ${alignr}${top cpu 5} ${top mem 5} ${top time 5}
+${voffset -3}${color}${top name 1} ${top pid 1} ${alignr}${top cpu 1} ${top time 1}
+${voffset -3}${color}${top name 2} ${top pid 2} ${alignr}${top cpu 2} ${top time 2}
+${voffset -3}${color}${top name 3} ${top pid 3} ${alignr}${top cpu 3} ${top time 3}
+${voffset -3}${color}${top name 4} ${top pid 4} ${alignr}${top cpu 4} ${top time 4}
+${voffset -3}${color}${top name 5} ${top pid 5} ${alignr}${top cpu 5} ${top time 5}
 $alignr${font JetBrains Mono :italic:size=9}$color uptime:$color $uptime_short]];
 

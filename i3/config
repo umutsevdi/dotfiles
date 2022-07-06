@@ -58,7 +58,7 @@ exec_always --no-startup-id xfce4-power-manager
 exec --no-startup-id dnfdragora-updater
 exec_always --no-startup-id dunst -conf $HOME/.dotfiles/dunst/dunstrc
 exec_always --no-startup-id pasystray --notify=sink 
-exec_always --no-startup-id killall conky; sleep 0.1; conky --config=$HOME/.dotfiles/conky/.conkyrc --daemonize --pause=0 --interval=1;
+exec_always --no-startup-id killall conky; sleep 0.1; conky --config=$HOME/.dotfiles/conky/.conkyrc --daemonize --pause=0;
 exec_always --no-startup-id geary --gapplication-service
 # exec_always --no-startup-id  kdeconnect-indicator 
 # exec_always --no-startup-id protonvpn --gapplication-service

@@ -1,6 +1,6 @@
-vim.g.material_theme_style = 'palenight'
+vim.g.material_theme_style = 'lighter'
 vim.g.one_allow_italics = 1
-vim.cmd 'set background=dark'
+vim.cmd 'set background=light'
 
 --colorscheme fleetish
 --let g:fleetish_italics=1
