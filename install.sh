@@ -49,7 +49,7 @@ Install()
     mkdir .config .cache .themes
     mkdir Documents Downloads Music Pictures Public src Templates Videos
     echo "Installing i3 window manager & compositor"
-    dnf install -y --allowerasing i3-gaps picom rofi conky
+    dnf install -y --allowerasing i3-gaps rofi conky
     dnf install -y --allowerasing kitty polybar
     dnf install -y --allowerasing pasystray blueberry xfce4-power-manager
     dnf install -y playerctl scrot xdotool 
@@ -58,6 +58,16 @@ Install()
     if [[ "$get_nvidia" = true ]];then
         dnf install akmod-nvidia -y
     fi
+    # COMPILING PICOM
+    cd /tmp
+    git clone https://github.com/dccsillag
+    git checkout implement-window-animations
+    cd picom
+    git submodule update --init --recursive
+    meson --buildtype=release . build
+    ninja -C build
+
+
     ## REQUIRED PROGRAMS ##
     echo "Installing basic programs" 
     dnf install -y firefox pcmanfm nitrogen mousepad

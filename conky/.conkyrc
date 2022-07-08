@@ -20,7 +20,7 @@ conky.config = {
 	border_outer_margin = 0,
 	alignment = 'bottom_middle',
 	gap_x = 0,
-	gap_y = -10,
+	gap_y = 0,
 
 -- Graphics settings
 	draw_shades = false,
@@ -42,16 +42,15 @@ conky.text = [[
 ${alignc}${font Roboto Bold:size=25}${time %A}${voffset -10}
 ${alignc}${font Roboto Regular:size=55}${time %B%e}${voffset -30}
 ${alignc}${font JetBrains Mono Bold:size=100}${time %k:%M}${font}
+${alignr}${font JetBrains Mono :italic:size=10}${texeci 1800 curl wttr.in?format="%C,+%t\n"}
+${alignr}${font JetBrains Mono :italic:size=10}${texeci cava}
 ${voffset 10}
 ${font JetBrains Mono:bold:size=10}${color1}Top Processes:${font JetBrains Mono :italic:size=9}  ${cpu}%  ${cpubar}
-
-${execi 100 ~/.dotfiles/conky/scripts/weather.sh}
 ${font}${color1}Name           PID${alignr}CPU%   TIME${font JetBrains Mono :italic:size=9}
 ${voffset -10}$hr
 ${voffset -3}${color}${top name 1} ${top pid 1} ${alignr}${top cpu 1} ${top time 1}
 ${voffset -3}${color}${top name 2} ${top pid 2} ${alignr}${top cpu 2} ${top time 2}
 ${voffset -3}${color}${top name 3} ${top pid 3} ${alignr}${top cpu 3} ${top time 3}
 ${voffset -3}${color}${top name 4} ${top pid 4} ${alignr}${top cpu 4} ${top time 4}
-${voffset -3}${color}${top name 5} ${top pid 5} ${alignr}${top cpu 5} ${top time 5}
-$alignr${font JetBrains Mono :italic:size=9}$color uptime:$color $uptime_short]];
+${voffset -3}${color}${top name 5} ${top pid 5} ${alignr}${top cpu 5} ${top time 5}]];
 
