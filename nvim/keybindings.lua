@@ -43,9 +43,9 @@ noremap <silent> <A-9> 9gt
 noremap <silent> <A-0> :tablast<cr>
 
 " Jump definition
-nmap <silent> jd :call CocAction('jumpDefinition',  'split')<CR>
-nmap <silent> gd :call CocAction('jumpDefinition',  'vsplit')<CR>
-nmap <silent> gt :call CocAction('jumpDefinition',  'tabe')<CR>
+nmap <silent> <nowait> jd :call CocAction('jumpDefinition',  'split')<CR>
+nmap <silent> <nowait> gd :call CocAction('jumpDefinition',  'vsplit')<CR>
+nmap <silent> <nowait> gt :call CocAction('jumpDefinition',  'tabe')<CR>
 ]])
 
 --quit without saving

@@ -1,0 +1,120 @@
+/*
+ * launcher/config.rasi - Launcher
+ * Layout configuration for launcher applet
+ * @author umutsevdi
+ */
+
+@import "../global.rasi"
+
+configuration {
+	font:							"Roboto Regular 11";
+    drun-display-format:            "{name}";
+    disable-history:                false;
+	sidebar-mode: 					false;
+}
+
+* {
+    background-alt:              	#00000000;
+    background-bar:                 @bg;
+    border-color:		               		@focus;
+    selected:               		@bg-none;
+}
+
+window {
+    transparency:                   "real";
+    background-color:               @bg-none;
+    text-color:                     @fg;
+	border:							0px;
+	border-color:					@border;
+    border-radius:                  @round;
+	width:							100%;
+    location:                       south;
+    x-offset:                       0;
+    y-offset:                       0;
+}
+
+prompt {
+    enabled: 						true;
+    padding:                        0px;
+	background-color: 				@bg-none;
+    text-color: 					@solid-focus;
+    border-radius:                  0px;
+    border-color:                  	@solid-focus;
+    horizontal-align:               0.5;
+    vertical-align:                 0.5;
+
+}
+
+entry {
+    font:							"Roboto Regular 10";
+    background-color:               @bg-none;
+    text-color: 					@solid-fg;
+    placeholder-color:              @solid-fg;
+    expand:                         true;
+    horizontal-align:               0.5;
+    vertical-align:                 0.5;
+    placeholder:                    "Search Emoji";
+    padding:                        0px 0px 0px 0px;
+    blink:                          true;
+}
+
+inputbar {
+	children: 						[ entry ];
+    spacing:                        0px;
+    background-color:               @bg-none;
+    text-color:                     @fg;
+    border-radius:                  @round;
+    margin:                         0px 0px -1px 0px;
+    padding:                        0px;
+    position:                       center;
+    width:                          20%;
+}
+
+listview {
+    border:                  		0px 0px 0px 0px;
+    border-radius:                  @round-small;
+    border-color:                  	@solid-fg;
+    background-color:               @bg-dark;
+    columns:                        6;
+    spacing:                        2px;
+    cycle:                          true;
+    dynamic:                        true;
+    layout:                         horizontal;
+}
+
+mainbox {
+    background-color:               @bg-dark;
+    padding:                        0px 0px 0px 0px;
+	border:							0% 0% 0% 0%;
+	border-color:					@solid-focus;
+    children:                       [ inputbar, listview ];
+    border-radius:                  @round;
+
+    orientation:                    horizontal;
+}
+
+element {
+    background-color:               @bg-dark;
+    text-color:                     @fg-dark;
+    orientation:                    vertical;
+    border-radius:                  @round-small;
+    padding:                        0.75% 0% 0.75% 0%;
+    margin:                         2px;
+}
+
+element-text {
+    background-color: 				inherit;
+    text-color:       				inherit;
+    expand:                         true;
+    horizontal-align:               0.5;
+    vertical-align:                 0.5;
+    margin:                         0.3% 0.3% 0.3% 0.3%;
+}
+
+element selected {
+    background-color:               @bg-selection;
+    text-color:                     @solid-fg;
+    border:                  		3px;
+    border-radius:                  @round-small;
+    border-color:                  	@solid-focus;
+}

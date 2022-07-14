@@ -36,7 +36,7 @@
     show_indicators = yes
     icon_position = left
     max_icon_size = 32
-    icon_path = /usr/share/icons/kora/status/symbolic/:/usr/share/icons/kora/status/scalable:/usr/share/icons/kora/devices/scalable/:/usr/share/icons/kora/apps/scalable/
+    icon_path = /usr/share/icons/kora/status/symbolic/:/usr/share/icons/kora/status/scalable:/usr/share/icons/kora/devices/scalable/:/usr/share/icons/kora/apps/scalable/:/usr/share/icons/kora/panel/16/
     sticky_history = yes
     history_length = 20
     always_run_script = true

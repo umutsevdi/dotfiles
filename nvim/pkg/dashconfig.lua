@@ -1,50 +1,43 @@
 local home = os.getenv("HOME")
 local db = require("dashboard")
-
-local ascii = {
-"            ⡀              ⢀                     ",
-"          ⡠⢊⠔⠠             ⠠⡑⢄                   ",
-"        ⡠⢊⠔⡡⠊⠄⠅⡀           ⢐⢌⠢⡑⢄                 ",
-"      ⡠⡊⢔⠡⡊⢔⠡⢁⠂⡂⠄          ⢐⢔⢑⢌⠢⡑⢄               ",
-"    ⢀⠪⡐⢌⡂⡢⢊⠔⡨⢐⠨⠠⢁⢂         ⢐⢔⢑⢔⢑⢌⠢⡑⠄             ",
-"    ⠠⡑⢌⠢⡊⡢⠡⡑⡐⡐⠨⢐⢁⢂⢂        ⢐⢌⠢⡢⡑⢔⢑⢌⢂             ",
-"    ⠨⡨⠢⡑⡌⠜⡌⡂⡢⠨⠨⢐⢐⠠⢂⠅       ⢐⢅⠕⡌⡊⢆⠕⢌⢂             ",
-"    ⠨⡂⡣⡑⢌⢪⠨⡒⡌⠌⡨⢐⢐⠨⢐⠨⠨⠠     ⢐⢅⠕⡌⡪⡂⢇⠕⠅             ",
-"    ⠨⢢⢑⠜⢌⢢⠱⡨⡂⢁⠢⡁⠢⡈⠢⠨⠨⡈⡂    ⠨⡢⢣⠱⡨⡊⢆⠣⡃             ",
-"    ⠨⡊⢆⠣⡣⡑⢕⢌⠂ ⠐⠌⡂⠪⠨⠨⠨⡂⡂⡢⡀  ⢘⢌⠆⡇⡪⡸⡨⢪⠂             ",
-"    ⠨⡊⢎⠪⡢⢱⢑⠜⡄  ⠈⠌⢌⠪⡈⡪⢐⢐⢐⠌⢄ ⢨⠢⡣⡱⡑⡌⢎⢆⡃             ",
-"    ⠨⡪⡊⡎⡪⡊⡆⢇⠅   ⠈⠐⢌⠢⡈⡂⡪⠠⡑⠄⢅⠰⡑⡕⢜⢌⢎⢪⢢⢂             ",
-"    ⢨⢢⢣⠪⡪⡸⡨⡪⡂     ⠑⢌⢂⢊⠢⡑⠌⢌⠢⡑⢕⢱⢑⢕⢜⢔⢕⠅             ",
-"    ⢐⢕⢜⢜⢌⢆⢇⢎⠆      ⠐⡐⡑⢌⠢⡑⡑⠌⢌⢪⠸⡸⡰⡱⡸⡰⡡             ",
-"    ⢨⢪⢪⢢⢣⢣⢣⢱⡁        ⠪⡐⢅⠢⠪⠨⡊⢆⢣⠱⡸⡸⡨⡪⡂             ",
-"    ⠐⢕⢕⢕⢕⢕⢕⢕⡂         ⠨⠢⡡⠣⡑⡸⡨⢢⠣⡑⡕⡕⡕⠅             ",
-"      ⠑⢕⢕⢕⢕⢕⠆           ⠑⢌⢌⠢⢪⠸⡰⡑⡕⢜⠌⠄             ",
-"        ⠑⢕⢕⡕⡅             ⠢⠣⡑⢕⢱⢘⠌                ",
-"          ⠑⠵⡅              ⠱⢸⢘⠌                  ",
-"           ⠈⠂⠄              ⠁⠁                   ",
+db.custom_header = {
+	" ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗ ",
+	" ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║ ",
+	" ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║ ",
+	" ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║ ",
+	" ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║ ",
+	" ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝ ",
 }
-
-db.custom_header = ascii
 db.custom_center = {
 	{
-		icon = "  ",
-		desc = "New File                                ",
+		icon = " ",
+		desc = "New File            ",
 		action = "DashboardNewFile",
 	},
 	{
-		icon = "ﰍ  ",
-		desc = "Find  File                              ",
+		icon = " ",
+		desc = "Find  File          ",
 		action = "Telescope find_files",
 	},
 	{
-		icon = "  ",
-		desc = "Git Branches                             ",
-		action = "Telescope git_branches",
+		icon = "  ",
+		desc = "Recent Files        ",
+		action = "lua require('user.plugins.config.telescope.sources').frecency()",
 	},
 	{
 		icon = "  ",
-		desc = "Git Status                              ",
+		desc = "Git Status          ",
 		action = "Telescope git_status",
+	},
+	{
+		icon = " ",
+		desc = "Update              ",
+		action = "PlugUpdate",
+	},
+	{
+		icon = " ",
+		desc = "Quit                ",
+		action = "qa",
 	},
 }
 db.hide_statusline = false

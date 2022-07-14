@@ -70,7 +70,8 @@ Install()
 
     ## REQUIRED PROGRAMS ##
     echo "Installing basic programs" 
-    dnf install -y firefox pcmanfm nitrogen mousepad
+    dnf install -y firefox nemo nitrogen xed 
+    dnf install xinput xclip -y
     ## CLI PROGRAMS ##
     echo "Installing CLI tools"
     dnf copr enable agriffis/neovim-nightly
