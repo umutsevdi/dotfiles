@@ -1,5 +1,14 @@
 #!/bin/bash
 # Author Steven Poulton @CalinLeafshade
+# @requires xwinwrap
+
+if ! command -v xwinwrap &> /dev/null; then
+    echo "xwinwrap doesn't exist" 1>&2
+    exit
+elif ! command -v mpv &> /dev/null; then
+    echo "mpv doesn't exist" 1>&2
+    exit
+fi
 
 PIDFILE="/var/run/user/$UID/bg.pid"
 

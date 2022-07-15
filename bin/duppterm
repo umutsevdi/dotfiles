@@ -2,8 +2,12 @@
 # duppterm - Create a new terminal session on a tab or window at your working directory
 # @author umutsevdi 
 #   A script that creates a new terminal in your process working directory
-# @requires i3
+# @requires xdotool 
 
+if ! command -v xdotool &> /dev/null ; then
+    echo "xdotool doesn't exist" 1>&2
+    exit
+fi
 # get default terminal session
 session=$(perl -lpe 's/\0/ /g' \
            /proc/$(xdotool getwindowpid $(xdotool getactivewindow))/cmdline)
@@ -75,14 +79,14 @@ MakeTerminal()
 }
 
 for arg in $@;do
-    if   [[ "$arg" = "-h" ]] || [[ "$arg" = "--help" ]]; then
+    if   [ "$arg" = "-h" ] || [ "$arg" = "--help" ]; then
         Help
         exit
-    elif [[ "$arg" = "-t" ]] || [[ "$arg" = "--tab" ]]; then 
+    elif [ "$arg" = "-t" ] || [ "$arg" = "--tab" ]; then 
         is_tab=true
-    elif [[ "$arg" = "-s" ]] || [[ "$arg" = "--session" ]]; then
+    elif [ "$arg" = "-s" ] || [ "$arg" = "--session" ]; then
         custom_session=true
-    elif [[ "$custom_session" = true ]]; then
+    elif [ "$custom_session" = true ]; then
         session=$arg
         custom_session=false
     else

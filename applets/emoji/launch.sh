@@ -12,7 +12,7 @@ rofi_cmd="rofi -theme $HOME/.dotfiles/applets/emoji/config.rasi"
 # The famous "get a menu of emojis to copy" script.
 
 # Get user selection via dmenu from emoji file.
-chosen=$(cut -d ';' -f1 ~/.dotfiles/bin/.emoji/list | $rofi_cmd -p -dmenu | sed "s/ .*//")
+chosen=$(cut -d ';' -f1 ~/.dotfiles/applets/emoji/.emoji/list | $rofi_cmd -p -dmenu | sed "s/ .*//")
 
 # Exit if none chosen.
 [ -z "$chosen" ] && exit

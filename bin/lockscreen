@@ -7,8 +7,10 @@
 
 if   ! command -v i3lock &> /dev/null ; then
     echo "i3lock doesn't exist" 1>&2
+    exit
 elif ! command -v scrot &> /dev/null; then
-    sudo dnf install scrot
+    echo "scrot doesn't exist" 1>&2
+    exit
 fi
 
 pic=/tmp/i3lock.png

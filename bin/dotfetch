@@ -46,10 +46,10 @@ vim.cmd('source /home/umutsevdi/.dotfiles/nvim/init.lua')" > ~/.config/nvim/init
 }
 
 for arg in $@;do
-    if   [[ "$arg" = "-h" ]] || [[ "$arg" = "--help" ]]; then
+    if   [ "$arg" = "-h" ] || [ "$arg" = "--help" ]; then
         Help
         exit
-    elif [[ "$arg" = "-r" ]] || [[ "$arg" = "--root" ]]; then 
+    elif [ "$arg" = "-r" ] || [ "$arg" = "--root" ]; then 
         root=true
     else
         echo -e "Error: Invalid arguments" 1>&2

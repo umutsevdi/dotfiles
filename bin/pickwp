@@ -3,11 +3,14 @@
 # @author umutsevdi 
 # A script that randomly picks a wallpaper from a directory.
 # Selects a different wallpaper on each use.
-# Default path is $HOME/Pictures/wallpapers/ can be configured with --config
-# @requires nitrogen
+# @requires nitrogen, xrandr
 
 if ! command -v nitrogen &> /dev/null ; then
-    sudo dnf install nitrogen
+    echo "nitrogen doesn't exist" 1>&2
+    exit
+elif ! command -v xrandr &> /dev/null ; then
+    echo "xrandr doesn't exist" 1>&2
+    exit
 fi
 
 # Default wallpaper search path
@@ -33,7 +36,7 @@ Help()
 Pick()
 {
     # Check if directory exists
-    if [[ ! -d $path ]]; then
+    if [ ! -d $path ]; then
         echo "Error: Wallpaper directory $path does not exist" 1>&2
         exit
     fi

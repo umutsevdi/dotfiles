@@ -1,14 +1,12 @@
 #!/bin/bash
 # pots.sh - Program of the Session
 # @author umutsevdi 
-# An script that displays a random command or program avaliable in your 
-# computer.
-# Does not repeat the same command in a row
-# Ignores commands without manpage or whatis info
-while [ "$cmd_INFO" == "" ]; do
+#  Displays a random program in the /bin directory that has ${man}
+# and ${whatis}
+while [ "$cmd_info" = "" ] && [ "$man_info" = "" ]; do
     cmd="$(ls /bin/ | shuf -n 1)"
-    cmd_INFO=$(whatis $cmd 2> /dev/null)
+    cmd_info=$(whatis $cmd 2> /dev/null)
+    man_info=$(man $cmd 2> /dev/null)
 done
 echo -e "\e[01m\e[1;33mProgram of the Session: \e[01;36m$cmd"
-echo -e "\e[0m${cmd_INFO//$cmd/}\nLearn more from \e[1;34mman $cmd\e[0m"
-echo "$cmd"> /tmp/daily.log
+echo -e "\e[0m${cmd_info//$cmd/}\nLearn more from \e[1;34mman $cmd\e[0m"
