@@ -8,5 +8,5 @@ while [ "$cmd_info" = "" ] && [ "$man_info" = "" ]; do
     cmd_info=$(whatis $cmd 2> /dev/null)
     man_info=$(man $cmd 2> /dev/null)
 done
-echo -e "\e[01m\e[1;33mProgram of the Session: \e[01;36m$cmd"
-echo -e "\e[0m${cmd_info//$cmd/}\nLearn more from \e[1;34mman $cmd\e[0m"
+echo -e "\e[01m\e[1;33mProgram of the Session: \e[01;36m$cmd\n" \
+"\e[0m${cmd_info//$cmd/}\nLearn more from \e[1;34mman $cmd\e[0m"

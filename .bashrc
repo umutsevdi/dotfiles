@@ -59,12 +59,8 @@ alias vim=nvim
 
 # ps
 #PS1='[\u@\h \W]\$ '
-t_value="\e[34m\t"
-u_type=$(if [[ "$(whoami)" == "root" ]]; then echo /; else echo $; fi; )
-u_value="\e[31m$u_type"
-l_value="\e[33m\W"
-PS1="\e[1m$t_value $u_value \e[3m$l_value\e[1m → \e[39m\[\e[0m\] "
+u_value="\e[31m`[ $(whoami) = "root" ] && echo / || echo $`"
+PS1="\e[34;1m\t $u_value \e[33;3m\W →\e[39;0m "
 # launch
-echo -e "\e[01m$(whoami)@$(hostname) - \e[36m$(date +%a' '%d' '%b' '%Y)\e[39m"
+echo -e "\e[01m$(whoami)@$(hostname) - \e[36m$(date +%a' '%d' '%b' '%Y)\e[39;0m"
 $HOME/.dotfiles/bin/pots
-

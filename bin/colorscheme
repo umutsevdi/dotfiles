@@ -5,16 +5,15 @@
 
 color_value="$(cat /tmp/colorscheme 2>/dev/null)"
 
-gtk_light="Qogir-Light"
-gtk_dark="Qogir-Dark"
-kitty="Doom One"
-kitty_light_default=" Light"
-kitty_dark_default=
-vim_dark="palenight"
-vim_light="lighter"
+GTK_LIGHT_THEME="Qogir-Light"
+GTK_DARK_THEME="Qogir-Dark"
+VIM_DARK_THEME="palenight"
+VIM_LIGHT_THEME="lighter"
 vim_var="material_theme_style"
-icon_light="kora"
-icon_dark="kora"
+GTK_ICON_LIGHT="kora"
+GTK_ICON_DARK="kora"
+CINNAMON_ICON_LIGHT="Pop-Extended"
+CINNAMON_ICON_DARK="Pop-Extended-dark"
 
 Help()
 {
@@ -31,39 +30,29 @@ Help()
 
 Set()
 {
-    if [[ "$is_dark" = true ]]; then 
-        kitty +kitten themes --reload-in=all "$kitty$kitty_light_default" 2>/dev/null
-        sed -i s/"vim.g.$vim_var = '$vim_dark"/"vim.g.$vim_var = '$vim_light"/ $HOME/.dotfiles/nvim/pkg/colorscheme.lua
+    if [ "$is_dark" = true ]; then 
+        gtk_theme=$GTK_LIGHT_THEME
+        gtk_icon=$GTK_ICON_LIGHT
+        cin_icon=$CINNAMON_ICON_LIGHT
+        gnome_prefer="prefer-light"
+        sed -i s/"vim.g.$vim_var = '$VIM_DARK_THEME"/"vim.g.$vim_var = '$VIM_LIGHT_THEME"/ $HOME/.dotfiles/nvim/pkg/colorscheme.lua
         sed -i s/"set background=dark"/"set background=light"/ $HOME/.dotfiles/nvim/pkg/colorscheme.lua
-        # for gnome 3+
-        gsettings set org.gnome.desktop.interface gtk-theme "$gtk_light"
-        gsettings set org.gnome.desktop.interface icon-theme $icon_light
-        gsettings set org.gnome.desktop.interface color-scheme "prefer-light"
-
-        # for legacy applications
-        sed -i s/$gtk_dark/$gtk_light/ ~/.dotfiles/gtk/settings.ini
-        sed -i s/$gtk_dark/$gtk_light/ ~/.dotfiles/gtk/.gtkrc-2.0
-        sed -i s/$gtk_dark/$gtk_light/ ~/.config/gtk-3.0/settings.ini
-        sed -i s/$gtk_dark/$gtk_light/ ~/.gtkrc-2.0 
-        sed -i s/gtk-application-prefer-dark-theme=1/gtk-application-prefer-dark-theme=0/ ~/.config/gtk-3.0/settings.ini 
-
         cat $HOME/.dotfiles/alacritty/base.yaml $HOME/.dotfiles/alacritty/light.yaml > $HOME/.config/alacritty/alacritty.yml
     else
-        kitty +kitten themes --reload-in=all "$kitty$kitty_dark_default" 2>/dev/null
-        sed -i s/"vim.g.$vim_var = '$vim_light"/"vim.g.$vim_var = '$vim_dark"/ $HOME/.dotfiles/nvim/pkg/colorscheme.lua
+        gtk_theme=$GTK_DARK_THEME
+        gtk_icon=$GTK_ICON_DARK
+        cin_icon=$CINNAMON_ICON_DARK
+        gnome_prefer="prefer-dark"
+        sed -i s/"vim.g.$vim_var = '$VIM_LIGHT_THEME"/"vim.g.$vim_var = '$VIM_DARK_THEME"/ $HOME/.dotfiles/nvim/pkg/colorscheme.lua
         sed -i s/"set background=light"/"set background=dark"/ $HOME/.dotfiles/nvim/pkg/colorscheme.lua
-        gsettings set org.gnome.desktop.interface gtk-theme "$gtk_dark"
-        gsettings set org.gnome.desktop.interface icon-theme $icon_dark
-        gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
-
-        # for legacy applications
-        sed -i s/$gtk_light/$gtk_dark/ ~/.dotfiles/gtk/settings.ini
-        sed -i s/$gtk_light/$gtk_dark/ ~/.dotfiles/gtk/.gtkrc-2.0
-        sed -i s/$gtk_light/$gtk_dark/ ~/.config/gtk-3.0/settings.ini
-        sed -i s/$gtk_light/$gtk_dark/ ~/.gtkrc-2.0
-        sed -i s/gtk-application-prefer-dark-theme=0/gtk-application-prefer-dark-theme=1/ ~/.config/gtk-3.0/settings.ini 
         cat $HOME/.dotfiles/alacritty/base.yaml $HOME/.dotfiles/alacritty/dark.yaml > $HOME/.config/alacritty/alacritty.yml
     fi
+    gsettings set org.gnome.desktop.interface gtk-theme "$gtk_theme"
+    gsettings set org.gnome.desktop.interface icon-theme "$gtk_icon"
+    gsettings set org.gnome.desktop.interface color-scheme "$gnome_prefer"
+
+    gsettings set org.cinnamon.desktop.interface gtk-theme "$gtk_theme"
+    gsettings set org.cinnamon.desktop.interface icon-theme "$cin_icon"
 }
 
 for arg in $@;do

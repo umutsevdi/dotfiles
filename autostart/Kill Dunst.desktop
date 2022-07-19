@@ -1,9 +1,0 @@
-[Desktop Entry]
-Type=Application
-Exec=killall dunst
-X-GNOME-Autostart-enabled=true
-NoDisplay=false
-Hidden=false
-Name[en_US]=Kill Dunst
-Comment[en_US]=No description
-X-GNOME-Autostart-Delay=1

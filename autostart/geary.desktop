@@ -1,0 +1,11 @@
+[Desktop Entry]
+Icon=org.gnome.Geary
+Exec=geary --gapplication-service
+Icon=org.gnome.Geary
+TryExec=geary
+Exec=geary --gapplication-service
+Type=Application
+Terminal=false
+Categories=GNOME;GTK;Network;Email;
+StartupNotify=true
+NoDisplay=true
