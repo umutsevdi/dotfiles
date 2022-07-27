@@ -16,7 +16,8 @@ GOROOT=/lib/go
 JAVA_HOME="$(ls /lib/jvm | grep java-11-openjdk.)"
 GRADLE_PATH=/usr/local/gradle/bin
 DOTFILES_PATH=$HOME/.dotfiles/bin
-export PATH="$GRADLE_PATH:$JAVA_HOME:$GOPATH/bin:$GOROOT/bin:$DOTFILES_PATH:$PATH"
+RUSTPATH=$HOME/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/bin
+export PATH="$GRADLE_PATH:$JAVA_HOME:$GOPATH/bin:$GOROOT/bin:$DOTFILES_PATH:$RUSTPATH:$PATH"
 export EDITOR=/usr/bin/nvim
 # sudo alternatives --config java
 

@@ -4,6 +4,8 @@ update_wc=`dnf check-update | awk '{print $1}' | grep [.] | wc -l`
 
 if [[ "$update_wc" -gt "0" ]]; then
     echo "$PACKAGE_ICON$update_wc"
+    notify-send --app-name="Package Manager" --category="Package Manager" "There are $update_wc updates available." --icon="software-manager"
 else 
     echo
 fi
+

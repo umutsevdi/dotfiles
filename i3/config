@@ -48,8 +48,7 @@ exec_always --no-startup-id killall polybar; sleep 0.1;  polybar bottom & polyba
 # initialize compositor
 exec_always --no-startup-id killall picom; picom -b --config ~/.dotfiles/picom/picom.conf  --experimental-backends 
 # initialize applets 
-exec_always --no-startup-id pkill -f blueman-tray; pkill -f nm-applet; pkill xfce4-power-manager;killall dunst;
-# pkill -f kdeconnect-indicator
+exec_always --no-startup-id pkill -f blueman-tray; pkill -f nm-applet; pkill xfce4-power-manager;killall dunst;pkill -f kdeconnect-indicator
 exec --no-startup-id killall dnfdragora-updater
 exec_always --no-startup-id killall pasystray
 exec_always --no-startup-id blueman-applet
@@ -60,7 +59,7 @@ exec_always --no-startup-id dunst -conf $HOME/.dotfiles/dunst/dunstrc
 exec_always --no-startup-id pasystray --notify=sink 
 exec_always --no-startup-id killall conky; sleep 0.1; conky --config=$HOME/.dotfiles/conky/.conkyrc --daemonize --pause=0;
 exec_always --no-startup-id geary --gapplication-service
-# exec_always --no-startup-id  kdeconnect-indicator 
+exec_always --no-startup-id  kdeconnect-indicator 
 # exec_always --no-startup-id protonvpn --gapplication-service
 
 #################
@@ -85,7 +84,7 @@ for_window [instance="Gnome-screenshot*"] floating enable
 for_window [instance="xfce4*"] floating enable
 for_window [instance="xfce-*"] floating enable
 for_window [instance="pavucontrol"] floating enable
-for_window [instance="blueberry"] floating enable
+for_window [instance="blueman-manager"] floating enable
 # Generated windows.
 for_window [title="(?:Open|Save) (?:File|Folder|As)"] floating enable;
 for_window [title="(?:Open|Save) (?:File|Folder|As)"] resize set 800 600
@@ -176,8 +175,8 @@ bindsym $mod+semicolon exec ~/.dotfiles/applets/emoji/launch.sh
 
 # window resizer
 # resize window (you can also use the mouse for that)
-bindsym $mod+r mode "resize mode: use vim keys to grow or shrink windows" 
-mode "resize mode: use vim keys to grow or shrink windows" {
+bindsym $mod+r mode "resize mode" 
+    mode "resize mode" {
         # These bindings trigger as soon as you enter the resize mode
         # same bindings, but for the arrow keys
         bindsym h resize shrink width 10 px or 10 ppt 
@@ -190,22 +189,22 @@ mode "resize mode: use vim keys to grow or shrink windows" {
         bindsym $mod+r mode "default"
 }
 # change gaps
-bindsym $mod+e mode "gap mode"
-mode "gap mode" {
-        # These bindings trigger as soon as you enter the gaps mode mode
-        # same bindings, but for the arrow keys
-        bindsym h gaps inner current plus 5
-        bindsym j gaps outer current minus 5
-        bindsym k gaps outer current plus 5
-        bindsym l gaps inner current minus 5
-        # back to normal: Enter or Escape or $mod+r
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-        bindsym $mod+e mode "default"
-}
+#   bindsym $mod+e mode "gap mode"
+#   mode "gap mode" {
+#           # These bindings trigger as soon as you enter the gaps mode mode
+#           # same bindings, but for the arrow keys
+#           bindsym h gaps inner current plus 5
+#           bindsym j gaps outer current minus 5
+#           bindsym k gaps outer current plus 5
+#           bindsym l gaps inner current minus 5
+#           # back to normal: Enter or Escape or $mod+r
+#           bindsym Return mode "default"
+#           bindsym Escape mode "default"
+#           bindsym $mod+e mode "default"
+#   }
 # change gaps
-bindsym $mod+w mode "layout mode: (w)toggle stack-tab, (e)toggle-split"
-mode "layout mode: (w)toggle stack-tab, (e)toggle-split" {
+bindsym $mod+w mode "layout mode w - stack | e - split"
+mode "layout mode w - stack | e - split" {
         # change container layout (stacked, tabbed, toggle split)
         # bindsym $mod+q layout stacking
         # bindsym $mod+w layout tabbed

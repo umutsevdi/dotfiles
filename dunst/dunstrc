@@ -61,5 +61,5 @@
     background = "#d64e4e"
     foreground = "#f0e0e0"
     frame_color = "#d64e4e"
-    timeout = 0
+    timeout = 20
     default_icon = /usr/share/icons/kora/actions/16/dialog-warning.svg

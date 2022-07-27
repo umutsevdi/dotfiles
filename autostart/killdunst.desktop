@@ -1,0 +1,10 @@
+[Desktop Entry]
+Exec=.cinit.sh
+Icon=notifications
+Exec=killall dunst
+Type=Application
+Terminal=false
+Categories=Notification;
+StartupNotify=true
+NoDisplay=true
+Name[en_US]=killdunst.desktop

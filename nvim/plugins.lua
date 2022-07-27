@@ -119,7 +119,6 @@ vim.g.coc_global_extensions = {
 	"coc-emmet",
 	"coc-eslint",
 	"coc-explorer",
-	"coc-godot",
 	"coc-html",
 	"coc-html-css-support",
 	"coc-htmlhint",
