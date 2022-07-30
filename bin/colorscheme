@@ -7,17 +7,17 @@ color_value="$(cat /tmp/colorscheme 2>/dev/null)"
 
 GTK_THEME_LIGHT="Qogir-Light"
 GTK_THEME_DARK="Qogir-Dark"
-CIN_THEME_DOCK_LIGHT="Colloid-Compact-Nord"
-CIN_THEME_LIGHT="Colloid-Light-Compact-Nord"
-CIN_THEME_DARK="Colloid-Dark-Compact-Nord"
+CIN_THEME_DOCK_LIGHT="Orchis-Purple-Light-Compact"
+CIN_THEME_LIGHT="Orchis-Purple-Light-Compact"
+CIN_THEME_DARK="Orchis-Purple-Dark-Compact"
 
 VIM_THEME_DARK="palenight"
 VIM_THEME_LIGHT="lighter"
 VIM_THEME_TYPE="material_theme_style"
 GTK_ICON_LIGHT="kora"
 GTK_ICON_DARK="kora"
-CIN_ICON_LIGHT="OneUI-light"
-CIN_ICON_DARK="OneUI-dark"
+CIN_ICON_LIGHT="Breeze_RC"
+CIN_ICON_DARK="Breeze_Dark_RC"
 
 Help()
 {

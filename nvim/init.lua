@@ -11,6 +11,7 @@
 -- ╰──────────────────────────────────────────────────────────────────────────────╯
 -- @author umutsevdi
 
+local o = vim.o
 
 vim.cmd([[
 set shell=$SHELL
@@ -23,49 +24,80 @@ set t_8f=^[[38;2;%lu;%lu;%lum        " set foreground color
 set t_8b=^[[48;2;%lu;%lu;%lum        " set background color
 
 set t_Co=256                         " Enable 256 colors
-set termguicolors                    " Enable GUI colors for the terminal to get truecolor
 
 " Recommended by CoC
-set hidden
-set updatetime=300
-set nobackup    " Disables backup files
-set nowritebackup   " Disables backup files
 set cmdheight=1 " height of command-line at the bottom
 set shortmess+=c
-set signcolumn=yes "always show sign column, otherwise it will shift text
 set showtabline=2
-
 " set manual folding for functions, conditions etc.
 set foldmethod=manual
 
-" Show line numbers
-set nocursorline
-set nocursorcolumn
-
-set ignorecase
-set smartcase
 set mouse=a
-set scrolloff=4 " number of screen lines to always keep above and below the cursor
-
-set undofile
-set undodir=~/.config/nvim/undodir
 
 set inccommand=nosplit
-set splitright
-set splitbelow
 
 set conceallevel=0
 
-" Whitespace configs
-set tabstop=4
-set softtabstop=4
 set shiftwidth=4
 set expandtab
 set smarttab
 set smartindent
-set number
-set relativenumber
-set clipboard=unnamedplus
 ]])
+o.termguicolors = true
+
+-- Recommended by CoC
+o.hidden = true
+o.updatetime = 200
+o.timeoutlen = 500
+
+-- Disable backup files
+o.backup = false
+o.writebackup = false
+-- set cmdheight=1 -- height of commandline at the bottom
+-- shortmess +=c
+o.signcolumn = "yes"
+-- showtabline=2
+
+-- set manual folding for functions, conditions etc
+-- set foldmethod=manual
+
+-- show line numbers
+o.number = true
+o.cursorline = false
+o.cursorcolumn = false
+
+o.ignorecase = true
+o.smartcase = true
+
+-- Undo and backup options
+o.undofile = true
+o.undodir = "/home/umutsevdi/.config/nvim/undodir"
+o.swapfile = false
+o.history = 50
+-- set inccommand=nosplit
+o.splitright = true
+o.splitbelow = true
+-- set conceallevel=0
+
+-- Whitespace configuration
+o.tabstop = 4
+o.shiftwidth = 4
+o.softtabstop = 4
+--  set expandtab
+--  set smarttab
+
+--  set smartindent
+--  set number
+o.relativenumber = true
+o.clipboard = "unnamedplus"
+
+-- Better editor UI
+o.numberwidth = 6
+o.scrolloff = 8
+o.wrap = true
+o.textwidth = 300
+o.list = true
+o.jumpoptions = "view"
+
 require("plugins")
 require("keybindings")

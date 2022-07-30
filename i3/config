@@ -72,9 +72,12 @@ client.focused          $bg-color           $bg-color          $text-color      
 client.unfocused        $inactive-bg-color $inactive-bg-color $inactive-text-color #2e323d
 client.focused_inactive $inactive-bg-color $inactive-bg-color $inactive-text-color #2e323d
 client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color          #2e323d
-gaps outer 25
-gaps inner 7
-for_window [class="^.*"] border pixel 3
+
+gaps outer 5
+gaps top 25
+gaps bottom 20
+gaps inner 10
+for_window [class="^.*"] border pixel 2
 smart_borders on
 hide_edge_borders smart_no_gaps
 # smart_gaps on

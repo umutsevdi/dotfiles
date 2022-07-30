@@ -9,7 +9,7 @@
 configuration {
 	font:							"Roboto Regular 11";
     show-icons:                     true;
-	icon-theme: 					"kora";
+	icon-theme: 					"OneUI-dark";
     display-drun: 					"";
     drun-display-format:            "{name}";
     disable-history:                false;
