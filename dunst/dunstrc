@@ -36,7 +36,7 @@
     show_indicators = yes
     icon_position = left
     max_icon_size = 32
-    icon_path = /usr/share/icons/kora/status/symbolic/:/usr/share/icons/kora/status/scalable:/usr/share/icons/kora/devices/scalable/:/usr/share/icons/kora/apps/scalable/:/usr/share/icons/kora/panel/16/
+    icon_path = /usr/share/icons/Sevi-dark/status/symbolic/:/usr/share/icons/Sevi-dark/status/scalable:/usr/share/icons/Sevi-dark/devices/scalable/:/usr/share/icons/Sevi-dark/apps/scalable/:/usr/share/icons/Sevi-dark/panel/16/
     sticky_history = yes
     history_length = 20
     always_run_script = true
@@ -62,4 +62,4 @@
     foreground = "#f0e0e0"
     frame_color = "#d64e4e"
     timeout = 20
-    default_icon = /usr/share/icons/kora/actions/16/dialog-warning.svg
+    default_icon = /usr/share/icons/Sevi-dark/actions/16/dialog-warning.svg

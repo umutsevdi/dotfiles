@@ -43,7 +43,7 @@ noremap <silent> <C-9> 9gt
 noremap <silent> <C-0> :tablast<cr>
 
 " Jump definition
-nmap <silent> <nowait> jd :call CocAction('jumpDefinition',  'split')<CR>
+nmap <silent> <nowait> gj :call CocAction('jumpDefinition',  'split')<CR>
 nmap <silent> <nowait> gd :call CocAction('jumpDefinition',  'vsplit')<CR>
 nmap <silent> <nowait> gt :call CocAction('jumpDefinition',  'tabe')<CR>
 ]])

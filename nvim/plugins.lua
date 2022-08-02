@@ -25,7 +25,6 @@ call plug#begin()
     Plug 'nvim-lua/plenary.nvim'                                                             " Telescope requires this package
     Plug 'nvim-telescope/telescope.nvim'                                                     " Telescope is a FZF extension that displays preview
     Plug 'nvim-lualine/lualine.nvim'                                                         " Lualine is the bar on the bottom that displays variues elements
-    Plug 'glepnir/dashboard-nvim'                                                                " Start page
     Plug 'tpope/vim-fugitive'                                                                " Git Integration
     Plug 'gitgutter/Vim'                                                                     " Displays git diff
     Plug 'preservim/tagbar'                                                                  " Tag bar displays functions, classes and variables of files on the left 
@@ -51,8 +50,6 @@ require("pkg/nerdtree")
 require("pkg/tagbar")
 require("pkg/bracey")
 require("pkg/test")
-require('pkg/dashconfig')
--- require("dashboard")
 vim.cmd([[
     source $HOME/.dotfiles/nvim/pkg/coc.vim
 ]])
@@ -124,6 +121,7 @@ vim.g.coc_global_extensions = {
 	"coc-htmlhint",
 	"coc-java",
 	"coc-json",
+    "coc-lua",
 	"coc-markdown-preview-enhanced",
 	"coc-markdownlint",
 	"coc-prettier",
@@ -132,8 +130,6 @@ vim.g.coc_global_extensions = {
 	"coc-sh",
 	"coc-snippets",
 	"coc-stylelintplus",
-	"coc-stylua",
-	"coc-sumneko-lua",
 	"coc-sql",
 	"coc-tailwindcss",
 	"coc-tsserver",
