@@ -35,11 +35,7 @@ MakeTerminal()
     case $session in
     
         *gnome-terminal* )
-             if [[ "$is_tab" = true ]]; then
-                win_param="--tab"
-            else
-                win_param="--window"
-            fi
+            [ "$is_tab" = true ] && win_param="--tab" || win_param="--window"
             dir_param="--working-directory=$(pwd)"
         ;;
         *kitty* )
@@ -47,11 +43,7 @@ MakeTerminal()
             dir_param="--directory $(pwd)"
         ;;
         *xfce4-terminal* )
-            if [[ "$is_tab" = true ]]; then
-                win_param="--tab"
-            else
-                win_param=
-            fi
+            [ "$is_tab" = true] && win_param="--tab" || win_param=
             dir_param="--working-directory=$(pwd)"
         ;;
         *xterm* )
@@ -59,19 +51,11 @@ MakeTerminal()
             dir_param="'cd $(pwd);bash'"
         ;;
         *konsole* )
-            if [[ "$is_tab" = true ]]; then
-                win_param="--new-tab"
-            else
-                win_param=
-            fi
+            [ "$is_tab" = true] && win_param="--new-tab" || win_param=
             dir_param="--workdir $(pwd)"
         ;;
         *)
-             if [[ "$is_tab" = true ]]; then
-                win_param="--tab"
-            else
-                win_param=
-            fi
+            [ "$is_tab" = true ] && win_param="--tab" || win_param=
             dir_param="--working-directory=$(pwd)"
         ;;
     esac

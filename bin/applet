@@ -6,7 +6,7 @@
 applet_path=$HOME/.dotfiles/applets/
 
 options=`ls -d $applet_path/*/ | sed "s#$applet_path##g" | tr "/" " "`
-#| tr "\n" " "`
+
 Help()
 {
    # Display Help
@@ -38,7 +38,7 @@ for arg in $@;do
     if   [ "$arg" = "-h" ] || [ "$arg" = "--help" ]; then
         Help
         exit
-    elif [[ $run = true ]]; then 
+    elif [ $run = true ]; then 
         app=$arg
         case "$options" in 
           *$app*)

@@ -3,7 +3,7 @@
 vim.cmd [[
 autocmd Bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " Open the existing NERDTree on each new tab.
-autocmd BufWinEnter * if &buftype != 'quickfix' && getcmdwintype() == '' | silent NERDTreeMirror | endif
+" autocmd BufWinEnter * if &buftype != 'quickfix' && getcmdwintype() == '' | silent NERDTreeMirror | endif
 let NERDTreeBookmarksFile=expand("$HOME/.dotfiles/nvim/.NERDTreeBookmarks")
 ]]
 vim.NERDTreeMinimalUI=1

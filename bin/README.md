@@ -11,7 +11,6 @@ bin/
 ├── lockscreen
 ├── pickvideo
 ├── pickwp
-├── polybar-daemon
 └── pots
 ```
 To execute any use

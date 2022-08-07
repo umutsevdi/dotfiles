@@ -4,16 +4,16 @@
 
 dir="$HOME/.dotfiles/applets/powermenu"
 rofi_cmd="rofi -theme $dir/config.rasi"
-uptime="$(uptime -p | sed -e "s/up //g" | sed -e "s/hours/h/g" | sed -e  "s/hour/h/g" | sed -e "s/minutes/min/g")" 
+uptime="`uptime -p | sed -e "s/up //g" | sed -e "s/hours/h/g" | sed -e  "s/hour/h/g" | sed -e "s/minutes/min/g"`"
 
 shutdown=""
 reboot="勒"
 lock=""
-logout=""
+sleep=⏾
 
-options="$shutdown\n$reboot\n$lock\n$logout"
+options="$shutdown\n$reboot\n$lock\n$sleep"
 
-chosen="$(echo -e "$options" | $rofi_cmd -p "$uptime" -dmenu -selected-row 1)"
+chosen="`echo -e "$options" | $rofi_cmd -p "$uptime" -dmenu -selected-row 1`"
 
 case $chosen in
     $shutdown)
@@ -25,7 +25,7 @@ case $chosen in
     $lock)
         lockscreen
     ;;
-    $logout)
+    $sleep)
 		playerctl pause
 		amixer set Master mute
 		systemctl suspend

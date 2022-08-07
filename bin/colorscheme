@@ -1,9 +1,10 @@
-#! /bin/bash
-# colorscheme.sh - Switch between light and dark mode
-# @author umutsevdi 
-# @requires i3, xsettingsd
+#!/bin/bash
+# gcolorscheme.sh - Switch between light and dark mode
+# g@author umutsevdi 
+# g@requires i3, xsettingsd
 
-color_value="$(cat /tmp/colorscheme 2>/dev/null)"
+color_value=`cat /tmp/colorscheme 2>/dev/null`
+if [ $color_value = "" ]; then color_value=false; fi
 
 GTK_THEME_LIGHT="Qogir-Light"
 GTK_THEME_DARK="Qogir-Dark"
@@ -21,7 +22,7 @@ CIN_ICON_DARK="Breeze_Dark_RC"
 
 Help()
 {
-   # Display Help
+   # gDisplay Help
    echo "colorscheme.sh - Toggle between light and dark mode"
    echo
    echo "Syntax: [-r]"
@@ -40,7 +41,7 @@ Set()
         cin_theme=$CIN_THEME_LIGHT
         cin_icon=$CIN_ICON_LIGHT
         cin_dock=$CIN_THEME_DOCK_LIGHT
-        gnome_prefer="prefer-light"
+        # gnome_prefer="prefer-light"
         sed -i s/"vim.g.$VIM_THEME_TYPE = '$VIM_THEME_DARK"/"vim.g.$VIM_THEME_TYPE = '$VIM_THEME_LIGHT"/ $HOME/.dotfiles/nvim/pkg/colorscheme.lua
         sed -i s/"set background=dark"/"set background=light"/ $HOME/.dotfiles/nvim/pkg/colorscheme.lua
         cat $HOME/.dotfiles/alacritty/base.yaml $HOME/.dotfiles/alacritty/light.yaml > $HOME/.config/alacritty/alacritty.yml
@@ -50,14 +51,14 @@ Set()
         gtk_icon=$GTK_ICON_DARK
         cin_icon=$CIN_ICON_DARK
         cin_dock=$CIN_THEME_DARK
-        gnome_prefer="prefer-dark"
+        # gnome_prefer="prefer-dark"
         sed -i s/"vim.g.$VIM_THEME_TYPE = '$VIM_THEME_LIGHT"/"vim.g.$VIM_THEME_TYPE = '$VIM_THEME_DARK"/ $HOME/.dotfiles/nvim/pkg/colorscheme.lua
         sed -i s/"set background=light"/"set background=dark"/ $HOME/.dotfiles/nvim/pkg/colorscheme.lua
         cat $HOME/.dotfiles/alacritty/base.yaml $HOME/.dotfiles/alacritty/dark.yaml > $HOME/.config/alacritty/alacritty.yml
     fi
     gsettings set org.gnome.desktop.interface gtk-theme "$gtk_theme"
     gsettings set org.gnome.desktop.interface icon-theme "$gtk_icon"
-    gsettings set org.gnome.desktop.interface color-scheme "$gnome_prefer"
+    # ggsettings set org.gnome.desktop.interface color-scheme "$gnome_prefer"
     gsettings set org.gnome.desktop.wm.preferences theme "$gtk_theme"
     gsettings set org.gnome.desktop.interface gtk-key-theme "$gtk_theme" 
 
@@ -69,10 +70,10 @@ Set()
 }
 
 for arg in $@;do
-    if   [[ "$arg" = "-h" ]] || [[ "$arg" = "--help" ]]; then
+    if   [ "$arg" = "-h" ] || [ "$arg" = "--help" ]; then
         Help
         exit
-    elif [[ "$arg" = "-r" ]] || [[ "$arg" = "--refresh" ]]; then 
+    elif [ "$arg" = "-r" ] || [ "$arg" = "--refresh" ]; then 
         refresh=true
     else
         echo -e "Error: Invalid arguments" 1>&2
@@ -80,11 +81,11 @@ for arg in $@;do
     fi 
 done
 
-if [[ "$refresh" = true  ]];then
-    is_dark=$( if [[ "$color_value" = true ]]; then echo false; else echo true; fi) 
+if [ "$refresh" = true  ];then
+    is_dark=`if [ "$color_value" = true ]; then echo false; else echo true; fi`
 else
-    is_dark=$( if [[ "$color_value" = true ]]; then echo true; else echo false; fi) 
-    write=$( if [[ "$color_value" = true ]]; then echo false; else echo true; fi)
+    is_dark=`if [ "$color_value" = true ]; then echo true; else echo false; fi`
+    write=`if [ "$color_value" = true ]; then echo false; else echo true; fi`
     echo $write > /tmp/colorscheme
 fi
 Set

@@ -16,8 +16,9 @@ fi
 # Default wallpaper search path
 path="$HOME/Pictures/wallpapers"
 # Default monitor count
-head=$(xrandr -q | grep ' connected' | awk '{print $1}' | tr '\n' ' ' )
-head_count=$(xrandr -q | grep ' connected' | awk '{print $1}' | tr '\n' ' ' | wc -w)
+head=`xrandr -q | grep ' connected' | awk '{print $1}' | tr '\n' ' '`
+head_count=`xrandr -q | grep ' connected' | awk '{print $1}' | tr '\n' ' ' | wc -w`
+
 Help()
 {
    # Display Help
@@ -35,17 +36,17 @@ Help()
 
 Pick()
 {
-    # Check if directory exists
-    if [ ! -d $path ]; then
+    # Check if directory exists or whether it contains an item
+    if [ ! -d $path ] && [ `ls $path | wc -l` -gt 0 ]; then
         echo "Error: Wallpaper directory $path does not exist" 1>&2
         exit
     fi
 
-    new_img="$path/$(ls $path/ | shuf -n 1  2> /dev/null)"
-    old_img=$(cat /tmp/pickwp_img  2> /dev/null)
+    new_img="$path/`ls $path/ | shuf -n 1  2> /dev/null`"
+    old_img=`cat /tmp/pickwp_img  2> /dev/null`
 
     while [ "$new_img" = "$old_img" ]; do
-        new_img="$path/$(ls $path/ | shuf -n 1  2> /dev/null)"
+        new_img="$path/`ls $path/ | shuf -n 1  2> /dev/null`"
     done
 
     echo $new_img > /tmp/pickwp_img
@@ -59,12 +60,12 @@ Pick()
 }
 
 for arg in $@; do
-    if [[ "$arg" = "-h" ]] || [[ "$arg" = "--help" ]]; then
+    if [ "$arg" = "-h" ] || [ "$arg" = "--help" ]; then
         Help
         exit
-    elif [[ "$arg" = "-d" ]] || [[ "$arg" = "--directory" ]]; then
+    elif [ "$arg" = "-d" ] || [ "$arg" = "--directory" ]; then
         get_dir=true
-    elif [[ "$get_dir" = true ]]; then
+    elif [ "$get_dir" = true ]; then
         path=$arg
         Pick
         exit

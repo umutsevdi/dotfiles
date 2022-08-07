@@ -9,7 +9,7 @@
 configuration {
 	font:							"Roboto Regular 11";
     show-icons:                     true;
-	icon-theme: 					"OneUI-dark";
+	icon-theme: 					"kora";
     display-drun: 					"";
     drun-display-format:            "{name}";
     disable-history:                false;
@@ -19,7 +19,7 @@ configuration {
 * {
     background-alt:              	#00000000;
     background-bar:                 @bg;
-    border-color:		               		@focus;
+    border-color:		            @focus;
     selected:               		@bg-none;
 }
 
@@ -39,7 +39,7 @@ window {
 prompt {
     enabled: 						true;
     padding:                        0px;
-	background-color: 				@bg-none;
+	background-color: 				@bg-darkish;
     text-color: 					@solid-focus;
     border-radius:                  0px;
     border-color:                  	@solid-focus;
@@ -50,10 +50,8 @@ prompt {
 
 entry {
     font:							"Roboto Regular 10";
-
-    background-color:               @bg-none;
+    background-color:               @bg-darkish;
     text-color: 					@solid-fg;
-
     placeholder-color:              @solid-fg;
     expand:                         true;
     horizontal-align:               0.48;
@@ -66,7 +64,7 @@ entry {
 inputbar {
 	children: 						[ textbox-prompt-colon , entry ];
     spacing:                        0px;
-    background-color:               @bg-none;
+    background-color:               @bg-darkish;
     text-color:                     @fg;
     border-radius:                  @round;
     margin:                         0px 0px -1px 0px;

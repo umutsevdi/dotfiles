@@ -5,7 +5,7 @@ temp_line=
 temp_indicator=
 temp_indicator_placed=false
 for i in {0..100..10}; do 
-    if [[ $i -ge $br_value ]] && [[ "$temp_indicator_placed" = false ]]; then
+    if [ $i -ge $br_value ] && [ "$temp_indicator_placed" = false ]; then
         temp_indicator_placed=true
         line+=$temp_indicator
     else

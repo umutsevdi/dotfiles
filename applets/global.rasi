@@ -24,7 +24,7 @@
   fg-dark:                  #686e72e6;
   bg-none:                  #00000000;
   bg-warn:                  #f07178e6;
-
+  bg-darkish:               #24242480;
   nerdfont:                 "JetBrains Mono Nerd Font 11";
   nerdfont-big:             "JetBrains Mono Nerd Font 20";
   text:                     "Roboto Regular 11";

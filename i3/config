@@ -40,7 +40,7 @@ exec  xinput set-prop "PNP0C50:0e 06CB:7E7E Touchpad" "libinput Tapping Enabled"
 
 exec /usr/lib/gnome-online-accounts/goa-daemon --replace
 exec_always --no-startup-id /usr/libexec/gsd-xsettings
-exec --no-startup-id colorscheme
+exec --no-startup-id colorscheme --refresh
 # select a random wallpaper on start and save it for the future sessions
 exec --no-startup-id sleep 0.1;$HOME/.dotfiles/bin/pickwp
 # anytime i3 wm restarts kills all existing polybars and creates one

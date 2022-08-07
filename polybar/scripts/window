@@ -9,11 +9,9 @@ if ! command -v xdotool &> /dev/null; then
     echo xdotool was not found
 fi
 
-title=$(xdotool getwindowfocus getwindowname) 
+title=`xdotool getwindowfocus getwindowname`
 
-if [[ -z "$title" ]] && [[ "$title" -ne "i3" ]]; then
-    title=$(echo "$title" | tr "—" "-")
+if [ -z "$title" ] && [ "$title" -ne "i3" ]; then
+    title=`echo "$title" | tr "—" "-"`
     echo "$title"
 fi
-
-

@@ -38,11 +38,11 @@ conky.config = {
     color2 = '#E5832F',
 };
 
+--${alignr}${font JetBrains Mono :italic:size=10}${texeci 1800 curl wttr.in?format="%C,+%t\n"}${voffset -10}
 conky.text = [[${alignc}${font Roboto Bold:size=20}${time %A}${voffset -25}
 ${alignc}${font Roboto Regular:size=55}${time %B%e}${voffset -45}
 ${alignc}${font JetBrains Mono Bold:size=100}${time %k:%M}${font}
-${alignr}${font JetBrains Mono :italic:size=10}${texeci 1800 curl wttr.in?format="%C,+%t\n"}${voffset -10}
-${alignr}${font JetBrains Mono :italic:size=10}${texeci cava}
+${alignr}
 ${font JetBrains Mono:bold:size=10}${color1}Top Processes:${font JetBrains Mono :italic:size=9}  ${cpu}%  ${cpubar}
 ${font}${color1}Name           PID${alignr}CPU%   TIME${font JetBrains Mono :italic:size=9}
 ${voffset -10}$hr

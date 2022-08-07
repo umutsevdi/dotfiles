@@ -1,11 +1,13 @@
-# !/bin/bash 
+#!/bin/bash 
 PACKAGE_ICON="  "
-update_wc=`dnf check-update | awk '{print $1}' | grep [.] | wc -l`
+update_wc="`dnf check-update | awk '{print $1}' | grep [.] | wc -l`/`dnf list installed | wc -l`"
 
-if [[ "$update_wc" -gt "0" ]]; then
+
+if (( $update_wc > 0 )); then
+    (( $update_wc -gt 1 )) && message="There are $update_wc updates available." || message="There is an update available."
     echo "$PACKAGE_ICON$update_wc"
-    notify-send --app-name="Package Manager" --category="Package Manager" "There are $update_wc updates available." --icon="software-manager"
-else 
+    notify-send --app-name="Package Manager" --category="Package Manager" $message --icon="software-manager"
+else
     echo
+    echo "$PACKAGE_ICON$update_wc"
 fi
-
