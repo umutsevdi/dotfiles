@@ -4,7 +4,7 @@
 # g@requires i3, xsettingsd
 
 color_value=`cat /tmp/colorscheme 2>/dev/null`
-if [ $color_value = "" ]; then color_value=false; fi
+[ $color_value = "" ] && color_value=false
 
 GTK_THEME_LIGHT="Qogir-Light"
 GTK_THEME_DARK="Qogir-Dark"

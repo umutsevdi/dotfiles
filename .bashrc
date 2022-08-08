@@ -57,11 +57,11 @@ alias nuvm=nvim
 alias novm=nvim
 alias nvm=nvim
 alias vim=nvim
+alias cs=colorscheme
 
 # ps
 #PS1='[\u@\h \W]\$ '
-u_value="\e[31m`[ $(whoami) = "root" ] && echo / || echo $`"
-PS1="\e[34;1m\t $u_value \e[33;3m\W →\e[39;0m "
+PS1="\e[34;1m\t \e[33;3m\W →\e[39;0m "
 # launch
 echo -e "\e[01m$(whoami)@$(hostname) - \e[36m$(date +%a' '%d' '%b' '%Y)\e[39;0m"
 $HOME/.dotfiles/bin/pots
