@@ -21,7 +21,7 @@ Help()
 Fetch()
 {
     cd $HOME/.config
-    rm -rf i3 kitty polybar conky awesome dunst autostart
+    rm -rf i3 polybar conky awesome dunst autostart
     cp -rf $HOME/.dotfiles/autostart $HOME/.config/
     echo "package.path = package.path .. ';$HOME/.dotfiles/nvim/?.lua;$HOME/.dotfiles/nvim/pkg/?.lua'
 vim.cmd('source /home/umutsevdi/.dotfiles/nvim/init.lua')" > ~/.config/nvim/init.lua
@@ -32,7 +32,6 @@ vim.cmd('source /home/umutsevdi/.dotfiles/nvim/init.lua')" > ~/.config/nvim/init
     cat $HOME/.dotfiles/alacritty/base.yaml $HOME/.dotfiles/alacritty/dark.yaml > $HOME/.config/alacritty/alacritty.yaml
     cp -r $HOME/.dotfiles/gtk/.gtkrc-2.0 $HOME
     cp -r $HOME/.dotfiles/i3 $HOME/.config/
-    cp -r $HOME/.dotfiles/kitty $HOME/.config/
     cp -r $HOME/.dotfiles/polybar $HOME/.config/
     cp -r $HOME/.dotfiles/dunst $HOME/.config/
     cp -r $HOME/.dotfiles/.bashrc $HOME/.bashrc

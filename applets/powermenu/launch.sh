@@ -26,8 +26,19 @@ case $chosen in
         lockscreen
     ;;
     $sleep)
+        killall dunst
 		playerctl pause
-		amixer set Master mute
+        (( `amixer get Master  | grep "\[on\]" | wc -l` > 0 )) && amixer set Master mute
 		systemctl suspend
+
+        if ! command -v lockscreen &> /dev/null ; then
+            echo "lockscreen doesn't exist, falling back to i3lock" 1>&2
+            i3lock
+        else
+            lockscreen
+        fi
+
+        (( `ps -aux | grep 'dunst' | wc -l` == 0 )) && dunst -conf $HOME/.dotfiles/dunst/dunstrc
+        (( `amixer get Master  | grep "\[off\]" | wc -l` > 0 )) && amixer set Master unmute
     ;;
 esac

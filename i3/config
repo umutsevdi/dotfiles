@@ -18,9 +18,9 @@ set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
-set $bg-color 	         #5294e2
-set $inactive-bg-color   #282a33
-set $text-color          #ffffff
+set $bg-color 	         #89b4fa
+set $inactive-bg-color   #1e1e2e
+set $text-color          #cdd6f4
 set $inactive-text-color #3d3d3d
 set $urgent-bg-color     #f07178
 
@@ -77,7 +77,7 @@ gaps outer 5
 gaps top 25
 gaps bottom 20
 gaps inner 10
-for_window [class="^.*"] border pixel 2
+for_window [class="^.*"] border pixel 3
 smart_borders on
 hide_edge_borders smart_no_gaps
 # smart_gaps on
@@ -226,7 +226,7 @@ bindsym $mod+p mode "display mode: (1)auto, (2)extend-right, (3)extend-left, (4)
 mode "display mode: (1)auto, (2)extend-right, (3)extend-left, (4)set-primary, (5)set-secondary"  {
         bindsym 1 exec xrandr --auto 
         bindsym 2 exec xrandr --output $pm --left-of $sm
-        bindsym 3 exec xrandr --output $pm --right-of $s
+        bindsym 3 exec xrandr --output $pm --right-of $sm
         bindsym 4 exec xrandr --output $pm --primary
         bindsym 5 exec xrandr --output $sm --primary
         bindsym Return mode "default"

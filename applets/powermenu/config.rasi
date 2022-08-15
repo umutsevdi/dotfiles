@@ -8,9 +8,9 @@
 
 configuration {
     show-icons:                     false;
+	font:                      		"Roboto Regular 12";
     disable-history:                false;
 	sidebar-mode: 					false;
-	font:                      		"Roboto Regular 12";
 }
 
 * {
@@ -27,6 +27,12 @@ window {
     y-offset:                       0px;
 }
 
+mainbox {
+    background-color:               @bg-dark;
+    children:                       [ inputbar, listview ];
+    spacing:                        12px;
+}
+
 listview {
     background-color:               @bg-none;
     columns:                        1;
@@ -38,14 +44,43 @@ listview {
     layout:                         vertical;
 }
 
-mainbox {
-    background-color:               @bg-selection;
-    children:                       [inputbar, listview ];
-    spacing:                        12px;
+inputbar {
+	children: 						[ textbox-prompt-colon, prompt ];
+    spacing:                        0px;
+    background-color:               @bg-darkish;
+    text-color:                     @fg;
+    border:                  		2px;
+    border-radius:                  @round;
+    border-color:                  	@solid-focus;
+    margin:                         0px 0px 0px 0px;
+    padding:                        0px;
+    position:                       center;
+}
+
+prompt {
+    padding:                        10px;
+	background-color: 				@bg-none;
+	text-color: 					@fg;
+    border-radius:                  0px;
+    horizontal-align:               0.5;
+    vertical-align:                 0.5;
+    border-color:                  	@solid-focus;
+    font:                           "Roboto Italic 12px";
+}
+
+textbox-prompt-colon {
+	expand: 						false;
+	str: 							"   ";
+	background-color: 				@solid-focus;
+	text-color: 					@fg;
+    padding:                        6px 0px 6px 6px;
+    font:                           "JetBrains Mono Nerd Font 11";
+    horizontal-align:               0.5;
+    vertical-align:                 0.5;
 }
 
 element {
-    background-color:               @bg-selection;
+    background-color:               @bg-darkish;
     text-color:                     @fg;
     orientation:                    vertical;
     border-radius:                  @round-small;
@@ -88,38 +123,3 @@ element selected.active {
 }
 
 
-inputbar {
-	children: 						[ textbox-prompt-colon, prompt ];
-    spacing:                        0px;
-    background-color:               @bg-selection;
-    text-color:                     @fg;
-    border:                  		2px;
-    border-radius:                  @round;
-    border-color:                  	@solid-focus;
-    margin:                         0px 0px 0px 0px;
-    padding:                        0px;
-    position:                       center;
-}
-
-
-prompt {
-    padding:                        10px;
-	background-color: 				@bg-none;
-	text-color: 					@solid-focus;
-    border-radius:                  0px;
-    horizontal-align:               0.5;
-    vertical-align:                 0.5;
-    border-color:                  	@solid-focus;
-    font:                           "Roboto Italic 12px";
-}
-
-textbox-prompt-colon {
-	expand: 						false;
-	str: 							"   ";
-	background-color: 				@solid-focus;
-	text-color: 					@background-solid;
-    padding:                        6px 0px 6px 6px;
-    font:                           "JetBrains Mono Nerd Font 11";
-    horizontal-align:               0.5;
-    vertical-align:                 0.5;
-}

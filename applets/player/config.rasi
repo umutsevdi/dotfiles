@@ -20,11 +20,40 @@ configuration {
 
 window {
     transparency:                   "real";
-    border-radius:                  0px;
+    border-radius:                  @round;
     location:                       southeast;
 	width:							400px;
     x-offset:                       -30px;
     y-offset:                       -30px;
+}
+
+mainbox {
+    background-color:               @bg-dark;
+    children:                       [ inputbar, listview ];
+    spacing:                        12px;
+}
+
+listview {
+    columns:						4;
+    lines:							1;
+    spacing:                        12px;
+    cycle:                          true;
+    dynamic:                        true;
+    layout:                         vertical;
+    background-color:               @bg-none;
+}
+
+inputbar {
+	children: 						[ textbox-prompt-colon, prompt ];
+    spacing:                        0px;
+    background-color:               @bg-darkish;
+    text-color:                     @fg;
+    border:                  		2px;
+    border-radius:                  @round;
+    border-color:                  	@solid-focus;
+    margin:                         0px 0px 0px 0px;
+    padding:                        0px;
+    position:                       center;
 }
 
 prompt {
@@ -44,42 +73,12 @@ textbox-prompt-colon {
     padding:                        10px;
 }
 
-inputbar {
-	children: 						[ textbox-prompt-colon, prompt ];
-    spacing:                        0px;
-    background-color:               @bg-selection;
-    text-color:                     @fg;
-    border:                  		2px;
-    border-radius:                  @round;
-    border-color:                  	@solid-focus;
-    margin:                         0px 0px 0px 0px;
-    padding:                        0px;
-    position:                       center;
-}
 
-listview {
-    columns:						4;
-    lines:							1;
-    spacing:                        12px;
-    cycle:                          true;
-    dynamic:                        true;
-    layout:                         vertical;
-}
-
-mainbox {
-    background-color:               @bg-none;
-    children:                       [ inputbar, listview ];
-    spacing:                        12px;
-}
-
-listview {
-    background-color:               @bg-none;
-}
 element {
-    background-color:               @bg-selection;
+    background-color:               @bg-darkish;
     text-color:                     @fg;
     orientation:                    vertical;
-    border-radius:                  @round;
+    border-radius:                  @round-small;
     margin:                         5px;
 }
 
@@ -106,7 +105,7 @@ element alternate.active {
 
 element selected {
     background-color:               @solid-focus;
-    text-color:                     @bg-selection;
+    text-color:                     @solid-bg-dark;
     border:                  		0px;
     border-radius:                  @round;
     border-color:                  	@border;

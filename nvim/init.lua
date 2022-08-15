@@ -42,6 +42,12 @@ set shiftwidth=4
 set expandtab
 set smarttab
 set smartindent
+
+let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
+set termguicolors
+
+set mouse=
+
 ]])
 o.termguicolors = true
 

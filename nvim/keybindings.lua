@@ -16,31 +16,23 @@ autocmd FileType go nmap gtx :CocCommand go.tags.clear<cr>n
 
 " Window Movement
 " Change vim window focus
-map <A-h> <C-w>h
-map <A-l> <C-w>l
-map <A-j> <C-w>j
-map <A-k> <C-w>k
-map <A-Left> <C-w>h
-map <A-Down> <C-w>j
-map <A-Up> <C-w>k
-map <A-Right> <C-w>l
+map <C-h> <C-w>h
+map <C-l> <C-w>l
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-Left> <C-w>h
+map <C-Down> <C-w>j
+map <C-Up> <C-w>k
+map <C-Right> <C-w>l
 
 " Tabs
 " Move around tabs
-noremap <silent> <C-h> :tabprevious<CR> 
-noremap <silent> <C-l> :tabnext<CR>
-noremap <silent> <C-Left> :tabprevious<CR>
-noremap <silent> <C-Right> :tabnext<CR>
-noremap <silent> <C-1> 1gt
-noremap <silent> <C-2> 2gt
-noremap <silent> <C-3> 3gt
-noremap <silent> <C-4> 4gt
-noremap <silent> <C-5> 5gt
-noremap <silent> <C-6> 6gt
-noremap <silent> <C-7> 7gt
-noremap <silent> <C-8> 8gt
-noremap <silent> <C-9> 9gt
-noremap <silent> <C-0> :tablast<cr>
+map <silent> <A-h> :tabprevious<CR> 
+map <silent> <A-l> :tabnext<CR>
+map <silent> <A-Left> :tabprevious<CR>
+map <silent> <A-Right> :tabnext<CR>
+map <silent> <A-1> :tabfirst <cr>
+map <silent> <A-0> :tablast<cr>
 
 " Jump definition
 nmap <silent> <nowait> gj :call CocAction('jumpDefinition',  'split')<CR>
@@ -55,13 +47,12 @@ vim.keymap.set("n", "qw", ":wq<CR>")
 --source $MYVIMRC
 vim.keymap.set("n", "<leader>ss", ":source $MYVIMRC<CR>")
 -- tab management
-vim.keymap.set("n", "<C-n>", ":tabnew .<CR>")
-vim.keymap.set("n", "<C-q>", ":tabclose <CR>")
+vim.keymap.set("n", "<A-n>", ":tabnew .<CR>")
+vim.keymap.set("n", "<A-q>", ":tabclose <CR>")
 vim.keymap.set("n", "<C-t>", ":vsplit .<CR>")
-vim.keymap.set("n", "<A-t>", ":vsplit .<CR>")
 
 --NerdTree
-vim.keymap.set("n", "<leader>n", ":NERDTreeFocus<CR>")
+vim.keymap.set("n", "<leader>n", ":NvimTreeFocus<CR>")
 vim.keymap.set("n", "<A-Tab>", ":NERDTreeToggle | TagbarToggle <CR>")
 -- vim.keymap.set('n', "<A-f>", ":NERDTreeFind<CR>")
 
@@ -121,3 +112,4 @@ vim.keymap.set("v", "rr", ":SnipRun <CR>")
 -- Better multiple lines tabbing with < and >
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
+

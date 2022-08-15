@@ -32,19 +32,20 @@ call plug#begin()
     Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install()}}          " Conqueror of Completions: Language server for any language
     Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }                                       " Go official vim plugin
     Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown', 'do': 'yarn install'}  " live markdown renderer server
-    Plug 'rakr/vim-one'                                                                      " colorscheme
+    Plug 'catppuccin/nvim', {'as': 'catppuccin'}
     Plug 'turbio/bracey.vim', {'do': 'npm install --prefix server'}                          " Run live web server to test HTML, CSS, JS
     Plug 'michaelb/sniprun', {'do': 'bash install.sh'}                                       " Instant code runner
     Plug 'rcarriga/nvim-notify'                                                              " Neovim's notification plugin
     Plug 'vim-test/vim-test'                                                                 " Test plugin for Vim
     Plug 'LudoPinelli/comment-box.nvim'
-    call plug#end()
+call plug#end()
 
-    colorscheme one
 ]])
-
 -- import configurations
 require("pkg/colorscheme")
+require("catppuccin").setup()
+vim.cmd("colorscheme catppuccin")
+
 require("pkg/markdown")
 require("pkg/nerdtree")
 require("pkg/tagbar")
@@ -282,3 +283,5 @@ require("lualine").setup({
 	tabline = {},
 	extensions = {},
 })
+
+

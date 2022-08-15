@@ -1,22 +1,23 @@
 #!/bin/bash
 # gcolorscheme.sh - Switch between light and dark mode
-# g@author umutsevdi 
-# g@requires i3, xsettingsd
+# @author umutsevdi 
+# @requires i3, xsettingsd
 
 color_value=`cat /tmp/colorscheme 2>/dev/null`
-[ $color_value = "" ] && color_value=false
+[ "$color_value" = "" ] && color_value=false
 
-GTK_THEME_LIGHT="Qogir-Light"
-GTK_THEME_DARK="Qogir-Dark"
+GTK_THEME_LIGHT="Catppuccin-Latte"
+GTK_THEME_DARK="Catppuccin-Mocha"
 CIN_THEME_DOCK_LIGHT="Orchis-Purple-Light-Compact"
 CIN_THEME_LIGHT="Orchis-Purple-Light-Compact"
 CIN_THEME_DARK="Orchis-Purple-Dark-Compact"
 
-VIM_THEME_DARK="palenight"
-VIM_THEME_LIGHT="lighter"
-VIM_THEME_TYPE="material_theme_style"
-GTK_ICON_LIGHT="Sevi-dark"
-GTK_ICON_DARK="Sevi-dark"
+VIM_THEME_DARK="mocha"
+VIM_THEME_LIGHT="latte"
+VIM_THEME_TYPE="catppuccin_flavour"
+
+GTK_ICON_LIGHT="kora"
+GTK_ICON_DARK="kora"
 CIN_ICON_LIGHT="Breeze_RC"
 CIN_ICON_DARK="Breeze_Dark_RC"
 
@@ -41,8 +42,8 @@ Set()
         cin_theme=$CIN_THEME_LIGHT
         cin_icon=$CIN_ICON_LIGHT
         cin_dock=$CIN_THEME_DOCK_LIGHT
-        # gnome_prefer="prefer-light"
-        sed -i s/"vim.g.$VIM_THEME_TYPE = '$VIM_THEME_DARK"/"vim.g.$VIM_THEME_TYPE = '$VIM_THEME_LIGHT"/ $HOME/.dotfiles/nvim/pkg/colorscheme.lua
+        gnome_prefer="prefer-light"
+        sed -i s/"vim.g.$VIM_THEME_TYPE = \"$VIM_THEME_DARK\""/"vim.g.$VIM_THEME_TYPE = \"$VIM_THEME_LIGHT\""/ $HOME/.dotfiles/nvim/pkg/colorscheme.lua
         sed -i s/"set background=dark"/"set background=light"/ $HOME/.dotfiles/nvim/pkg/colorscheme.lua
         cat $HOME/.dotfiles/alacritty/base.yaml $HOME/.dotfiles/alacritty/light.yaml > $HOME/.config/alacritty/alacritty.yml
     else
@@ -51,14 +52,14 @@ Set()
         gtk_icon=$GTK_ICON_DARK
         cin_icon=$CIN_ICON_DARK
         cin_dock=$CIN_THEME_DARK
-        # gnome_prefer="prefer-dark"
-        sed -i s/"vim.g.$VIM_THEME_TYPE = '$VIM_THEME_LIGHT"/"vim.g.$VIM_THEME_TYPE = '$VIM_THEME_DARK"/ $HOME/.dotfiles/nvim/pkg/colorscheme.lua
+        gnome_prefer="prefer-dark"
+        sed -i s/"vim.g.$VIM_THEME_TYPE = \"$VIM_THEME_LIGHT\""/"vim.g.$VIM_THEME_TYPE = \"$VIM_THEME_DARK\""/ $HOME/.dotfiles/nvim/pkg/colorscheme.lua
         sed -i s/"set background=light"/"set background=dark"/ $HOME/.dotfiles/nvim/pkg/colorscheme.lua
         cat $HOME/.dotfiles/alacritty/base.yaml $HOME/.dotfiles/alacritty/dark.yaml > $HOME/.config/alacritty/alacritty.yml
     fi
     gsettings set org.gnome.desktop.interface gtk-theme "$gtk_theme"
     gsettings set org.gnome.desktop.interface icon-theme "$gtk_icon"
-    # ggsettings set org.gnome.desktop.interface color-scheme "$gnome_prefer"
+    gsettings set org.gnome.desktop.interface color-scheme "$gnome_prefer"
     gsettings set org.gnome.desktop.wm.preferences theme "$gtk_theme"
     gsettings set org.gnome.desktop.interface gtk-key-theme "$gtk_theme" 
 

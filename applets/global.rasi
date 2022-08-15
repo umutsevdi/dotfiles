@@ -6,29 +6,30 @@
  */
 
 * {
-  solid-focus:                    #5294e2;
-  solid-focus-dark:               #2b75cc;
-  solid-bg:                       #32343d;
-  solid-bg-dark:                  #282a33;
-  solid-bg-selection:             #35373f;
-  solid-fg:                       #ffffff;
-  solid-fg-dark:                  #686e72;
-  solid-bg-warn:                  #f07178;
+  solid-focus:        #89B4FAff;
+  solid-focus-dark:   #89B4FAff;
+  solid-bg:           #CDD6F4ff;
+  solid-bg-dark:      #1E1E2Eff;
+  solid-bg-selection: #585B70ff;
+  solid-fg:           #CDD6F4ff;
+  solid-fg-dark:      #f38ba8ff;
+  solid-bg-warn:      #F38BA8ff;
 
-  focus:                    #5294e2e6;
-  focus-dark:               #2b75cce6;
-  bg:                       #32343de6;
-  bg-dark:                  #282a33e6;
-  bg-selection:             #35373fe6;
-  fg:                       #ffffffe6;
-  fg-dark:                  #686e72e6;
-  bg-none:                  #00000000;
-  bg-warn:                  #f07178e6;
-  bg-darkish:               #24242480;
-  nerdfont:                 "JetBrains Mono Nerd Font 11";
-  nerdfont-big:             "JetBrains Mono Nerd Font 20";
-  text:                     "Roboto Regular 11";
-  
-  round:                    8px;
-  round-small:              5px;
+  focus:              #89B4FAe6;
+  focus-dark:         #89B4FAe6;
+  bg:                 #CDD6F4e6;
+  bg-dark:            #1E1E2Ee6;
+  bg-selection:       #585B70e6;
+  fg:                 #CDD6F4e6;
+  fg-dark:            #f38ba8e6;
+  bg-none:            #00000000;
+  bg-warn:            #F38BA8e6;
+  bg-darkish:         #1E1E2E80;
+  nerdfont:           "JetBrains Mono Nerd Font 11";
+  nerdfont-big:       "JetBrains Mono Nerd Font 20";
+  text:               "Roboto Regular 11";
+
+  round:              8px;
+  round-small:        5px;
+  round-dropdown:     0 0 8px 8px;
 }
