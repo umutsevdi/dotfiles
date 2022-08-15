@@ -38,15 +38,15 @@ Install()
     dnf -y install dnf-plugins-core
     sudo dnf install -y \
     https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm \
-    https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
-        && echo "Added Non-Free Fedora Repositories"
-    dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo >> /tmp/install/rpm.logs \
-        && echo "Added GitHub CLI Repository"
-    dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo >> /tmp/install/rpm.logs \
-        && echo "Added Docker Repository"
+    https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm && \
+        echo "Added Non-Free Fedora Repositories"
+    dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo >> /tmp/install/rpm.logs &&  \
+        echo "Added GitHub CLI Repository"
+    dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo >> /tmp/install/rpm.logs &&  \
+        echo "Added Docker Repository"
     rpm --import https://packages.microsoft.com/keys/microsoft.asc
-    sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo' >> /tmp/install/rpm.logs \ 
-        && echo "Added VS Code Repository"
+    sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo' >> /tmp/install/rpm.logs && \
+        echo "Added VS Code Repository"
     echo "╭────────────────────────────────╮"
     echo "│ Updating programs and drivers  │"
     echo "╰────────────────────────────────╯"
@@ -64,18 +64,18 @@ Install()
     mkdir Documents Downloads Music Pictures Public src Templates Videos
     echo "Installing required programs"
     dnf install -y dbus-devel gcc git libconfig-devel libdrm-devel libev-devel libX11-devel libX11-xcb libXext-devel libxcb-devel mesa-libGL-devel meson pcre-devel pixman-devel uthash-devel xcb-util-image-devel xcb-util-renderutil-devel xorg-x11-proto-devel
-    dnf install -y playerctl scrot xdotool xsettingsd xrandr xinput xclip mpv
+    dnf install -y playerctl scrot xdotool  xrandr xinput xclip mpv gnome-online-accounts
     echo "Installing i3 window manager & compositor"
     dnf install -y --allowerasing i3-gaps rofi conky
     dnf install -y --allowerasing alacritty polybar
-    dnf install -y --allowerasing pasystray blueberry xfce4-power-manager nitrogen rofi
+    dnf install -y --allowerasing pasystray blueman xfce4-power-manager nitrogen rofi
     if [[ "$get_nvidia" = true ]];then
         dnf install akmod-nvidia -y
     fi
     # COMPILING PICOM
     echo "Compiling dccsillag/implement-window-animations"
     cd /tmp
-    git clone https://github.com/dccsillag
+    git clone https://github.com/dccsillag/picom/
     git checkout implement-window-animations
     cd picom
     git submodule update --init --recursive
@@ -90,7 +90,7 @@ Install()
     echo "│  Installing Development Tools  │"
     echo "╰────────────────────────────────╯"
     echo "from agriffis/neovim-nightly"
-    dnf copr enable agriffis/neovim-nightly
+    dnf copr enable agriffis/neovim-nightly -y
     echo "Installing NodeJS Pip Lua"
     dnf install neovim python3-neovim gh -y
     dnf module install nodejs:16/common -y
