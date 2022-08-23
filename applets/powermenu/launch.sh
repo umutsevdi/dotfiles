@@ -15,27 +15,43 @@ options="$shutdown\n$reboot\n$lock\n$sleep"
 
 chosen="`echo -e "$options" | $rofi_cmd -p "$uptime" -dmenu -selected-row 1`"
 
+echo $chosen
 case $chosen in
     $shutdown)
+                echo "shutting down"
 		systemctl poweroff
     ;;
     $reboot)
+                echo "rebooting"
 		systemctl reboot
     ;;
     $lock)
-        lockscreen
+        echo "locking"
+         if ! command -v cinnamon-screensaver-command &> /dev/null ; then
+            echo "cinnamon-screensaver doesn't exist, falling back to lockscreen" 1>&2
+            lockscreen
+        elif ! command -v lockscreen &> /dev/null ; then
+            echo "lockscreen doesn't exist, falling back to i3lock" 1>&2
+            i3lock
+        else
+            cinnamon-screensaver-command --activate
+        fi
     ;;
     $sleep)
+        echo "hibernate"
         killall dunst
 		playerctl pause
         (( `amixer get Master  | grep "\[on\]" | wc -l` > 0 )) && amixer set Master mute
 		systemctl suspend
 
-        if ! command -v lockscreen &> /dev/null ; then
+        if ! command -v cinnamon-screensaver-command &> /dev/null ; then
+            echo "cinnamon-screensaver doesn't exist, falling back to lockscreen" 1>&2
+            lockscreen
+        elif ! command -v lockscreen &> /dev/null ; then
             echo "lockscreen doesn't exist, falling back to i3lock" 1>&2
             i3lock
         else
-            lockscreen
+            cinnamon-screensaver-command --activate
         fi
 
         (( `ps -aux | grep 'dunst' | wc -l` == 0 )) && dunst -conf $HOME/.dotfiles/dunst/dunstrc

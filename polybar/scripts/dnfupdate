@@ -3,10 +3,5 @@ PACKAGE_ICON=
 UPDATE=`dnf check-update | awk '{print $1}' | grep [.] | wc -l`
 PKG=$UPDATE/`dnf list installed | wc -l`
 
-if (( $UPDATE > 0 )); then
-    (( $UPDATE > 1 )) && message="There are $UPDATE updates available." || message="There is an update available."
-    echo " $PACKAGE_ICON $PKG "
-    notify-send --app-name="Package Manager" --category="Package Manager" "$message" --icon="software-manager"
-else
-    echo
-fi
+(( $UPDATE > 10 )) && notify-send --app-name="Package Manager" --category="Package Manager" "There are $UPDATE updates available." --icon="software-manager"
+echo " $PACKAGE_ICON $PKG "

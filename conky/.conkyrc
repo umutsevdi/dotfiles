@@ -3,7 +3,7 @@
 
 conky.config = {
 -- Conky settings
-	update_interval = 1,
+	update_interval = 2,
 	override_utf8_locale = true,
 	double_buffer = true,
 	no_buffers = true,

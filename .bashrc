@@ -11,14 +11,31 @@ then
 fi
 export PATH
 
-GOPATH=$HOME/.config/go
+# ┌──────────────────────┐
+# │   Path  Management   │
+# └──────────────────────┘
+
+GOPATH=$HOME/go
 GOROOT=/lib/go
 JAVA_HOME="$(ls /lib/jvm | grep java-11-openjdk.)"
 GRADLE_PATH=/usr/local/gradle/bin
 DOTFILES_PATH=$HOME/.dotfiles/bin
-RUSTPATH=$HOME/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/bin
-export PATH="$GRADLE_PATH:$JAVA_HOME:$GOPATH/bin:$GOROOT/bin:$DOTFILES_PATH:$RUSTPATH:$PATH"
+export PATH="$GRADLE_PATH:$JAVA_HOME:$GOPATH/bin:$GOROOT/bin:$DOTFILES_PATH:$PATH"
 export EDITOR=/usr/bin/nvim
+
+# ┌──────────────────────┐
+# │ Directory Management │
+# └──────────────────────┘
+
+export GRADLE_USER_HOME=~/.config/gradle
+export GTK2_RC_FILES=~/.dotfiles/gtk/.gtkrc-2.0
+export XCURSOR_PATH=/usr/share/icons:~/.local/share/icons
+export LESSHISTFILE=~/.config/.lesshst
+export NODE_REPL_HISTORY=~/.config/.node_repl_history
+export _JAVA_OPTIONS=-Djava.util.prefs.userRoot=~/.config/java
+alias wget=wget --hsts-file="~/.config/.wget-hsts"
+
+
 # sudo alternatives --config java
 
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
@@ -35,6 +52,8 @@ fi
 
 unset rc
 [[ $- != *i* ]] && return
+
+[[ $- == *i* ]] && source "/home/umutsevdi/.fzf/shell/completion.bash" 2> /dev/null
 
 # alias
 FZF_DEFAULT_COMMAND="find -L"

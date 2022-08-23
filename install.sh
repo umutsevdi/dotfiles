@@ -55,13 +55,11 @@ Install()
     echo "Installing and configuring Graphical Utility Tools"
     echo "Configuring SDDM"
     dnf install sddm sddm-themes -y >> /tmp/install/graphic.logs
-    cp sddm/themes/sddm-chili-0.1.5 /usr/share/sddm/themes
+    cp sddm/themes/sddm-chili-0.1.5 /usr/share/sddm/themes -r
     cp sddm/sddm.conf /etc/sddm.conf
     systemctl enable sddm >> /tmp/install/graphic.logs
     systemctl set-default graphical.target >> /tmp/install/graphic.logs
     ## Directories ##
-    mkdir .config .cache .themes
-    mkdir Documents Downloads Music Pictures Public src Templates Videos
     echo "Installing required programs"
     dnf install -y dbus-devel gcc git libconfig-devel libdrm-devel libev-devel libX11-devel libX11-xcb libXext-devel libxcb-devel mesa-libGL-devel meson pcre-devel pixman-devel uthash-devel xcb-util-image-devel xcb-util-renderutil-devel xorg-x11-proto-devel
     dnf install -y playerctl scrot xdotool  xrandr xinput xclip mpv gnome-online-accounts
@@ -84,7 +82,7 @@ Install()
 
     ## REQUIRED PROGRAMS ##
     echo "Installing basic programs"
-    dnf install -y firefox nemo xed
+    dnf install -y firefox nemo gedit xarchiver
     ## CLI PROGRAMS ##
     echo "╭────────────────────────────────╮"
     echo "│  Installing Development Tools  │"
@@ -128,11 +126,11 @@ Install()
     npm install -g instant-markdown-d
     mkdir $HOME/.config/nvim
     echo "package.path = package.path .. ';/home/umutsevdi/.dotfiles/nvim/?.lua;/home/umutsevdi/.dotfiles/nvim/pkg/?.lua'" \ 
-        "\nvim.cmd('source /home/umutsevdi/.dotfiles/nvim/init.lua')" >> $HOME/.config/nvim/init.vim
+        "\nvim.cmd('source /home/umutsevdi/.dotfiles/nvim/init.lua')" >> $HOME/.config/nvim/init.lua
     if [ "$get_common" = true ]; then
         echo "Installing Common Programs"
         dnf install -y gnome-calculator gnome-font-viewer gnome-disk-utility \
-            geary gnome-calendar gnome-system-monitor geary eom dconf-edior
+            geary gnome-calendar gnome-system-monitor eom dconf-edior
         dnf install -y discord telegram obs-studio cheese epiphany evince gnome-software
         dnf install -y flatpak >> /tmp/install/flatpak.logs
         flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo  

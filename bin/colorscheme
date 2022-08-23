@@ -6,20 +6,20 @@
 color_value=`cat /tmp/colorscheme 2>/dev/null`
 [ "$color_value" = "" ] && color_value=false
 
-GTK_THEME_LIGHT="Catppuccin-Latte"
-GTK_THEME_DARK="Catppuccin-Mocha"
-CIN_THEME_DOCK_LIGHT="Orchis-Purple-Light-Compact"
-CIN_THEME_LIGHT="Orchis-Purple-Light-Compact"
-CIN_THEME_DARK="Orchis-Purple-Dark-Compact"
+GTK_THEME_LIGHT="Qogir-Light"
+GTK_THEME_DARK="Qogir-Dark"
+CIN_THEME_DOCK_LIGHT="Qogir-Light"
+CIN_THEME_LIGHT="Qogir-Light"
+CIN_THEME_DARK="Qogir-Dark"
 
 VIM_THEME_DARK="mocha"
 VIM_THEME_LIGHT="latte"
 VIM_THEME_TYPE="catppuccin_flavour"
 
-GTK_ICON_LIGHT="kora"
-GTK_ICON_DARK="kora"
-CIN_ICON_LIGHT="Breeze_RC"
-CIN_ICON_DARK="Breeze_Dark_RC"
+GTK_ICON_LIGHT="Flat-Remix-Blue-Dark"
+GTK_ICON_DARK="Flat-Remix-Blue-Dark"
+CIN_ICON_LIGHT="Flat-Remix-Blue-Light"
+CIN_ICON_DARK="Flat-Remix-Blue-Dark"
 
 Help()
 {

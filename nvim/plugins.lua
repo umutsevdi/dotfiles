@@ -32,7 +32,7 @@ call plug#begin()
     Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install()}}          " Conqueror of Completions: Language server for any language
     Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }                                       " Go official vim plugin
     Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown', 'do': 'yarn install'}  " live markdown renderer server
-    Plug 'catppuccin/nvim', {'as': 'catppuccin'}
+    Plug 'rakr/vim-one'
     Plug 'turbio/bracey.vim', {'do': 'npm install --prefix server'}                          " Run live web server to test HTML, CSS, JS
     Plug 'michaelb/sniprun', {'do': 'bash install.sh'}                                       " Instant code runner
     Plug 'rcarriga/nvim-notify'                                                              " Neovim's notification plugin
@@ -43,8 +43,7 @@ call plug#end()
 ]])
 -- import configurations
 require("pkg/colorscheme")
-require("catppuccin").setup()
-vim.cmd("colorscheme catppuccin")
+vim.cmd("colorscheme one")
 
 require("pkg/markdown")
 require("pkg/nerdtree")
