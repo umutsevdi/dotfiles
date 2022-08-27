@@ -1,0 +1,114 @@
+/*
+ * launcher/config.rasi - Launcher
+ * Layout configuration for launcher applet
+ * @author umutsevdi
+ */
+
+@import "../global.rasi"
+
+configuration {
+    font:                           "Roboto Regular 10";
+    show-icons:                     true;
+    icon-theme:                     "Flat-Remix-Blue-Dark";
+    display-drun:                   "";
+    drun-display-format:            "{name}";
+    disable-history:                false;
+    sidebar-mode:                   false;
+}
+
+* {
+    background-color:               @bg;
+    text-color:                     @solid-fg;
+}
+
+window {
+    transparency:                   "real";
+    border-radius:                  @round;
+    location:                       center;
+	width:							30%;
+}
+
+mainbox {
+    background-color:               @bg-dark;
+    children:                       [ inputbar, listview ];
+    spacing:                        12px;
+}
+
+listview {
+    columns:						10;
+    lines:							1;
+    spacing:                        12px;
+    cycle:                          true;
+    dynamic:                        true;
+    layout:                         vertical;
+    background-color:               @bg-none;
+    margin:                         8px;
+}
+
+inputbar {
+    enabled: false;
+    position:                       center;
+}
+
+prompt {
+    enabled: 						false;
+}
+
+textbox-prompt-colon {
+	expand: 						false;
+    enabled: 						false;
+}
+
+
+element {
+    background-color:               @bg-darkish;
+    text-color:                     @fg;
+    orientation:                    vertical;
+    border-radius:                  @round-small;
+    padding:                        0.5% 0.5% 0.5% 0.5%;
+}
+
+element-icon {
+    background-color:               @bg-none;
+    text-color:                     inherit;
+    horizontal-align:               0.5;
+    vertical-align:                 0.5;
+    size:                           48px;
+    border:                         0px;
+}
+
+element-text {
+    background-color:               @bg-none;
+    text-color:                     inherit;
+    expand:                         true;
+    horizontal-align:               0.5;
+    vertical-align:                 0.5;
+    margin:                         0.5% 0.5% -0.5% 0.5%;
+}
+
+element normal.urgent,
+element alternate.urgent {
+    text-color:                     @bg-selection;
+    border-radius:                  @round;
+}
+
+element normal.active,
+element alternate.active {
+    text-color:                     @bg-selection;
+}
+
+element selected {
+    background-color:               @solid-focus;
+    text-color:                     @solid-bg-dark;
+    border:                  		0px;
+    border-radius:                  @round;
+    border-color:                  	@border;
+}
+
+element selected.urgent {
+    text-color:                     @bg-selection;
+}
+
+element selected.active {
+    color:                          @bg-selection;
+}

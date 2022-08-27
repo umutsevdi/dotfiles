@@ -4,7 +4,7 @@
 # @requires i3, xsettingsd
 
 color_value=`cat /tmp/colorscheme 2>/dev/null`
-[ "$color_value" = "" ] && color_value=false
+[ "$color_value" = "" ] && color_value=true
 
 GTK_THEME_LIGHT="Qogir-Light"
 GTK_THEME_DARK="Qogir-Dark"

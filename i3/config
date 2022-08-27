@@ -175,6 +175,7 @@ bindsym $mod+d exec applet -r launcher
 bindsym $mod+m exec applet -r player 
 bindsym $mod+Shift+Escape exec ~/.dotfiles/bin/lockscreen
 bindsym $mod+semicolon exec ~/.dotfiles/applets/emoji/launch.sh
+bindsym $mod+Tab exec ~/.dotfiles/applets/tab/launch.sh
 
 # window resizer
 # resize window (you can also use the mouse for that)

@@ -18,23 +18,29 @@ export PATH
 GOPATH=$HOME/go
 GOROOT=/lib/go
 JAVA_HOME="$(ls /lib/jvm | grep java-11-openjdk.)"
-GRADLE_PATH=/usr/local/gradle/bin
-DOTFILES_PATH=$HOME/.dotfiles/bin
-export PATH="$GRADLE_PATH:$JAVA_HOME:$GOPATH/bin:$GOROOT/bin:$DOTFILES_PATH:$PATH"
+GRDL_PATH=/usr/local/gradle/bin
+DOT_PATH=$HOME/.dotfiles/bin
+JBT_PATH=$HOME/.local/share/JetBrains/Toolbox/scripts
+export PATH="$GRDL_PATH:$JAVA_HOME:$GOPATH/bin:$GOROOT/bin:$DOT_PATH:$JBT_PATH:$PATH"
 export EDITOR=/usr/bin/nvim
 
 # ┌──────────────────────┐
 # │ Directory Management │
 # └──────────────────────┘
 
-export GRADLE_USER_HOME=~/.config/gradle
-export GTK2_RC_FILES=~/.dotfiles/gtk/.gtkrc-2.0
-export XCURSOR_PATH=/usr/share/icons:~/.local/share/icons
-export LESSHISTFILE=~/.config/.lesshst
-export NODE_REPL_HISTORY=~/.config/.node_repl_history
-export _JAVA_OPTIONS=-Djava.util.prefs.userRoot=~/.config/java
-alias wget=wget --hsts-file="~/.config/.wget-hsts"
-
+export GRADLE_USER_HOME=$HOME/.config/gradle
+export GTK2_RC_FILES=$HOME/.dotfiles/gtk/.gtkrc-2.0
+export XCURSOR_PATH=/usr/share/icons:$HOME/.local/share/icons
+export LESSHISTFILE=$HOME/.config/.lesshst
+export NODE_REPL_HISTORY=$HOME/.config/.node_repl_history
+export _JAVA_OPTIONS=-Djava.util.prefs.userRoot=$HOME/.config/java
+alias wget=wget --hsts-file="$HOME/.config/.wget-hsts"
+export XDG_DATA_HOME=$HOME/.local/share/
+export XDG_CONFIG_HOME=$HOME/.config/
+export XDG_STATE_HOME=$HOME/.local/state
+export XDG_CACHE_HOME=$HOME/.cache
+export ANDROID_HOME=$HOME/.config/android
+export HISTFILE=$HOME/.config/history
 
 # sudo alternatives --config java
 
@@ -42,8 +48,8 @@ alias wget=wget --hsts-file="~/.config/.wget-hsts"
 # export SYSTEMD_PAGER=
 
 # User specific aliases and functions
-if [ -d ~/.bashrc.d ]; then
-	for rc in ~/.bashrc.d/*; do
+if [ -d $HOME/.bashrc.d ]; then
+	for rc in $HOME/.bashrc.d/*; do
 		if [ -f "$rc" ]; then
 			. "$rc"
 		fi
