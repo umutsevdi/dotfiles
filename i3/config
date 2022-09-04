@@ -19,7 +19,7 @@ set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
 set $bg-color 	         #89b4fa
-set $inactive-bg-color   #1e1e2e
+set $inactive-bg-color   #282c34
 set $text-color          #cdd6f4
 set $inactive-text-color #3d3d3d
 set $urgent-bg-color     #f07178
@@ -37,30 +37,28 @@ font pango:Roboto Regular 10
 # enable tap to click
 exec  xinput set-prop "PNP0C50:0e 06CB:7E7E Touchpad" "libinput Tapping Enabled" 1
 
-
-exec /usr/lib/gnome-online-accounts/goa-daemon --replace
+# exec /usr/lib/gnome-online-accounts/goa-daemon --replace
 exec_always --no-startup-id /usr/libexec/gsd-xsettings
 exec --no-startup-id colorscheme --refresh
 # select a random wallpaper on start and save it for the future sessions
 exec --no-startup-id sleep 0.1;$HOME/.dotfiles/bin/pickwp
-# anytime i3 wm restarts kills all existing polybars and creates one
-exec_always --no-startup-id killall polybar; sleep 0.1;  polybar bottom & polybar main; 
 # initialize compositor
 exec_always --no-startup-id killall picom; picom -b --config ~/.dotfiles/picom/picom.conf  --experimental-backends 
 # initialize applets 
-exec_always --no-startup-id pkill -f blueman-tray; pkill -f nm-applet; pkill xfce4-power-manager;killall dunst;pkill -f kdeconnect-indicator
-exec --no-startup-id killall dnfdragora-updater
-exec_always --no-startup-id killall pasystray
-exec_always --no-startup-id blueman-applet
-exec_always --no-startup-id nm-applet
-exec_always --no-startup-id xfce4-power-manager
-exec --no-startup-id dnfdragora-updater
-exec_always --no-startup-id dunst -conf $HOME/.dotfiles/dunst/dunstrc
-exec_always --no-startup-id pasystray --notify=sink_default source_default 
+exec --no-startup-id pasystray --notify=sink_default source_default 
+exec --no-startup-id xfce4-power-manager
+exec --no-startup-id blueman-applet
+exec --no-startup-id nm-applet
+
+exec --no-startup-id geary --gapplication-service
+exec --no-startup-id kdeconnect-indicator 
+
+exec_always --no-startup-id killall dunst; dunst -conf $HOME/.dotfiles/dunst/dunstrc
 exec_always --no-startup-id killall conky; sleep 0.1; conky --config=$HOME/.dotfiles/conky/.conkyrc --daemonize --pause=0;
-exec_always --no-startup-id geary --gapplication-service
-exec_always --no-startup-id  kdeconnect-indicator 
 # exec_always --no-startup-id protonvpn --gapplication-service
+
+# anytime i3 wm restarts kills all existing polybars and creates one
+exec_always --no-startup-id killall polybar; sleep 0.1;  polybar bottom & polybar main; 
 
 #################
 #     RULES     #  
@@ -97,6 +95,7 @@ for_window [window_role="task_dialog"] floating enable
 for_window [window_role="Preferences"] floating enable
 for_window [window_type="dialog"] floating enable
 for_window [window_type="menu"] floating enable
+for_window [instance="*bout*"] floating enable
 ##################
 #  KEYBINDINGS  #
 #################
@@ -107,7 +106,7 @@ bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
 bindsym $mod+space exec kbswap tr us
-bindsym Print exec gnome-screenshot -a --interactive
+bindsym Print exec gnome-screenshot --window --remove-border  --delay=2 --clipboard
 # bindsym --locked XF86MonBrightnessUp exec --no-startup-id light -A 10
 # bindsym --locked XF86MonBrightnessDown exec --no-startup-id light -U 10
 # using mod + shift + c refreshes i3 and i3 blocks
@@ -170,12 +169,12 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 bindsym $mod+Shift+c exec dotfetch;
 
 # applets
-bindsym $mod+Escape exec applet -r powermenu
-bindsym $mod+d exec applet -r launcher
-bindsym $mod+m exec applet -r player 
+bindsym $mod+Escape       exec applet -r powermenu
+bindsym $mod+d            exec applet -r launcher
+bindsym $mod+m            exec applet -r player 
+bindsym $mod+semicolon    exec applet -r emoji
+bindsym $mod+Tab          exec applet -r tab
 bindsym $mod+Shift+Escape exec ~/.dotfiles/bin/lockscreen
-bindsym $mod+semicolon exec ~/.dotfiles/applets/emoji/launch.sh
-bindsym $mod+Tab exec ~/.dotfiles/applets/tab/launch.sh
 
 # window resizer
 # resize window (you can also use the mouse for that)

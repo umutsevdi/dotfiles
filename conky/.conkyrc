@@ -42,12 +42,13 @@ conky.config = {
     color5 = '#ABE9B3',
     color6 = '#FAE3B0',
 };
---${alignr}${color2}${font JetBrains Mono :italic:size=10}${texeci 1800 curl wttr.in?format="%C,+%t\n"}${voffset -10}
 conky.text = [[${alignc}${color0}${font Roboto Bold:size=20}${time %A}${voffset -25}
-${alignc}${color1}${font Roboto Regular:size=55}${time %B%e}${voffset -45}
+${alignc}${color1}${font Roboto Regular:size=55}${time %b%e}${voffset -45}
 ${alignc}${font JetBrains Mono Regular:bold:size=100}${time %k:%M}${font}
 ${alignr}
-${font JetBrains Mono Regular:bold:size=10}${color3}Top Processes:${font JetBrains Mono :italic:size=9}  ${cpu}%  ${cpubar}
+${font JetBrains Mono Regular:bold:size=10}Memory:${font JetBrains Mono :italic:size=9}  ${mem}  ${membar}
+${font JetBrains Mono Regular:bold:size=10}Disk:${font JetBrains Mono :italic:size=9}      ${fs_used /}  ${fs_bar /}
+${font JetBrains Mono Regular:bold:size=10}${color3}Top Processes:${font JetBrains Mono :italic:size=9}   ${cpu}%  ${cpubar}
 ${font JetBrains Mono Regular :size=10}${color3}Name                                PID${alignr}CPU%           TIME${font JetBrains Mono :italic:size=9}
 ${voffset -10}$hr
 ${voffset -3}${color3}${top name 1} ${top pid 1} ${alignr}${top cpu 1} ${top time 1}

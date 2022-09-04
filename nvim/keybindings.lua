@@ -49,7 +49,7 @@ vim.keymap.set("n", "<leader>ss", ":source $MYVIMRC<CR>")
 -- tab management
 vim.keymap.set("n", "<A-n>", ":tabnew .<CR>")
 vim.keymap.set("n", "<A-q>", ":tabclose <CR>")
-vim.keymap.set("n", "<C-t>", ":vsplit .<CR>")
+vim.keymap.set("n", "<A-t>", ":vsplit .<CR>")
 
 --NerdTree
 vim.keymap.set("n", "<leader>n", ":NvimTreeFocus<CR>")

@@ -8,7 +8,7 @@ color_value=`cat /tmp/colorscheme 2>/dev/null`
 
 GTK_THEME_LIGHT="Qogir-Light"
 GTK_THEME_DARK="Qogir-Dark"
-CIN_THEME_DOCK_LIGHT="Qogir-Light"
+CIN_THEME_DOCK_LIGHT="Qogir"
 CIN_THEME_LIGHT="Qogir-Light"
 CIN_THEME_DARK="Qogir-Dark"
 
@@ -18,8 +18,8 @@ VIM_THEME_TYPE="catppuccin_flavour"
 
 GTK_ICON_LIGHT="Flat-Remix-Blue-Dark"
 GTK_ICON_DARK="Flat-Remix-Blue-Dark"
-CIN_ICON_LIGHT="Flat-Remix-Blue-Light"
-CIN_ICON_DARK="Flat-Remix-Blue-Dark"
+CIN_ICON_LIGHT="manasarovar"
+CIN_ICON_DARK="manasarovar"
 
 Help()
 {

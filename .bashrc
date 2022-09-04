@@ -21,9 +21,10 @@ JAVA_HOME="$(ls /lib/jvm | grep java-11-openjdk.)"
 GRDL_PATH=/usr/local/gradle/bin
 DOT_PATH=$HOME/.dotfiles/bin
 JBT_PATH=$HOME/.local/share/JetBrains/Toolbox/scripts
-export PATH="$GRDL_PATH:$JAVA_HOME:$GOPATH/bin:$GOROOT/bin:$DOT_PATH:$JBT_PATH:$PATH"
+APLT_PATH=/home/umutsevdi/src/linux/rofi-applets
+export PATH="$GRDL_PATH:$JAVA_HOME:$GOPATH/bin:$GOROOT/bin:$DOT_PATH:$JBT_PATH:$APLT_PATH:$PATH"
 export EDITOR=/usr/bin/nvim
-
+export ROFI_APPLETS_PATH=$APLT_PATH
 # ┌──────────────────────┐
 # │ Directory Management │
 # └──────────────────────┘
@@ -75,9 +76,9 @@ alias ff='cd $(dirname $(fzf))'
 
 # typo aliases
 alias sl=ls
-alias nivm=nvim
+alias v=vi
 alias n=nvim
-alias v=vim
+alias nivm=nvim
 alias nuvm=nvim
 alias novm=nvim
 alias nvm=nvim
