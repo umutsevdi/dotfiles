@@ -1,3 +1,8 @@
 #!/bin/bash 
-weather=`curl "wttr.in?format=%c+%C,+%t" 2>/dev/null`
-echo $weather
+data=`curl "wttr.in?format=%c+%t" 2>/dev/null`
+if grep -q "Unknown location" <<< "$data"; then
+    echo
+else
+    echo "$data"
+fi
+#?format=3

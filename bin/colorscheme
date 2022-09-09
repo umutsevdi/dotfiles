@@ -16,8 +16,8 @@ VIM_THEME_DARK="mocha"
 VIM_THEME_LIGHT="latte"
 VIM_THEME_TYPE="catppuccin_flavour"
 
-GTK_ICON_LIGHT="Flat-Remix-Blue-Dark"
-GTK_ICON_DARK="Flat-Remix-Blue-Dark"
+GTK_ICON_LIGHT="manasarovar"
+GTK_ICON_DARK="manasarovar"
 CIN_ICON_LIGHT="manasarovar"
 CIN_ICON_DARK="manasarovar"
 

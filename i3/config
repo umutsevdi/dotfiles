@@ -96,6 +96,7 @@ for_window [window_role="Preferences"] floating enable
 for_window [window_type="dialog"] floating enable
 for_window [window_type="menu"] floating enable
 for_window [instance="*bout*"] floating enable
+for_window [instance="Reminders"] floating enable
 ##################
 #  KEYBINDINGS  #
 #################
@@ -234,3 +235,64 @@ mode "display mode: (1)auto, (2)extend-right, (3)extend-left, (4)set-primary, (5
         bindsym $mod+w mode "default"
 }
 
+# KEYBINDINGS TEST 
+# Check with xmodmap -pke
+bindsym XF86Search exec notify-send "Search key pressed" --icon keyboard
+bindsym XF86Go exec notify-send "Go key pressed" --icon keyboard
+bindsym Find exec notify-send "Find key pressed" --icon keyboard
+bindsym Help exec notify-send "Help key pressed" --icon keyboard
+bindsym XF86LaunchA exec notify-send "Launch key pressed" --icon keyboard
+bindsym XF86MenuKB exec notify-send "Menu key pressed" --icon keyboard
+bindsym XF86Calculator exec notify-send "Calculator key pressed" --icon keyboard
+bindsym XF86Explorer exec notify-send "Explorer key pressed" --icon keyboard
+# XF86AudioNext NoSymbol XF86AudioNext
+# XF86AudioPlay XF86AudioPause XF86AudioPlay XF86AudioPause
+# XF86AudioPrev NoSymbol XF86AudioPrev
+# XF86AudioStop XF86Eject XF86AudioStop XF86Eject
+# XF86Messenger NoSymbol XF86Messenger
+# XF86Finance NoSymbol XF86Finance
+# XF86Game NoSymbol XF86Game
+# XF86Shop NoSymbol XF86Shop
+# XF86ScreenSaver NoSymbol XF86ScreenSaver
+# XF86RotateWindows NoSymbol XF86RotateWindows
+# XF86TaskPane NoSymbol XF86TaskPane
+# XF86Mail NoSymbol XF86Mail
+# XF86Favorites NoSymbol XF86Favorites
+# XF86MyComputer NoSymbol XF86MyComputer
+# XF86Phone NoSymbol XF86Phone
+# XF86Tools NoSymbol XF86Tools
+# XF86HomePage NoSymbol XF86HomePage
+# XF86Reload NoSymbol XF86Reload
+# XF86Close NoSymbol XF86Close
+# XF86ScrollUp NoSymbol XF86ScrollUp
+# XF86ScrollDown NoSymbol XF86ScrollDown
+# parenleft NoSymbol parenleft
+# parenright NoSymbol parenright
+# XF86New NoSymbol XF86New
+# Redo NoSymbol Redo
+# XF86Tools NoSymbol XF86Tools
+# XF86AudioPlay NoSymbol XF86AudioPlay
+# XF86AudioPause NoSymbol XF86AudioPause
+# XF86Suspend NoSymbol XF86Suspend
+# XF86Close NoSymbol XF86Close
+# Print NoSymbol Print
+# XF86WebCam NoSymbol XF86WebCam
+# XF86AudioPreset NoSymbol XF86AudioPreset
+# XF86MonBrightnessDown NoSymbol XF86MonBrightnessDown
+# XF86MonBrightnessUp NoSymbol XF86MonBrightnessUp
+# XF86AudioMedia NoSymbol XF86AudioMedia
+# XF86Display NoSymbol XF86Display
+# XF86KbdLightOnOff NoSymbol XF86KbdLightOnOff
+# XF86KbdBrightnessDown NoSymbol XF86KbdBrightnessDown
+# XF86KbdBrightnessUp NoSymbol XF86KbdBrightnessUp
+# XF86Send NoSymbol XF86Send
+# XF86Reply NoSymbol XF86Reply
+# XF86MailForward NoSymbol XF86MailForward
+# XF86Save NoSymbol XF86Save
+# XF86Documents NoSymbol XF86Documents
+# XF86Battery NoSymbol XF86Battery
+# XF86Bluetooth NoSymbol XF86Bluetooth
+# XF86WLAN NoSymbol XF86WLAN
+# XF86UWB NoSymbol XF86UWB
+# XF86Next_VMode NoSymbol XF86Next_VMode
+# XF86Prev_VMode NoSymbol XF86Prev_VMode

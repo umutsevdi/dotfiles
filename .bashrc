@@ -62,7 +62,9 @@ unset rc
 
 [[ $- == *i* ]] && source "/home/umutsevdi/.fzf/shell/completion.bash" 2> /dev/null
 
-# alias
+# ┌──────────────────────┐
+# │       Aliases        │
+# └──────────────────────┘
 FZF_DEFAULT_COMMAND="find -L"
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
@@ -74,7 +76,7 @@ alias rm='rm -i'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 alias ff='cd $(dirname $(fzf))'
 
-# typo aliases
+# Typo aliases
 alias sl=ls
 alias v=vi
 alias n=nvim
@@ -85,9 +87,14 @@ alias nvm=nvim
 alias vim=nvim
 alias cs=colorscheme
 
+
 # ps
 #PS1='[\u@\h \W]\$ '
 PS1="\e[34;1m\t \e[33;3m\W →\e[39;0m "
-# launch
-echo -e "\e[01m$(whoami)@$(hostname) - \e[36m$(date +%a' '%d' '%b' '%Y)\e[39;0m"
+
+# ┌──────────────────────┐
+# │      Initialize      │
+# └──────────────────────┘
+echo -e "\e[33;1m`whoami`@`hostname` - \e[36m`date +%a' '%d' '%b' '%Y`"
+echo -e "\e[33;1m──────────────────────────────────\e[39;0m"
 $HOME/.dotfiles/bin/pots
