@@ -66,7 +66,7 @@ Install()
     echo "Installing i3 window manager & compositor"
     dnf install -y --allowerasing i3-gaps rofi conky
     dnf install -y --allowerasing alacritty polybar
-    dnf install -y --allowerasing pasystray blueberry xfce4-power-manager nitrogen rofi xfce4-clipman-plugin
+    dnf install -y --allowerasing pasystray blueberry xfce4-power-manager nitrogen rofi xfce4-clipman-plugin glava 
     if [[ "$get_nvidia" = true ]];then
         dnf install akmod-nvidia -y
     fi
