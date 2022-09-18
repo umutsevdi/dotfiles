@@ -40,9 +40,10 @@ export XDG_DATA_HOME=$HOME/.local/share/
 export XDG_CONFIG_HOME=$HOME/.config/
 export XDG_STATE_HOME=$HOME/.local/state
 export XDG_CACHE_HOME=$HOME/.cache
+export QT_QPA_PLATFORMTHEME=gnome
 export ANDROID_HOME=$HOME/.config/android
 export HISTFILE=$HOME/.config/history
-
+export TERMINAL=/bin/alacritty
 # sudo alternatives --config java
 
 # Uncomment the following line if you don't like systemctl's auto-paging feature:

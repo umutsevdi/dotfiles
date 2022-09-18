@@ -47,9 +47,9 @@ exec_always --no-startup-id killall picom; picom -b --config ~/.dotfiles/picom/p
 # initialize applets 
 exec --no-startup-id pasystray --notify=sink_default source_default 
 exec --no-startup-id xfce4-power-manager
-exec --no-startup-id blueman-applet
+exec --no-startup-id blueberry-tray 
 exec --no-startup-id nm-applet
-
+exec --no-startup-id clipman
 exec --no-startup-id geary --gapplication-service
 exec --no-startup-id kdeconnect-indicator 
 
@@ -85,7 +85,7 @@ for_window [instance="Gnome-screenshot*"] floating enable
 for_window [instance="xfce4*"] floating enable
 for_window [instance="xfce-*"] floating enable
 for_window [instance="pavucontrol"] floating enable
-for_window [instance="blueman-manager"] floating enable
+for_window [instance="blueberry"] floating enable
 # Generated windows.
 for_window [title="(?:Open|Save) (?:File|Folder|As)"] floating enable;
 for_window [title="(?:Open|Save) (?:File|Folder|As)"] resize set 800 600
@@ -107,7 +107,7 @@ bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
 bindsym $mod+space exec kbswap tr us
-bindsym Print exec gnome-screenshot --window --remove-border  --delay=2 --clipboard
+bindsym Print exec gnome-screenshot --area --clipboard
 # bindsym --locked XF86MonBrightnessUp exec --no-startup-id light -A 10
 # bindsym --locked XF86MonBrightnessDown exec --no-startup-id light -U 10
 # using mod + shift + c refreshes i3 and i3 blocks
@@ -245,54 +245,3 @@ bindsym XF86LaunchA exec notify-send "Launch key pressed" --icon keyboard
 bindsym XF86MenuKB exec notify-send "Menu key pressed" --icon keyboard
 bindsym XF86Calculator exec notify-send "Calculator key pressed" --icon keyboard
 bindsym XF86Explorer exec notify-send "Explorer key pressed" --icon keyboard
-# XF86AudioNext NoSymbol XF86AudioNext
-# XF86AudioPlay XF86AudioPause XF86AudioPlay XF86AudioPause
-# XF86AudioPrev NoSymbol XF86AudioPrev
-# XF86AudioStop XF86Eject XF86AudioStop XF86Eject
-# XF86Messenger NoSymbol XF86Messenger
-# XF86Finance NoSymbol XF86Finance
-# XF86Game NoSymbol XF86Game
-# XF86Shop NoSymbol XF86Shop
-# XF86ScreenSaver NoSymbol XF86ScreenSaver
-# XF86RotateWindows NoSymbol XF86RotateWindows
-# XF86TaskPane NoSymbol XF86TaskPane
-# XF86Mail NoSymbol XF86Mail
-# XF86Favorites NoSymbol XF86Favorites
-# XF86MyComputer NoSymbol XF86MyComputer
-# XF86Phone NoSymbol XF86Phone
-# XF86Tools NoSymbol XF86Tools
-# XF86HomePage NoSymbol XF86HomePage
-# XF86Reload NoSymbol XF86Reload
-# XF86Close NoSymbol XF86Close
-# XF86ScrollUp NoSymbol XF86ScrollUp
-# XF86ScrollDown NoSymbol XF86ScrollDown
-# parenleft NoSymbol parenleft
-# parenright NoSymbol parenright
-# XF86New NoSymbol XF86New
-# Redo NoSymbol Redo
-# XF86Tools NoSymbol XF86Tools
-# XF86AudioPlay NoSymbol XF86AudioPlay
-# XF86AudioPause NoSymbol XF86AudioPause
-# XF86Suspend NoSymbol XF86Suspend
-# XF86Close NoSymbol XF86Close
-# Print NoSymbol Print
-# XF86WebCam NoSymbol XF86WebCam
-# XF86AudioPreset NoSymbol XF86AudioPreset
-# XF86MonBrightnessDown NoSymbol XF86MonBrightnessDown
-# XF86MonBrightnessUp NoSymbol XF86MonBrightnessUp
-# XF86AudioMedia NoSymbol XF86AudioMedia
-# XF86Display NoSymbol XF86Display
-# XF86KbdLightOnOff NoSymbol XF86KbdLightOnOff
-# XF86KbdBrightnessDown NoSymbol XF86KbdBrightnessDown
-# XF86KbdBrightnessUp NoSymbol XF86KbdBrightnessUp
-# XF86Send NoSymbol XF86Send
-# XF86Reply NoSymbol XF86Reply
-# XF86MailForward NoSymbol XF86MailForward
-# XF86Save NoSymbol XF86Save
-# XF86Documents NoSymbol XF86Documents
-# XF86Battery NoSymbol XF86Battery
-# XF86Bluetooth NoSymbol XF86Bluetooth
-# XF86WLAN NoSymbol XF86WLAN
-# XF86UWB NoSymbol XF86UWB
-# XF86Next_VMode NoSymbol XF86Next_VMode
-# XF86Prev_VMode NoSymbol XF86Prev_VMode

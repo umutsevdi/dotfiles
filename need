@@ -1,0 +1,1 @@
+qgnomeplatform-qt5
