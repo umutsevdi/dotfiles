@@ -32,7 +32,8 @@ set showtabline=2
 " set manual folding for functions, conditions etc.
 set foldmethod=manual
 
-set mouse=a
+" set mouse=extend
+set mousemodel=extend
 
 set inccommand=nosplit
 
@@ -45,8 +46,6 @@ set smartindent
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
 set termguicolors
-
-set mouse=
 
 ]])
 o.termguicolors = true

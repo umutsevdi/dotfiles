@@ -48,7 +48,6 @@ vim.keymap.set("n", "qw", ":wq<CR>")
 vim.keymap.set("n", "<leader>ss", ":source $MYVIMRC<CR>")
 -- tab management
 vim.keymap.set("n", "<A-n>", ":tabnew .<CR>")
-vim.keymap.set("n", "<A-q>", ":tabclose <CR>")
 vim.keymap.set("n", "<A-t>", ":vsplit .<CR>")
 
 --NerdTree
@@ -58,6 +57,7 @@ vim.keymap.set("n", "<A-Tab>", ":NERDTreeToggle | TagbarToggle <CR>")
 
 --format code
 vim.keymap.set("n", "<A-f>", ":Format <CR>")
+vim.keymap.set("n", "<A-q>", ":CodeActionMenu <CR>")
 --Coc Diagnostic Menu
 vim.keymap.set("n", "<silent> <A-d>", "<CR>  :CocDiagnostics <CR>")
 

@@ -49,12 +49,13 @@ exec --no-startup-id pasystray --notify=sink_default source_default
 exec --no-startup-id xfce4-power-manager
 exec --no-startup-id blueberry-tray 
 exec --no-startup-id nm-applet
-exec --no-startup-id clipman
+exec --no-startup-id xfce4-clipman
 exec --no-startup-id geary --gapplication-service
 exec --no-startup-id kdeconnect-indicator 
 
 exec_always --no-startup-id killall dunst; dunst -conf $HOME/.dotfiles/dunst/dunstrc
 exec_always --no-startup-id killall conky; sleep 0.1; conky --config=$HOME/.dotfiles/conky/.conkyrc --daemonize --pause=0;
+exec_always --no-startup-id killall glava; sleep 1; glava --desktop;
 # exec_always --no-startup-id protonvpn --gapplication-service
 
 # anytime i3 wm restarts kills all existing polybars and creates one

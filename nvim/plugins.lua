@@ -14,33 +14,72 @@
 -- @author umutsevdi
 
 -- VimPlug Plugins
-vim.cmd([[
-call plug#begin()
-    Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
-    Plug 'junegunn/vim-easy-align'                                                           " Auto align
-    Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'                                      " Snippet support
-    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }                        " FZF
-    Plug 'ryanoasis/vim-devicons'                                                            " Vim NerdFont icons
-    Plug 'preservim/nerdtree'                                                                " NERDTree is the file tree on right
-    Plug 'nvim-lua/plenary.nvim'                                                             " Telescope requires this package
-    Plug 'nvim-telescope/telescope.nvim'                                                     " Telescope is a FZF extension that displays preview
-    Plug 'nvim-lualine/lualine.nvim'                                                         " Lualine is the bar on the bottom that displays variues elements
-    Plug 'tpope/vim-fugitive'                                                                " Git Integration
-    Plug 'gitgutter/Vim'                                                                     " Displays git diff
-    Plug 'preservim/tagbar'                                                                  " Tag bar displays functions, classes and variables of files on the left 
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}                              " Syntax highlighting 
-    Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install()}}          " Conqueror of Completions: Language server for any language
-    Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }                                       " Go official vim plugin
-    Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown', 'do': 'yarn install'}  " live markdown renderer server
-    Plug 'rakr/vim-one'
-    Plug 'turbio/bracey.vim', {'do': 'npm install --prefix server'}                          " Run live web server to test HTML, CSS, JS
-    Plug 'michaelb/sniprun', {'do': 'bash install.sh'}                                       " Instant code runner
-    Plug 'rcarriga/nvim-notify'                                                              " Neovim's notification plugin
-    Plug 'vim-test/vim-test'                                                                 " Test plugin for Vim
-    Plug 'LudoPinelli/comment-box.nvim'
-call plug#end()
+require('packer').startup(function(use)
+    use 'wbthomason/packer.nvim'                                                           -- Packer can manage itself 
+    use 'rdnetto/YCM-Generator'
+    use 'ryanoasis/vim-devicons'                                                           -- Vim NerdFont icons
+    use 'preservim/nerdtree'                                                               -- NERDTree is the file tree on right
+    use 'nvim-lua/plenary.nvim'                                                            -- Telescope requires this package
+    use 'nvim-telescope/telescope.nvim'                                                    -- Telescope is a FZF extension that displays preview
+    use 'nvim-lualine/lualine.nvim'                                                        -- Lualine is the bar on the bottom that displays variues elements
+    use 'tpope/vim-fugitive'                                                               -- Git Integration
+    use 'gitgutter/Vim'                                                                    -- Displays git diff
+    use 'preservim/tagbar'                                                                 -- Tag bar displays functions, classes and variables of files on the left 
+    use 'junegunn/vim-easy-align'                                                          -- Auto align
+    use 'LudoPinelli/comment-box.nvim'
+    use 'rakr/vim-one'
+    use {'fatih/vim-go', run = ':GoUpdateBinaries' }                                       -- Go official vim plugin
+    use {'SirVer/ultisnips', requires= {'honza/vim-snippets'}}                             -- Snippet support
+    use {'junegunn/fzf', dir = '~/.fzf', run = './install --all'}
+    use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }                            -- Syntax highlighting 
+    use {'neoclide/coc.nvim', branch =   'release', run = 'coc#util#install()' }           -- Conqueror of Completions: Language server for any language
+    use {
+      'weilbith/nvim-code-action-menu',
+      after = 'coc.nvim',
+      requires = 'xiyaowong/coc-code-action-menu.nvim',
+      config = function()
+        require 'coc-code-action-menu'
+      end,
+    }
+    use {'iamcco/markdown-preview.nvim', run = 'cd app && yarn install', cmd = 'MarkdownPreview'}
+    use {'instant-markdown/vim-instant-markdown', run = 'yarn install'}                     -- live markdown renderer server
+    use {'turbio/bracey.vim', run = 'npm install --prefix server'}                          -- Run live web server to test HTML, CSS, JS
+    use {'michaelb/sniprun', run= 'bash install.sh'}                                        -- Instant code runner
+    use {'rcarriga/nvim-notify'}                                                            -- Neovim's notification plugin
+    use {'vim-test/vim-test'}                                                               -- Test plugin for Vim
+end)
 
-]])
+
+
+--  vim.cmd([[
+--  call plug#begin()
+--      Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
+--      Plug 'junegunn/vim-easy-align'                                                           " Auto align
+--      Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'                                      " Snippet support
+--      Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }                        " FZF
+--      Plug 'ryanoasis/vim-devicons'                                                            " Vim NerdFont icons
+--      Plug 'preservim/nerdtree'                                                                " NERDTree is the file tree on right
+--      Plug 'nvim-lua/plenary.nvim'                                                             " Telescope requires this package
+--      Plug 'nvim-telescope/telescope.nvim'                                                     " Telescope is a FZF extension that displays preview
+--      Plug 'nvim-lualine/lualine.nvim'                                                         " Lualine is the bar on the bottom that displays variues elements
+--      Plug 'tpope/vim-fugitive'                                                                " Git Integration
+--      Plug 'gitgutter/Vim'                                                                     " Displays git diff
+--      Plug 'preservim/tagbar'                                                                  " Tag bar displays functions, classes and variables of files on the left 
+--      Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}                              " Syntax highlighting 
+--      Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install()}}          " Conqueror of Completions: Language server for any language
+--      Plug 'weilbith/nvim-code-action-menu', {'requires' : 'xiyaowong/coc-code-action-menu.nvim'}
+--      Plug 'xiyaowong/coc-code-action-menu.nvim', {'require': 'coc-code-action-menu'}
+--      Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }                                       " Go official vim plugin
+--      Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown', 'do': 'yarn install'}  " live markdown renderer server
+--      Plug 'rakr/vim-one'
+--      Plug 'turbio/bracey.vim', {'do': 'npm install --prefix server'}                          " Run live web server to test HTML, CSS, JS
+--      Plug 'michaelb/sniprun', {'do': 'bash install.sh'}                                       " Instant code runner
+--      Plug 'rcarriga/nvim-notify'                                                              " Neovim's notification plugin
+--      Plug 'vim-test/vim-test'                                                                 " Test plugin for Vim
+--      Plug 'LudoPinelli/comment-box.nvim'
+--  call plug#end()
+
+--  ]])
 -- import configurations
 require("pkg/colorscheme")
 vim.cmd("colorscheme one")
@@ -50,9 +89,11 @@ require("pkg/nerdtree")
 require("pkg/tagbar")
 require("pkg/bracey")
 require("pkg/test")
-vim.cmd([[
-    source $HOME/.dotfiles/nvim/pkg/coc.vim
-]])
+require("pkg/coc")
+-- require('coc-code-action-menu')
+-- vim.cmd([[
+--    source $HOME/.dotfiles/nvim/pkg/coc.vim
+-- ]])
 
 -- Treesitter Language List
 require("nvim-treesitter.configs").setup({
