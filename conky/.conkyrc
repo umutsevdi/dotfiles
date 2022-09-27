@@ -42,7 +42,8 @@ conky.config = {
     color5 = '#ABE9B3',
     color6 = '#FAE3B0',
 };
-conky.text = [[${voffset 15}${color1}${font Roboto Regular:size=55}${time %b%e}${voffset -20}${alignr}${color0}${font Roboto Bold:size=20}${time %A}${voffset -10}
+conky.text = [[${voffset 15}${color1}${font Roboto Regular:size=55}${time %b%e}${voffset -20}${alignr}${color0}${font Roboto Bold:size=20}${time %A}
+${font JetBrains Mono Regular:italic:size=15}${color3}${voffset -5}${alignr}${texeci 3600 weather}${voffset -10}
 ${color1}${font JetBrains Mono Regular:bold:size=100}${time %k:%M}${font}
 ${alignr}
 ${font JetBrains Mono Regular:bold:size=10}Memory  ${font JetBrains Mono :italic:size=9}  ${mem}  ${membar}

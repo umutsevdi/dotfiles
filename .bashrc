@@ -91,7 +91,13 @@ alias cs=colorscheme
 
 # ps
 #PS1='[\u@\h \W]\$ '
-PS1="\e[34;1m\t \e[33;3m\W →\e[39;0m "
+# PS1="\e[34;1m\A \e[33;3m\W\e[39;0m → "
+# wrap color sequences with \[ \]
+ps_t="\[\e[34;1m\]\t"
+ps_dir="\[\e[33;3m\]\W"
+ps_git="\[\e[;0m\]\[\e[33;3m\]\$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/')"
+ps_arrow=" → \[\e[39;0m\]"
+export PS1="$ps_t $ps_dir$ps_git $ps_arrow"
 
 # ┌──────────────────────┐
 # │      Initialize      │

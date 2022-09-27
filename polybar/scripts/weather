@@ -1,8 +1,0 @@
-#!/bin/bash 
-data=`curl "wttr.in?format=%c+%t" 2>/dev/null`
-if grep -q "Unknown location" <<< "$data"; then
-    echo
-else
-    echo "$data"
-fi
-#?format=3
