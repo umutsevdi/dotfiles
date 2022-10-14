@@ -1,5 +1,5 @@
--- Conky is a monitoring application that is displayed on the desktop
--- @author umutsevdi 
+-- Conky, masaüstünde görüntülenen bir izleme uygulamasıdır.
+-- @author xtechnology 
 
 conky.config = {
 -- Conky settings

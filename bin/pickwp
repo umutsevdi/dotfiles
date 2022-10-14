@@ -1,14 +1,14 @@
 #!/bin/bash
 # pickwp.sh - Wallpaper picker
-# @author umutsevdi 
+# @author xtechnology
 # A script that randomly picks a wallpaper from a directory.
 # Selects a different wallpaper on each use.
 # @requires nitrogen, xrandr
 
-if ! command -v nitrogen &> /dev/null ; then
+if ! command -v nitrogen &>/dev/null; then
     echo "nitrogen doesn't exist" 1>&2
     exit
-elif ! command -v xrandr &> /dev/null ; then
+elif ! command -v xrandr &>/dev/null; then
     echo "xrandr doesn't exist" 1>&2
     exit
 fi
@@ -16,42 +16,40 @@ fi
 # Default wallpaper search path
 path="$HOME/Pictures/wallpapers"
 # Default monitor count
-head=`xrandr -q | grep ' connected' | awk '{print $1}' | tr '\n' ' '`
-head_count=`xrandr -q | grep ' connected' | awk '{print $1}' | tr '\n' ' ' | wc -w`
+head=$(xrandr -q | grep ' connected' | awk '{print $1}' | tr '\n' ' ')
+head_count=$(xrandr -q | grep ' connected' | awk '{print $1}' | tr '\n' ' ' | wc -w)
 
-Help()
-{
-   # Display Help
-   echo "pickwp - Wallpaper Picker"
-   echo "  Picks a random wallpaper from your wallpaper directory. Does not"
-   echo "repeat same wallpaper twice" 
-   echo
-   echo "Syntax: [-h/c|m]"
-   echo
-   echo "Options:"
-   echo "-h/--help            Prints this menu."
-   echo "-d/--directory \$DIR     Picks wallpaper from custom directory."
-   echo
+Help() {
+    # Display Help
+    echo "pickwp - Duvar Kağıdı Seçici"
+    echo " Duvar kağıdı dizininizden rastgele bir duvar kağıdı seçer. Yok"
+    echo "aynı duvar kağıdını iki kez tekrarlayın"
+    echo
+    echo "Sözdizimi: [-h/c|m]"
+    echo
+    echo "Seçenekler:"
+    echo "-h/--help Bu menüyü yazdırır."
+    echo "-d/--directory \$DIR Özel dizinden duvar kağıdını seçer."
+    echo
 }
 
-Pick()
-{
+Pick() {
     # Check if directory exists or whether it contains an item
-    if [ ! -d $path ] && [ `ls $path | wc -l` -gt 0 ]; then
-        echo "Error: Wallpaper directory $path does not exist" 1>&2
+    if [ ! -d $path ] && [ $(ls $path | wc -l) -gt 0 ]; then
+        echo "Hata: Duvar kağıdı dizini $path mevcut değil" 1>&2
         exit
     fi
 
-    new_img="$path/`ls $path/ | shuf -n 1  2> /dev/null`"
-    old_img=`cat /tmp/pickwp_img  2> /dev/null`
+    new_img="$path/$(ls $path/ | shuf -n 1 2>/dev/null)"
+    old_img=$(cat /tmp/pickwp_img 2>/dev/null)
 
     while [ "$new_img" = "$old_img" ]; do
-        new_img="$path/`ls $path/ | shuf -n 1  2> /dev/null`"
+        new_img="$path/$(ls $path/ | shuf -n 1 2>/dev/null)"
     done
 
-    echo $new_img > /tmp/pickwp_img
+    echo $new_img >/tmp/pickwp_img
     echo "selected wallpaper: $new_img"
-    for (( i=0; i < $head_count; i++ )); do 
+    for ((i = 0; i < $head_count; i++)); do
         nitrogen --set-scaled --head=$i $new_img --save 2>/dev/null
     done
     for i in $head; do
@@ -70,7 +68,7 @@ for arg in $@; do
         Pick
         exit
     else
-        echo -e "Error: Invalid arguments" 1>&2
+        echo -e "Hata: Geçersiz bağımsız değişkenler" 1>&2
         exit
     fi
 done

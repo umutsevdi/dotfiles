@@ -1,10 +1,10 @@
 # .bashrc
 
-# Source global definitions
+# Kaynak küresel tanimlar
 if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
-# User specific environment
+# Kullanıcıya özel ortam
 if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
 then
     PATH="$HOME/.local/bin:$HOME/bin:$PATH"
@@ -12,7 +12,7 @@ fi
 export PATH
 
 # ┌──────────────────────┐
-# │   Path  Management   │
+# │   Path    Yönetimi   │
 # └──────────────────────┘
 
 GOPATH=$HOME/go
@@ -21,12 +21,12 @@ JAVA_HOME="$(ls /lib/jvm | grep java-11-openjdk.)"
 GRDL_PATH=/usr/local/gradle/bin
 DOT_PATH=$HOME/.dotfiles/bin
 JBT_PATH=$HOME/.local/share/JetBrains/Toolbox/scripts
-APLT_PATH=/home/umutsevdi/src/linux/rofi-applets
+APLT_PATH=/home/xtechnology/src/linux/rofi-applets
 export PATH="$GRDL_PATH:$JAVA_HOME:$GOPATH/bin:$GOROOT/bin:$DOT_PATH:$JBT_PATH:$APLT_PATH:$PATH"
 export EDITOR=/usr/bin/nvim
 export ROFI_APPLETS_PATH=$APLT_PATH
 # ┌──────────────────────┐
-# │ Directory Management │
+# │   Dizin     Yönetimi │
 # └──────────────────────┘
 
 export GRADLE_USER_HOME=$HOME/.config/gradle
@@ -46,7 +46,7 @@ export HISTFILE=$HOME/.config/history
 export TERMINAL=/bin/alacritty
 # sudo alternatives --config java
 
-# Uncomment the following line if you don't like systemctl's auto-paging feature:
+# systemctl'nin otomatik sayfalama özelliğini beğenmediyseniz, aşağıdaki satırın yorumunu kaldırın:
 # export SYSTEMD_PAGER=
 
 # User specific aliases and functions
@@ -61,10 +61,10 @@ fi
 unset rc
 [[ $- != *i* ]] && return
 
-[[ $- == *i* ]] && source "/home/umutsevdi/.fzf/shell/completion.bash" 2> /dev/null
+[[ $- == *i* ]] && source "/home/xtechnology/.fzf/shell/completion.bash" 2> /dev/null
 
 # ┌──────────────────────┐
-# │       Aliases        │
+# │    Takma   Adlar     │
 # └──────────────────────┘
 FZF_DEFAULT_COMMAND="find -L"
 alias ls='ls --color=auto'
@@ -100,7 +100,7 @@ ps_arrow=" → \[\e[39;0m\]"
 export PS1="$ps_t $ps_dir$ps_git $ps_arrow"
 
 # ┌──────────────────────┐
-# │      Initialize      │
+# │      Başlangıç       │
 # └──────────────────────┘
 echo -e "\e[33;1m`whoami`@`hostname` - \e[36m`date +%a' '%d' '%b' '%Y`"
 echo -e "\e[33;1m──────────────────────────────────\e[39;0m"

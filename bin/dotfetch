@@ -1,35 +1,33 @@
 #! /bin/bash
 # dotfetch.sh - Restart and update your configs
-# @author umutsevdi 
+# @author xtechnology
 #   A script that updates the config files and restarts i3wm
 # @requires i3
 
-Help()
-{
-   # Display Help
-   echo "dotfetch - Dotfile Fetcher"
-   echo "  Updates config files and restarts the window manager"
-   echo
-   echo "Syntax: [-r]"
-   echo
-   echo "Options:"
-   echo "-h/--help      Prints this menu."
-   echo "-r/--root      Also updates root user's .bashrc"
-   echo
+Help() {
+    # Display Help
+    echo "dotfetch - Nokta Dosyası Alıcısı"
+    echo "  Yapılandırma dosyalarını günceller ve pencere yöneticisini yeniden başlatır  "
+    echo
+    echo "Syntax: [-r]"
+    echo
+    echo "Seçenekler:"
+    echo "-h/--help      Bu menüyü yazdırır."
+    echo "-r/--root      Ayrıca kök kullanıcının .bashrc dosyasını da günceller"
+    echo
 }
 
-Fetch()
-{
+Fetch() {
     cd $HOME/.config
     rm -rf i3 polybar conky awesome dunst autostart
     cp -rf $HOME/.dotfiles/autostart $HOME/.config/
     echo "package.path = package.path .. ';$HOME/.dotfiles/nvim/?.lua;$HOME/.dotfiles/nvim/pkg/?.lua'
-vim.cmd('source /home/umutsevdi/.dotfiles/nvim/init.lua')" > ~/.config/nvim/init.lua
+vim.cmd('source /home/xtechnology/.dotfiles/nvim/init.lua')" >~/.config/nvim/init.lua
     cp -r $HOME/.dotfiles/conky $HOME/.config/conky
     cp -r $HOME/.dotfiles/gtk/settings.ini $HOME/.config/gtk-3.0/
     cp -r $HOME/.dotfiles/gtk/gtk.css $HOME/.config/gtk-3.0/
     cp -r $HOME/.dotfiles/gtk/bookmarks $HOME/.config/gtk-3.0/
-    cat $HOME/.dotfiles/alacritty/base.yaml $HOME/.dotfiles/alacritty/dark.yaml > $HOME/.config/alacritty/alacritty.yaml
+    cat $HOME/.dotfiles/alacritty/base.yaml $HOME/.dotfiles/alacritty/dark.yaml >$HOME/.config/alacritty/alacritty.yaml
     cp -r $HOME/.dotfiles/gtk/.gtkrc-2.0 $HOME
     cp -r $HOME/.dotfiles/i3 $HOME/.config/
     cp -r $HOME/.dotfiles/polybar $HOME/.config/
@@ -42,21 +40,20 @@ vim.cmd('source /home/umutsevdi/.dotfiles/nvim/init.lua')" > ~/.config/nvim/init
         sudo cp $HOME/.dotfiles/.bashrc /root/.bashrc
     fi
     i3-msg restart
-    notify-send 'i3 Window Manager' 'WM has been restarted with updated configurations' \
-        --app-name="Resize Window" --icon=window_list --category='presence'
+    notify-send 'i3 Window Manager' 'WM, güncellenmiş konfigürasyonlarla yeniden başlatıldı' \
+        --app-name="Pencereyi Yeniden Boyutlandır" --icon=window_list --category='presence'
     colorscheme -r
 }
 
-for arg in $@;do
-    if   [ "$arg" = "-h" ] || [ "$arg" = "--help" ]; then
+for arg in $@; do
+    if [ "$arg" = "-h" ] || [ "$arg" = "--help" ]; then
         Help
         exit
-    elif [ "$arg" = "-r" ] || [ "$arg" = "--root" ]; then 
+    elif [ "$arg" = "-r" ] || [ "$arg" = "--root" ]; then
         root=true
     else
-        echo -e "Error: Invalid arguments" 1>&2
+        echo -e "Hata: Geçersiz bağımsız değişkenler" 1>&2
         exit
-    fi 
+    fi
 done
 Fetch
-

@@ -18,7 +18,7 @@ set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
-set $bg-color 	         #89b4fa
+set $bg-color            #89b4fa
 set $inactive-bg-color   #282c34
 set $text-color          #cdd6f4
 set $inactive-text-color #3d3d3d
@@ -30,9 +30,8 @@ set $sm "HDMI-1"
 # global font
 font pango:Roboto Regular 10
 
-
 #################
-#   UYGULAMA   #  
+#   UYGULAMA   #
 #################
 # enable tap to click
 #exec  xinput set-prop "PNP0C50:0e 06CB:7E7E Touchpad" "libinput Tapping Enabled" 1
@@ -42,39 +41,48 @@ exec_always --no-startup-id /usr/libexec/gsd-xsettings
 exec --no-startup-id colorscheme --refresh
 
 # başlangıçta rastgele bir duvar kağıdı seçin ve sonraki oturumlar için kaydedin
-exec --no-startup-id sleep 0.1;$HOME/.dotfiles/bin/pickwp
+exec --no-startup-id sleep 0.1
+$HOME/.dotfiles/bin/pickwp
 
 # besteci başlat
-exec_always --no-startup-id killall picom; picom -b --config ~/.dotfiles/picom/picom.conf  --experimental-backends 
+exec_always --no-startup-id killall picom
+picom -b --config ~/.dotfiles/picom/picom.conf --experimental-backends
 
 # uygulamaları başlat
-exec --no-startup-id pasystray --notify=sink_default source_default 
+exec --no-startup-id pasystray --notify=sink_default source_default
 exec --no-startup-id xfce4-power-manager
-exec --no-startup-id blueberry-tray 
+exec --no-startup-id blueberry-tray
 exec --no-startup-id nm-applet
 exec --no-startup-id xfce4-clipman
 exec --no-startup-id geary --gapplication-service
 
-
-exec_always --no-startup-id killall dunst; dunst -conf $HOME/.dotfiles/dunst/dunstrc
-exec_always --no-startup-id killall conky; sleep 0.1; conky --config=$HOME/.dotfiles/conky/.conkyrc --daemonize --pause=0;
-exec_always --no-startup-id killall glava; sleep 1; glava --desktop;
+exec_always --no-startup-id killall dunst
+dunst -conf $HOME/.dotfiles/dunst/dunstrc
+exec_always --no-startup-id killall conky
+sleep 0.1
+conky --config=$HOME/.dotfiles/conky/.conkyrc --daemonize --pause=0
+exec_always --no-startup-id killall glava
+sleep 1
+glava --desktop
 
 # exec_always --no-startup-id protonvpn --gapplication-service
 
 #i3 wm'nin her yeniden başlatılması, mevcut tüm çoklu çubukları öldürür ve bir tane oluşturur
-exec_always --no-startup-id killall polybar; sleep 0.1;  polybar bottom & polybar main; 
+exec_always --no-startup-id killall polybar
+sleep 0.1
+polybar bottom &
+polybar main
 
 #################
-#     TÜZÜK     #  
+#     TÜZÜK     #
 #################
 
 # renk seti
 #                       sınır               arka fon           Metin               gösterge
-client.focused          $bg-color           $bg-color          $text-color          #2e323d
-client.unfocused        $inactive-bg-color $inactive-bg-color $inactive-text-color #2e323d
+client.focused $bg-color $bg-color $text-color                                     #2e323d
+client.unfocused $inactive-bg-color $inactive-bg-color $inactive-text-color        #2e323d
 client.focused_inactive $inactive-bg-color $inactive-bg-color $inactive-text-color #2e323d
-client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color          #2e323d
+client.urgent $urgent-bg-color $urgent-bg-color $text-color                        #2e323d
 
 gaps outer 5
 gaps top 25
@@ -94,7 +102,7 @@ for_window [instance="pavucontrol"] floating enable
 for_window [instance="blueberry"] floating enable
 
 # Oluşturulan pencereler.
-for_window [title="(?:Open|Save) (?:File|Folder|As)"] floating enable;
+for_window [title="(?:Open|Save) (?:File|Folder|As)"] floating enable
 for_window [title="(?:Open|Save) (?:File|Folder|As)"] resize set 800 600
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="bubble"] floating enable
@@ -104,7 +112,6 @@ for_window [window_type="dialog"] floating enable
 for_window [window_type="menu"] floating enable
 for_window [instance="*bout*"] floating enable
 for_window [instance="Reminders"] floating enable
-
 
 #####################
 #  TUŞ BAĞLAMALARI  #
@@ -125,7 +132,7 @@ bindsym Print exec gnome-screenshot --area --clipboard
 set $refresh_i3status killall -SIGUSR1 i3status
 
 # Bir terminal başlat
-bindsym $mod+Return exec alacritty 
+bindsym $mod+Return exec alacritty
 
 # Odaklanmış pencereyi öldür
 bindsym $mod+Shift+q kill
@@ -192,23 +199,34 @@ bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
 # i3 yeniden yükle
-bindsym $mod+Shift+c exec dotfetch;
+bindsym $mod+Shift+c exec dotfetch
 
 # Yardımcı uygulamalar
-bindsym $mod+Escape       exec applet -r powermenu
-bindsym $mod+d            exec applet -r launcher
-bindsym $mod+m            exec applet -r player 
-bindsym $mod+semicolon    exec applet -r emoji
-bindsym $mod+Tab          exec applet -r tab
+bindsym $mod+Escape exec applet -r powermenu
+bindsym $mod+d exec applet -r launcher
+bindsym $mod+m exec applet -r player
+bindsym $mod+semicolon exec applet -r emoji
+bindsym $mod+Tab exec applet -r tab
 bindsym $mod+Shift+Escape exec ~/.dotfiles/bin/lockscreen
 
-# pencere yeniden boyutlandırıcı
-# pencereyi yeniden boyutlandır (bunun için fareyi de kullanabilirsiniz)
+# TUŞ BAĞLAMALARI TESTİ
+# xmodmap -pke ile kontrol edin
+bindsym XF86Search exec notify-send "Arama tuşuna basıldı" --icon keyboard
+bindsym XF86Go exec notify-send "Git tuşuna basıldı" --icon keyboard
+bindsym Find exec notify-send "Bul tuşuna basıldı" --icon keyboard
+bindsym Help exec notify-send "Yardım tuşuna basıldı" --icon keyboard
+bindsym XF86LaunchA exec notify-send "Başlatma tuşuna basıldı" --icon keyboard
+bindsym XF86MenuKB exec notify-send "Menü tuşuna basıldı" --icon keyboard
+bindsym XF86Calculator exec notify-send "Hesap makinesi tuşuna basıldı" --icon keyboard
+bindsym XF86Explorer exec notify-send "Gezgin tuşuna basıldı" --icon keyboard
 
+# window resizer
+
+# resize window (you can also use the mouse for that)
 bindsym $mod+r mode "resize mode" 
     mode "resize mode" {
-        # Bu bağlamalar, yeniden boyutlandırma moduna girer girmez tetiklenir
-        # aynı bağlamalar, ancak ok tuşları için
+        # These bindings trigger as soon as you enter the resize mode
+        # same bindings, but for the arrow keys
         bindsym h resize shrink width 10 px or 10 ppt 
         bindsym j resize grow height 10 px or 10 ppt
         bindsym k resize shrink height 10 px or 10 ppt
@@ -217,7 +235,7 @@ bindsym $mod+r mode "resize mode"
         bindsym Return mode "default"
         bindsym Escape mode "default"
         bindsym $mod+r mode "default"
-    }
+}
 # change gaps
 #   bindsym $mod+e mode "gap mode"
 #   mode "gap mode" {
@@ -233,7 +251,6 @@ bindsym $mod+r mode "resize mode"
 #           bindsym $mod+e mode "default"
 #   }
 # change gaps
-
 bindsym $mod+w mode "layout mode w - stack | e - split"
 mode "layout mode w - stack | e - split" {
         # change container layout (stacked, tabbed, toggle split)
@@ -261,14 +278,3 @@ mode "display mode: (1)auto, (2)extend-right, (3)extend-left, (4)set-primary, (5
         bindsym Escape mode "default"
         bindsym $mod+w mode "default"
 }
-
-# TUŞ BAĞLAMALARI TESTİ
-# xmodmap -pke ile kontrol edin
-bindsym XF86Search exec notify-send "Arama tuşuna basıldı" --icon keyboard
-bindsym XF86Go exec notify-send "Git tuşuna basıldı" --icon keyboard
-bindsym Find exec notify-send "Bul tuşuna basıldı" --icon keyboard
-bindsym Help exec notify-send "Yardım tuşuna basıldı" --icon keyboard
-bindsym XF86LaunchA exec notify-send "Başlatma tuşuna basıldı" --icon keyboard
-bindsym XF86MenuKB exec notify-send "Menü tuşuna basıldı" --icon keyboard
-bindsym XF86Calculator exec notify-send "Hesap makinesi tuşuna basıldı" --icon keyboard
-bindsym XF86Explorer exec notify-send "Gezgin tuşuna basıldı" --icon keyboard

@@ -1,6 +1,6 @@
-# dunstrc - Dunst Configuration File
-# Dunst is a notification implementation
-# @author umutsevdi
+# dunstrc - Dunst Yapılandırma Dosyası
+# Dunst bir bildirim uygulamasıdır
+# @author xtechnology
 [global]
     monitor = 0
     follow = mouse

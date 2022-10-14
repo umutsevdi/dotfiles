@@ -2,10 +2,10 @@
 # Author Steven Poulton @CalinLeafshade
 # @requires xwinwrap
 
-if ! command -v xwinwrap &> /dev/null; then
+if ! command -v xwinwrap &>/dev/null; then
     echo "xwinwrap doesn't exist" 1>&2
     exit
-elif ! command -v mpv &> /dev/null; then
+elif ! command -v mpv &>/dev/null; then
     echo "mpv doesn't exist" 1>&2
     exit
 fi
@@ -15,23 +15,21 @@ PIDFILE="/var/run/user/$UID/bg.pid"
 declare -a PIDs
 
 _screen() {
-#        --vo=vdpau --hwdec=vdpau \
-    xwinwrap -ov -ni -g "$1" -- mpv --fullscreen\
-        --no-stop-screensaver \
+    #        --vo=vdpau --hwdec=vdpau \
+    xwinwrap -ov -ni -g "$1" -- mpv --fullscreen --no-stop-screensaver \
         --loop-file --no-audio --no-osc --no-osd-bar -wid WID --no-input-default-bindings \
         "$2" &
     PIDs+=($!)
 }
 
 while read p; do
-  [[ $(ps -p "$p" -o comm=) == "xwinwrap" ]] && kill -9 "$p";
-done < $PIDFILE
+    [[ $(ps -p "$p" -o comm=) == "xwinwrap" ]] && kill -9 "$p"
+done <$PIDFILE
 
 sleep 0.5
 
-for i in $( xrandr -q | grep ' connected' | grep -oP '\d+x\d+\+\d+\+\d+')
-do
+for i in $(xrandr -q | grep ' connected' | grep -oP '\d+x\d+\+\d+\+\d+'); do
     _screen "$i" "$1"
 done
 
-printf "%s\n" "${PIDs[@]}" > $PIDFILE
+printf "%s\n" "${PIDs[@]}" >$PIDFILE

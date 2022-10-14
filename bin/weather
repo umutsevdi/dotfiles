@@ -1,7 +1,8 @@
-#!/bin/bash 
-data=`curl "wttr.in?format=%t+%C" 2>/dev/null`
-if [ grep -q "Unknown location" <<< "$data" ] || \ 
-    [grep -q "</html>" <<< "$data"]; then
+#!/bin/bash
+
+data=$(curl "wttr.in?format=%t+%C" 2>/dev/null)
+if [ grep -q "Bilinmeyen konum" ] <<<"$data" ||
+    [grep -q "</html>" <<<"$data"]; then
     echo
 else
     echo "$data"

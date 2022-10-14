@@ -1,5 +1,6 @@
 # bin/
-This directory contains scripts that I wrote.
+
+Bu dizin yazdığım komut dosyalarını içerir.
 
 ```
 bin/
@@ -13,13 +14,16 @@ bin/
 ├── pickwp
 └── pots
 ```
-To execute any use
+
+Herhangi bir kullanımı yürütmek için
 
 ```sh
 chmod +x $script_name
 ./$script_name
 ```
-You can also link this directory to your `.bashrc` to be able to call them directly.
+
+Ayrıca bu dizini doğrudan arayabilmek için `.bashrc` dosyanıza bağlayabilirsiniz.
+
 ```sh
 DF_PATH="$HOME/.dotfiles/bin"
 PATH="$DF_PATH:$PATH"

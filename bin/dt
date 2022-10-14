@@ -1,72 +1,70 @@
 #!/bin/bash
 # duppterm - Create a new terminal session on a tab or window at your working directory
-# @author umutsevdi 
+# @author xtechnology
 #   A script that creates a new terminal in your process working directory
-# @requires xdotool 
+# @requires xdotool
 
-if ! command -v xdotool &> /dev/null ; then
-    echo "xdotool doesn't exist" 1>&2
+if ! command -v xdotool &>/dev/null; then
+    echo "xdotool mevcut değil" 1>&2
     exit
 fi
 # get default terminal session
 session=$(perl -lpe 's/\0/ /g' \
-           /proc/$(xdotool getwindowpid $(xdotool getactivewindow))/cmdline)
+    /proc/$(xdotool getwindowpid $(xdotool getactivewindow))/cmdline)
 is_tab=false
 
-Help()
-{
-   # Display Help
-   echo "duppterm - Terminal Duplicator"
-   echo "  Creates a new independent terminal session in the same directory. By default"
-   echo "uses the same terminal emulator"
-   echo
-   echo "Syntax: [-h|s/w|t]"
-   echo
-   echo "Options:"
-   echo "-h/--help            Prints this menu."
-   echo "-w/--window          Creates a terminal session as a seperate window (Default)"
-   echo "-t/--tab             Creates a terminal session as a tab"
-   echo "-s/--session \$TERM   Configures the terminal emulator of the duplicate session"
-   echo
+Help() {
+    # Display Help
+    echo "duppterm - Terminal Çoğaltıcı"
+    echo "  Aynı dizinde yeni bir bağımsız terminal oturumu oluşturur. Varsayılan olarak"
+    echo "aynı terminal öykünücüsünü kullanır"
+    echo
+    echo "Syntax: [-h|s/w|t]"
+    echo
+    echo "Options:"
+    echo "-h/--help             Bu menüyü yazdırır."
+    echo "-w/--window           Ayrı bir pencere olarak bir terminal oturumu oluşturur (Varsayılan)"
+    echo "-t/--tab              Sekme olarak bir terminal oturumu oluşturur"
+    echo "-s/--session \$TERM   Yinelenen oturumun terminal öykünücüsünü yapılandırır"
+    echo
 }
 
-MakeTerminal()
-{
+MakeTerminal() {
     case $session in
-    
-        *gnome-terminal* )
-            [ "$is_tab" = true ] && win_param="--tab" || win_param="--window"
-            dir_param="--working-directory=$(pwd)"
+
+    *gnome-terminal*)
+        [ "$is_tab" = true ] && win_param="--tab" || win_param="--window"
+        dir_param="--working-directory=$(pwd)"
         ;;
-        *kitty* )
-            win_param=
-            dir_param="--directory $(pwd)"
+    *kitty*)
+        win_param=
+        dir_param="--directory $(pwd)"
         ;;
-        *xfce4-terminal* )
-            [ "$is_tab" = true] && win_param="--tab" || win_param=
-            dir_param="--working-directory=$(pwd)"
+    *xfce4-terminal*)
+        [ "$is_tab" = true] && win_param="--tab" || win_param=
+        dir_param="--working-directory=$(pwd)"
         ;;
-        *xterm* )
-            win_param="-e -c"
-            dir_param="'cd $(pwd);bash'"
+    *xterm*)
+        win_param="-e -c"
+        dir_param="'cd $(pwd);bash'"
         ;;
-        *konsole* )
-            [ "$is_tab" = true] && win_param="--new-tab" || win_param=
-            dir_param="--workdir $(pwd)"
+    *konsole*)
+        [ "$is_tab" = true] && win_param="--new-tab" || win_param=
+        dir_param="--workdir $(pwd)"
         ;;
-        *)
-            [ "$is_tab" = true ] && win_param="--tab" || win_param=
-            dir_param="--working-directory=$(pwd)"
+    *)
+        [ "$is_tab" = true ] && win_param="--tab" || win_param=
+        dir_param="--working-directory=$(pwd)"
         ;;
     esac
     $session $win_param $dir_param &
 }
 
-for arg in $@;do
-    if   [ "$arg" = "-h" ] || [ "$arg" = "--help" ]; then
+for arg in $@; do
+    if [ "$arg" = "-h" ] || [ "$arg" = "--help" ]; then
         Help
         exit
-    elif [ "$arg" = "-t" ] || [ "$arg" = "--tab" ]; then 
+    elif [ "$arg" = "-t" ] || [ "$arg" = "--tab" ]; then
         is_tab=true
     elif [ "$arg" = "-s" ] || [ "$arg" = "--session" ]; then
         custom_session=true
@@ -74,8 +72,8 @@ for arg in $@;do
         session=$arg
         custom_session=false
     else
-        echo -e "Error: Invalid arguments" 1>&2
+        echo -e "Hata: Geçersiz bağımsız değişken" 1>&2
         exit
-    fi 
+    fi
 done
 MakeTerminal

@@ -1,6 +1,6 @@
 #!/bin/bash
 # panel-music.sh - Music Displayer
-# @author umutsevdi 
+# @author xtechnology 
 #   A script that displays the song that is playing with 
 # the singer's name 
 # @requires playerctl
