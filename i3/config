@@ -217,7 +217,7 @@ bindsym $mod+r mode "resize mode"
         bindsym Return mode "default"
         bindsym Escape mode "default"
         bindsym $mod+r mode "default"
-}
+    }
 # change gaps
 #   bindsym $mod+e mode "gap mode"
 #   mode "gap mode" {
@@ -233,6 +233,7 @@ bindsym $mod+r mode "resize mode"
 #           bindsym $mod+e mode "default"
 #   }
 # change gaps
+
 bindsym $mod+w mode "layout mode w - stack | e - split"
 mode "layout mode w - stack | e - split" {
         # change container layout (stacked, tabbed, toggle split)
