@@ -1,9 +1,9 @@
 # i3 config file (v4)
 # Configuratio file for i3-wm
-# @author umutsevdi
+# @author xtechnology
 
 #################
-#  DEFINITIONS  #
+#  TANIMLAR  #
 #################
 
 # mod key
@@ -24,49 +24,53 @@ set $text-color          #cdd6f4
 set $inactive-text-color #3d3d3d
 set $urgent-bg-color     #f07178
 
-set $pm "eDP"
-set $sm "HDMI-A-0"
+set $pm "eDP-1"
+set $sm "HDMI-1"
 
 # global font
 font pango:Roboto Regular 10
 
 
 #################
-#   EXECUTION   #  
+#   UYGULAMA   #  
 #################
 # enable tap to click
-exec  xinput set-prop "PNP0C50:0e 06CB:7E7E Touchpad" "libinput Tapping Enabled" 1
+#exec  xinput set-prop "PNP0C50:0e 06CB:7E7E Touchpad" "libinput Tapping Enabled" 1
 
 # exec /usr/lib/gnome-online-accounts/goa-daemon --replace
 exec_always --no-startup-id /usr/libexec/gsd-xsettings
 exec --no-startup-id colorscheme --refresh
-# select a random wallpaper on start and save it for the future sessions
+
+# başlangıçta rastgele bir duvar kağıdı seçin ve sonraki oturumlar için kaydedin
 exec --no-startup-id sleep 0.1;$HOME/.dotfiles/bin/pickwp
-# initialize compositor
+
+# besteci başlat
 exec_always --no-startup-id killall picom; picom -b --config ~/.dotfiles/picom/picom.conf  --experimental-backends 
-# initialize applets 
+
+# uygulamaları başlat
 exec --no-startup-id pasystray --notify=sink_default source_default 
 exec --no-startup-id xfce4-power-manager
 exec --no-startup-id blueberry-tray 
 exec --no-startup-id nm-applet
 exec --no-startup-id xfce4-clipman
 exec --no-startup-id geary --gapplication-service
-exec --no-startup-id kdeconnect-indicator 
+
 
 exec_always --no-startup-id killall dunst; dunst -conf $HOME/.dotfiles/dunst/dunstrc
 exec_always --no-startup-id killall conky; sleep 0.1; conky --config=$HOME/.dotfiles/conky/.conkyrc --daemonize --pause=0;
 exec_always --no-startup-id killall glava; sleep 1; glava --desktop;
+
 # exec_always --no-startup-id protonvpn --gapplication-service
 
-# anytime i3 wm restarts kills all existing polybars and creates one
+#i3 wm'nin her yeniden başlatılması, mevcut tüm çoklu çubukları öldürür ve bir tane oluşturur
 exec_always --no-startup-id killall polybar; sleep 0.1;  polybar bottom & polybar main; 
 
 #################
-#     RULES     #  
+#     TÜZÜK     #  
 #################
 
-# color-set
-#                       border              background         text                 indicator
+# renk seti
+#                       sınır               arka fon           Metin               gösterge
 client.focused          $bg-color           $bg-color          $text-color          #2e323d
 client.unfocused        $inactive-bg-color $inactive-bg-color $inactive-text-color #2e323d
 client.focused_inactive $inactive-bg-color $inactive-bg-color $inactive-text-color #2e323d
@@ -80,14 +84,16 @@ for_window [class="^.*"] border pixel 3
 smart_borders on
 hide_edge_borders smart_no_gaps
 # smart_gaps on
-# floating window exceptions
+
+# kayan pencere istisnaları
 for_window [instance="gnome-calculator"] floating enable
 for_window [instance="Gnome-screenshot*"] floating enable
 for_window [instance="xfce4*"] floating enable
 for_window [instance="xfce-*"] floating enable
 for_window [instance="pavucontrol"] floating enable
 for_window [instance="blueberry"] floating enable
-# Generated windows.
+
+# Oluşturulan pencereler.
 for_window [title="(?:Open|Save) (?:File|Folder|As)"] floating enable;
 for_window [title="(?:Open|Save) (?:File|Folder|As)"] resize set 800 600
 for_window [window_role="pop-up"] floating enable
@@ -98,28 +104,36 @@ for_window [window_type="dialog"] floating enable
 for_window [window_type="menu"] floating enable
 for_window [instance="*bout*"] floating enable
 for_window [instance="Reminders"] floating enable
-##################
-#  KEYBINDINGS  #
-#################
 
-# volume settings
+
+#####################
+#  TUŞ BAĞLAMALARI  #
+####################
+
+# Ses Ayarları
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
 bindsym $mod+space exec kbswap tr us
 bindsym Print exec gnome-screenshot --area --clipboard
+
 # bindsym --locked XF86MonBrightnessUp exec --no-startup-id light -A 10
 # bindsym --locked XF86MonBrightnessDown exec --no-startup-id light -U 10
+
 # using mod + shift + c refreshes i3 and i3 blocks
 set $refresh_i3status killall -SIGUSR1 i3status
-# start a terminal
+
+# Bir terminal başlat
 bindsym $mod+Return exec alacritty 
-# kill focused window
+
+# Odaklanmış pencereyi öldür
 bindsym $mod+Shift+q kill
-# Use Mouse+$mod to drag floating windows to their wanted position
+
+#Kayan pencereleri istedikleri konuma sürüklemek için Mouse+$mod kullanın
 floating_modifier $mod
-#  switch workspace 
+
+#  Çalışma alanını değiştir
 bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
@@ -128,24 +142,32 @@ bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
-# move container to another location
+
+# Konteyneri başka bir yere taşı
 #bindsym $mod+Shift+Left move left
 #bindsym $mod+Shift+Down move down
 #bindsym $mod+Shift+Up move up
 #bindsym $mod+Shift+Right move right
-# enable horizontal split orientation
+
+# Yatay bölünmüş yönlendirmeyi etkinleştir
 bindsym $mod+b split h
-# enable vertical split orientation
+
+# Dikey bölünmüş yönlendirmeyi etkinleştir
 bindsym $mod+v split v
-# toggle fullscreen
+
+# Tam ekrana geç
 bindsym $mod+f fullscreen toggle
-# toggle floating status
+
+# Kayan durumu değiştir
 bindsym $mod+Shift+s floating toggle
-# focus the parent container
+
+# Ana kapsayıcıya odaklan
 bindsym $mod+a focus parent
-# focus the child container
+
+# Alt kapsayıcıya odaklan
 bindsym $mod+c focus child
-# focus selected workspace
+
+# Seçili çalışma alanına odaklan
 bindsym $mod+1 workspace number $ws1
 bindsym $mod+2 workspace number $ws2
 bindsym $mod+3 workspace number $ws3
@@ -156,7 +178,8 @@ bindsym $mod+7 workspace number $ws7
 bindsym $mod+8 workspace number $ws8
 bindsym $mod+9 workspace number $ws9
 bindsym $mod+0 workspace number $ws10
-# move focused container to another workspace
+
+# Odaklanmış kapsayıcıyı başka bir çalışma alanına taşı
 bindsym $mod+Shift+1 move container to workspace number $ws1
 bindsym $mod+Shift+2 move container to workspace number $ws2
 bindsym $mod+Shift+3 move container to workspace number $ws3
@@ -167,10 +190,11 @@ bindsym $mod+Shift+7 move container to workspace number $ws7
 bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
-# i3 reload
+
+# i3 yeniden yükle
 bindsym $mod+Shift+c exec dotfetch;
 
-# applets
+# Yardımcı uygulamalar
 bindsym $mod+Escape       exec applet -r powermenu
 bindsym $mod+d            exec applet -r launcher
 bindsym $mod+m            exec applet -r player 
@@ -178,12 +202,13 @@ bindsym $mod+semicolon    exec applet -r emoji
 bindsym $mod+Tab          exec applet -r tab
 bindsym $mod+Shift+Escape exec ~/.dotfiles/bin/lockscreen
 
-# window resizer
-# resize window (you can also use the mouse for that)
+# pencere yeniden boyutlandırıcı
+# pencereyi yeniden boyutlandır (bunun için fareyi de kullanabilirsiniz)
+
 bindsym $mod+r mode "resize mode" 
     mode "resize mode" {
-        # These bindings trigger as soon as you enter the resize mode
-        # same bindings, but for the arrow keys
+        # Bu bağlamalar, yeniden boyutlandırma moduna girer girmez tetiklenir
+        # aynı bağlamalar, ancak ok tuşları için
         bindsym h resize shrink width 10 px or 10 ppt 
         bindsym j resize grow height 10 px or 10 ppt
         bindsym k resize shrink height 10 px or 10 ppt
@@ -236,13 +261,13 @@ mode "display mode: (1)auto, (2)extend-right, (3)extend-left, (4)set-primary, (5
         bindsym $mod+w mode "default"
 }
 
-# KEYBINDINGS TEST 
-# Check with xmodmap -pke
-bindsym XF86Search exec notify-send "Search key pressed" --icon keyboard
-bindsym XF86Go exec notify-send "Go key pressed" --icon keyboard
-bindsym Find exec notify-send "Find key pressed" --icon keyboard
-bindsym Help exec notify-send "Help key pressed" --icon keyboard
-bindsym XF86LaunchA exec notify-send "Launch key pressed" --icon keyboard
-bindsym XF86MenuKB exec notify-send "Menu key pressed" --icon keyboard
-bindsym XF86Calculator exec notify-send "Calculator key pressed" --icon keyboard
-bindsym XF86Explorer exec notify-send "Explorer key pressed" --icon keyboard
+# TUŞ BAĞLAMALARI TESTİ
+# xmodmap -pke ile kontrol edin
+bindsym XF86Search exec notify-send "Arama tuşuna basıldı" --icon keyboard
+bindsym XF86Go exec notify-send "Git tuşuna basıldı" --icon keyboard
+bindsym Find exec notify-send "Bul tuşuna basıldı" --icon keyboard
+bindsym Help exec notify-send "Yardım tuşuna basıldı" --icon keyboard
+bindsym XF86LaunchA exec notify-send "Başlatma tuşuna basıldı" --icon keyboard
+bindsym XF86MenuKB exec notify-send "Menü tuşuna basıldı" --icon keyboard
+bindsym XF86Calculator exec notify-send "Hesap makinesi tuşuna basıldı" --icon keyboard
+bindsym XF86Explorer exec notify-send "Gezgin tuşuna basıldı" --icon keyboard
