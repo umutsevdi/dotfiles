@@ -8,16 +8,16 @@
 <p align="center">
 Bilgisayarımda kullandığım yapılandırma dosyaları.
 <p align="center">
-<img src="https://img.icons8.com/plasticine/344/bash.png" height=30 alt="Bash"><img src="https://github.com/i3/i3/raw /next/docs/logo-30.png" alt="i3 WM">
+<img src="https://img.icons8.com/plasticine/344/bash.png" height=30 alt="Bash"><img src="https://github.com/i3/i3/raw/next/docs/logo-30.png" alt="i3 WM">
 </p>
 
 ## Hakkında
 
-Bu depo, cihazımda kullandığım tüm yapılandırma dosyalarını ve komut dosyalarını içerir. <a href="https://getfedora.org/en/server/download/">Fedora 36 Sunucu Sürümü</a> kullanıyorum. Bunlar başladığım temel nokta dosyaları
-Yeni bir ortam kurduğumda.
+Bu depo, kişisel bilgisayarımda <a href="https://getfedora.org/en/server/download/">Fedora 37 Sunucu Sürümü</a> kullandığım tüm yapılandırma dosyalarını ve komut dosyalarını içerir.  
 
-Kişisel bilgisayarımda Fedora 36 kullanıyorum. ben çatal kullanıyorum
-<a href="https://github.com/i3/i3">i3 Pencere Yöneticisi</a>, <a href="https://github.com/Airblader/i3">i3-gaps</a'yı aradı >.
+Bunlar yeni bir ortam kurduğumda başladığım temel nokta dosyalarıdır.
+ 
+<a href="https://github.com/i3/i3">i3 Pencere Yöneticisi </a> ve <a href="https://github.com/Airblader/i3"> i3-gaps</a> çatalını kullanıyorum.
 
 <details open="open">
 <summary>İçindekiler</summary>
