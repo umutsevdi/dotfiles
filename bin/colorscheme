@@ -41,8 +41,7 @@ Set() {
         cin_icon=$CIN_ICON_LIGHT
         cin_dock=$CIN_THEME_DOCK_LIGHT
         gnome_prefer="prefer-light"
-        sed -i s/"vim.g.$VIM_THEME_TYPE = \"$VIM_THEME_DARK\""/"vim.g.$VIM_THEME_TYPE = \"$VIM_THEME_LIGHT\""/ $HOME/.dotfiles/nvim/pkg/colorscheme.lua
-        sed -i s/"set background=dark"/"set background=light"/ $HOME/.dotfiles/nvim/pkg/colorscheme.lua
+        mkdir $HOME/.dotfiles/alacritty       
         cat $HOME/.dotfiles/alacritty/base.yaml $HOME/.dotfiles/alacritty/light.yaml >$HOME/.config/alacritty/alacritty.yml
     else
         gtk_theme=$GTK_THEME_DARK
