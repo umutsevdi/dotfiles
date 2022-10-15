@@ -21,8 +21,6 @@ Fetch() {
     cd $HOME/.config
     rm -rf i3 polybar conky awesome dunst autostart
     cp -rf $HOME/.dotfiles/autostart $HOME/.config/
-    echo "package.path = package.path .. ';$HOME/.dotfiles/nvim/?.lua;$HOME/.dotfiles/nvim/pkg/?.lua'
-vim.cmd('source /home/xtechnology/.dotfiles/nvim/init.lua')" >~/.config/nvim/init.lua
     cp -r $HOME/.dotfiles/conky $HOME/.config/conky
     cp -r $HOME/.dotfiles/gtk/settings.ini $HOME/.config/gtk-3.0/
     cp -r $HOME/.dotfiles/gtk/gtk.css $HOME/.config/gtk-3.0/
@@ -32,12 +30,11 @@ vim.cmd('source /home/xtechnology/.dotfiles/nvim/init.lua')" >~/.config/nvim/ini
     cp -r $HOME/.dotfiles/i3 $HOME/.config/
     cp -r $HOME/.dotfiles/polybar $HOME/.config/
     cp -r $HOME/.dotfiles/dunst $HOME/.config/
-    cp -r $HOME/.dotfiles/.bashrc $HOME/.bashrc
-    cp -r $HOME/.dotfiles/nvim/coc-settings.json $HOME/.config/nvim/coc-settings.json
+    cp $HOME/.dotfiles/.bashrc $HOME/.bashrc   
     cp $HOME/.dotfiles/glava/rc.glsl $HOME/.config/glava/rc.glsl
     cp $HOME/.dotfiles/glava/bars.glsl $HOME/.config/glava/bars.glava
     if [[ "$root" = true ]]; then
-        sudo cp $HOME/.dotfiles/.bashrc /root/.bashrc
+        sudo cp $HOME/.dotfiles/.bashrc  /root/.bashrc
     fi
     i3-msg restart
     notify-send 'i3 Window Manager' 'WM, güncellenmiş konfigürasyonlarla yeniden başlatıldı' \
