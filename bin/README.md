@@ -3,12 +3,14 @@ This directory contains scripts that I wrote.
 
 ```
 bin/
+├── applet
+├── colorscheme
 ├── dotfetch
 ├── duppterm
 ├── kbswap
 ├── lockscreen
+├── pickvideo
 ├── pickwp
-├── polybar-daemon
 └── pots
 ```
 To execute any use

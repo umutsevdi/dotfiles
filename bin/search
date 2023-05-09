@@ -1,0 +1,13 @@
+#!/bin/sh
+#******************************************************************************
+#
+# * File: search
+#
+# * Author:  Umut Sevdi
+# * Created: 02/06/23
+# * Description: Search given text or expression in all files within the
+# directory
+#*****************************************************************************
+for i in `find -type f -readable`
+    do grep "$@" $i &>/dev/null && echo $i
+done

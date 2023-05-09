@@ -1,8 +1,7 @@
 # .bashrc
-
 # Source global definitions
 if [ -f /etc/bashrc ]; then
-	. /etc/bashrc
+    . /etc/bashrc
 fi
 # User specific environment
 if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
@@ -15,41 +14,35 @@ export PATH
 # │   Path  Management   │
 # └──────────────────────┘
 
-GOPATH=$HOME/go
-GOROOT=/lib/go
-JAVA_HOME="$(ls /lib/jvm | grep java-11-openjdk.)"
-GRDL_PATH=/usr/local/gradle/bin
-DOT_PATH=$HOME/.dotfiles/bin
-export EDITOR=/usr/bin/vim
+export GOPATH=$HOME/.config/go
+export GOROOT=/lib/go
+export DOT_PATH=$HOME/.dotfiles/bin
+export EDITOR=/usr/bin/nvim
+export TODO_DB_PATH=$HOME/.config/umutsevdi/env/todo.json
 # ┌──────────────────────┐
 # │ Directory Management │
 # └──────────────────────┘
 
 alias wget=wget --hsts-file="$HOME/.config/.wget-hsts"
+export LESSHISTFILE=$HOME/.config/.lesshst
 export XDG_DATA_HOME=$HOME/.local/share/
 export XDG_CONFIG_HOME=$HOME/.config/
 export XDG_STATE_HOME=$HOME/.local/state
 export XDG_CACHE_HOME=$HOME/.cache
-export QT_QPA_PLATFORMTHEME=gnome
+export HISTFILE=$HOME/.config/history
+export QUOTE_PATH=$HOME/Documents/quotes
 # sudo alternatives --config java
-
-# Uncomment the following line if you don't like systemctl's auto-paging feature:
-# export SYSTEMD_PAGER=
 
 # User specific aliases and functions
 if [ -d $HOME/.bashrc.d ]; then
-	for rc in $HOME/.bashrc.d/*; do
-		if [ -f "$rc" ]; then
-			. "$rc"
-		fi
-	done
+    for rc in $HOME/.bashrc.d/*; do
+        if [ -f "$rc" ]; then
+            . "$rc"
+        fi
+    done
 fi
 
 unset rc
-[[ $- != *i* ]] && return
-
-[[ $- == *i* ]] && source "/home/umutsevdi/.fzf/shell/completion.bash" 2> /dev/null
-
 # ┌──────────────────────┐
 # │       Aliases        │
 # └──────────────────────┘
@@ -61,27 +54,26 @@ alias ..='cd ..'
 alias gs='git status'
 alias mv='mv -i'
 alias rm='rm -i'
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-alias ff='cd $(dirname $(fzf))'
+alias ff='x=$(fzf);cd $(dirname $x); nvim $(basename $x)'
+alias open='xdg-open "$(fzf)"'
+alias tmux="tmux -f $HOME/.dotfiles/tmux/.tmux.conf"
+# alias docker-run='docker run -it -e DISPLAY=$DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix/'
 
 # Typo aliases
 alias sl=ls
-alias v=vi
-alias n=vim
-alias nivm=vim
-alias nuvm=vim
-alias novm=vim
-alias nvm=vim
+alias v=vim
+alias nivm=nvim
+alias cs=colorscheme
 
-# ps
-#PS1='[\u@\h \W]\$ '
-# PS1="\e[34;1m\A \e[33;3m\W\e[39;0m → "
-# wrap color sequences with \[ \]
+# ┌──────────────────────┐
+# │       Setup PS1      │
+# └──────────────────────┘
 ps_t="\[\e[34;1m\]\t"
+ps_u="\[\e[33;1m\]\u"
 ps_dir="\[\e[33;3m\]\W"
 ps_git="\[\e[;0m\]\[\e[33;3m\]\$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/')"
 ps_arrow=" → \[\e[39;0m\]"
-export PS1="$ps_t $ps_dir$ps_git $ps_arrow"
+export PS1="$ps_t $ps_u $ps_dir$ps_git $ps_arrow"
 
 # ┌──────────────────────┐
 # │      Initialize      │
