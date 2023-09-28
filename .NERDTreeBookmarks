@@ -1,6 +1,0 @@
-dots ~/.dotfiles
-source ~/src
-
-projects ~/src/dev/
-builds ~/src/build/
-playground ~/src/playground/

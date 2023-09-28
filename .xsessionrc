@@ -1,7 +1,0 @@
-#!/bin/bash
-# This file is a debian spesific file. By default bashrc is not sourced
-
-# Load the bashrc file to get all environment variables
-if [ -f "$HOME/.bashrc" ]; then
-  . "$HOME/.bashrc"
-fi

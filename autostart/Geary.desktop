@@ -1,9 +1,0 @@
-[Desktop Entry]
-Type=Application
-Exec=geary --gapplication-service
-X-GNOME-Autostart-enabled=true
-NoDisplay=false
-Hidden=false
-Name[en_US]=Geary
-Comment[en_US]=Mail client daemon
-X-GNOME-Autostart-Delay=0
