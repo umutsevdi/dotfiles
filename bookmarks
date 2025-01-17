@@ -6,4 +6,6 @@ file:///home/umutsevdi/Downloads
 file:///home/umutsevdi/src/dev Development
 file:///home/umutsevdi/src/build Build
 file:///home/umutsevdi/src/playground Playground
+file:/// root
+file:///opt opt
 sftp://pi@home.local/home/pi pi

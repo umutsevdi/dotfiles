@@ -11,12 +11,12 @@
 
 color_value=`cat /tmp/.cs 2>/dev/null`
 [ "$color_value" = "" ] && color_value=true
-GTK_THEME_DOCK_LIGHT="Jasper-Purple-Compact"
-GTK_THEME_LIGHT="Jasper-Purple-Light-Compact"
-GTK_THEME_DARK="Jasper-Purple-Dark-Compact"
+GTK_THEME_DOCK_LIGHT="Adwaita"
+GTK_THEME_LIGHT="Adwaita"
+GTK_THEME_DARK="Adwaita"
 
-GTK_ICON_LIGHT="Ars-Dark-Icons" #"Pop-Extended"
-GTK_ICON_DARK="Ars-Light-Icons" #"Pop-Extended"
+GTK_ICON_LIGHT="Adwaita" #"Pop-Extended"
+GTK_ICON_DARK="Adwaita" #"Pop-Extended"
 
 PLASMA_COLOR_LIGHT="FlatRemixGreen"
 PLASMA_COLOR_DARK="FlatRemixGreenDarkest"
@@ -77,9 +77,7 @@ SetAll()
     gsettings set org.gnome.desktop.wm.preferences theme "$gtk_theme"
     gsettings set org.gnome.desktop.interface gtk-theme "$gtk_theme"
     gsettings set org.gnome.desktop.interface icon-theme "$gtk_icon"
-    gsettings set org.gnome.shell.extensions.user-theme name "$gtk_theme"
     gsettings set org.gnome.desktop.interface color-scheme "$gnome_prefer"
-    # gsettings set org.x.apps.portal color-scheme "$gnome_prefer"
 }
 
 SetKDE()
