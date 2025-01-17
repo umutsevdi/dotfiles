@@ -13,7 +13,8 @@
 
 ## About
 
-This repository contains all the configuration files and scripts that I've been using on my device. I use <a href="https://getfedora.org/en/server/download/">Fedora 37 Server Edition</a>. These are the base dotfiles that I start with
+This repository contains all the configuration files and scripts that I've been
+using on my device. I use []<a href="https://getfedora.org/en/server/download/">Fedora 41</a>. These are the base dotfiles that I start with
 when I set up a new environment.
 
 I'm using Fedora 37 on my personal computer. I use the <a href="https://github.com/i3/i3">i3 Window Manager</a>.

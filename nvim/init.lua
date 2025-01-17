@@ -97,7 +97,7 @@ require('lazy').setup({
             transparent = true,    -- do not set background color
             terminalColors = true, -- define vim.g.terminal_color_{0,17}
             background = {         -- map the value of 'background' option to a theme
-                dark = "wave",   -- try "dragon" !
+                dark = "wave",     -- try "dragon" !
                 light = "lotus"
             },
             colors = { theme = { all = { ui = { bg_gutter = "none" } } } }
@@ -214,11 +214,14 @@ require('mason-lspconfig').setup {
     ensure_installed = {
         'bashls', 'clangd', 'cssls', 'lua_ls',
         'gopls', 'grammarly', 'html', 'marksman',
-        'pylsp', 'ts_ls' --, 'cmake'
+        'pylsp', 'ts_ls', 'rust_analyzer', --  'cmake'
     },
     handlers = {
         function(server_name)
             require('lspconfig')[server_name].setup {
+                diagnostics = {
+                    enable = true,
+                }
             }
         end,
     }
@@ -259,7 +262,7 @@ require("nvim-treesitter.configs").setup({
     ensure_installed = {
         "c", "cmake", "comment", "cpp", "dart", "dockerfile", "go", "gomod",
         "gdscript", "html", "http", "java", "javascript", "jsdoc", "json",
-        "lua", "make", "perl", "python", "regex", "rust", "toml",
+        "lua", "make", "perl", "python", "regex", "rust", "sql", "toml",
         "tsx", "typescript", "yaml", "vim", "vimdoc" },
 })
 
