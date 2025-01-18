@@ -26,12 +26,12 @@ environment.
   </ul>
 </details>
 
-<img src="screenshots/main.png">
+<img src="screenshots/desktop.png">
 
 
 ## How To Install
 
-If you are using Fedora as your operating system, you can just run `install.sh`.
+If you use Fedora as your operating system, you can just run `install.sh`.
 
 ```bash
 chmod +x ./install.sh
