@@ -1,0 +1,11 @@
+xterm*background:              black
+xterm*foreground:              white
+xterm*renderFont:              true
+xterm*faceSize:                9
+xterm*faceName:                UbuntuMono
+xterm*saveLines:               10000
+xterm*scrollBar:               false
+xterm*scrollLines:             1
+xterm.vt100.selectToClipboard: true
+xterm*boldMode:                false
+xterm*internalBorder:          2

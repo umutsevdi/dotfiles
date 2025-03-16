@@ -123,8 +123,14 @@ case $XDG_CURRENT_DESKTOP in
     KDE)
         SetKDE
         ;;
+    sway);;
     *)
         SetAll
         ;;
 esac
+if [ "$XDG_CURRENT_DESKTOP" = "sway" ];then
+    gsettings set org.gnome.desktop.wm.preferences button-layout 'appmenu:'
+else
+    gsettings set org.gnome.desktop.wm.preferences button-layout 'appmenu:minimize,close'
+fi
 SetTerminal &

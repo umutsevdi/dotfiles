@@ -7,6 +7,7 @@
 -- basic settings and initializes basic Lua configurations.
 -- It also links the configuration files of plugins respectively.
 -------------------------------------------------------------------------------
+IS_WINDOWS = vim.fn.executable("clip.exe") == 1 and true or false
 vim.cmd([[
     set shell=$SHELL
     set encoding=UTF-8
@@ -25,35 +26,45 @@ vim.cmd([[
     set spell
     set colorcolumn=80
 ]])
-vim.o.termguicolors = false
-vim.o.hidden = true
-vim.o.updatetime = 200
-vim.o.backup = false
-vim.o.writebackup = false
-vim.o.signcolumn = 'yes'
+
 vim.o.number = true
-vim.o.cursorline = true
-vim.o.ignorecase = true
-vim.o.smartcase = true
+vim.o.relativenumber = true
+vim.opt.showmode = false
+
+vim.schedule(function()
+  vim.opt.clipboard = 'unnamedplus'
+end)
+-- vim.o.clipboard = "unnamedplus"
+
 vim.o.undofile = true
 vim.o.undodir = vim.fn.stdpath("config") .. "/undodir"
+vim.o.ignorecase = true
+vim.o.smartcase = true
+
+vim.o.signcolumn = 'yes'
+vim.o.updatetime = 200
+
+vim.opt.splitright = true
+vim.opt.splitbelow = true
+
+vim.opt.list = true
+vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+
+vim.o.cursorline = true
+vim.opt.scrolloff = 10
+vim.opt.inccommand = 'split'
+
+vim.o.hidden = true
+vim.o.backup = false
+vim.o.writebackup = false
 vim.o.swapfile = false
 vim.o.history = 50
-vim.o.splitright = true
-vim.o.splitbelow = true
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
 vim.o.softtabstop = 4
-vim.o.relativenumber = true
-vim.o.clipboard = "unnamedplus"
-vim.o.numberwidth = 6
-vim.o.scrolloff = 8
-vim.o.wrap = false
-vim.o.textwidth = 300
-vim.o.list = true
+vim.o.textwidth = 120
 vim.o.jumpoptions = "view"
 
--- Install Lazy if not exists
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
@@ -71,6 +82,9 @@ vim.g.maplocalleader = ' '
 
 require('lazy').setup({
     {
+        'LudoPinelli/comment-box.nvim',
+        { 'm4xshen/autoclose.nvim',          opts = {} },
+        { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
         'lewis6991/gitsigns.nvim',
         opts = {
             signs              = {
@@ -80,27 +94,29 @@ require('lazy').setup({
             },
             current_line_blame = true,
         }
-    },                              -- git symbols on the left
-    'nvim-lualine/lualine.nvim',    -- bottom bar
-    'LudoPinelli/comment-box.nvim', -- comment box
-    { 'm4xshen/autoclose.nvim',          opts = {} },
+    },
     {
-        "rebelot/kanagawa.nvim",
+        'rebelot/kanagawa.nvim',
         opts = {
-            compile = true,   -- enable compiling the colorscheme
-            undercurl = true, -- enable undercurls
-            commentStyle = { italic = true },
-            functionStyle = { bold = true, italic = true },
-            keywordStyle = { italic = false, bold = true },
-            statementStyle = {},
-            typeStyle = { bold = true },
-            transparent = true,    -- do not set background color
-            terminalColors = true, -- define vim.g.terminal_color_{0,17}
-            background = {         -- map the value of 'background' option to a theme
-                dark = "wave",     -- try "dragon" !
-                light = "lotus"
-            },
-            colors = { theme = { all = { ui = { bg_gutter = "none" } } } }
+            compile        = true,
+            functionStyle  = { italic = true, bold = true },
+            keywordStyle   = { italic = false, bold = false },
+            statementStyle = { italic = true, bold = false },
+            typeStyle      = { italic = false, bold = true },
+            transparent    = true,
+            dimInactive    = false,
+            terminalColors = true,
+            theme          = "wave",
+            background     = { dark = "wave", light = "lotus" },
+            colors         = {
+                theme = {
+                    all = {
+                        ui = {
+                            bg_gutter = "none"
+                        }
+                    }
+                }
+            }
         }
     },
     {
@@ -117,25 +133,68 @@ require('lazy').setup({
         cmd = { "Oil" },
         dependencies = { "nvim-tree/nvim-web-devicons" },
     },
-    --    { 'junegunn/fzf',                    dir = '~/.fzf',     build = './install --all' },
-    { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
     {
         'VonHeikemen/lsp-zero.nvim',
         dependencies = {
-            { 'neovim/nvim-lspconfig' },
-            { 'hrsh7th/cmp-nvim-lsp' },
-
-            { 'williamboman/mason.nvim' },
-            { 'williamboman/mason-lspconfig.nvim' },
-            { "L3MON4D3/LuaSnip" },
-            { 'hrsh7th/nvim-cmp' },
-            { 'saadparwaiz1/cmp_luasnip' },
-            { "rafamadriz/friendly-snippets" }, -- provides snippets
+            'neovim/nvim-lspconfig',
+            'hrsh7th/cmp-nvim-lsp',
+            'williamboman/mason.nvim',
+            'williamboman/mason-lspconfig.nvim',
+            "L3MON4D3/LuaSnip",
+            'hrsh7th/nvim-cmp',
+            'saadparwaiz1/cmp_luasnip',
+            "rafamadriz/friendly-snippets",
         }
     },
+    {
+        'nvim-lualine/lualine.nvim',
+        opts = {
+            options = {
+                globalstatus = true,
+                theme = "16color",
+            },
+            sections = {
+                lualine_a = { "mode" },
+                lualine_b = { "branch" },
+                lualine_c = { {
+                    "filename",
+                    symbols = {
+                        modified = " * ",
+                        readonly = "  ",
+                        unnamed = "",
+                    },
+                } },
+                lualine_x = {
+                    {
+                        "diagnostics",
+                        sources = { "nvim_diagnostic", "nvim_lsp" },
+                        sections = { "error", "warn", "info", "hint" },
+                        symbols = {
+                            error = " ⊗ ",
+                            warn = " ",
+                            info = "🛈 ",
+                            hint = "⚑ "
+                        },
+                    },
+                },
+                lualine_y = { "location", "filetype" },
+                lualine_z = { "tabs" },
+            },
+            inactive_sections = {
+                lualine_a = {},
+                lualine_b = {},
+                lualine_c = {},
+                lualine_x = {},
+                lualine_y = {},
+                lualine_z = { 'filename' }
+            },
+            tabline = {},
+            winbar = {},
+            inactive_winbar = {},
+            extensions = {}
+        }
+    }
 })
-IS_WINDOWS = vim.fn.executable("clip.exe") == 1 and true or false
-
 require("luasnip.loaders.from_vscode").lazy_load()
 require("luasnip.loaders.from_snipmate").lazy_load({
     paths = { "~/.dotfiles/nvim/snippets/" }
@@ -145,11 +204,7 @@ local cmp = require("cmp")
 local luasnip = require("luasnip")
 local select_opts = { behavior = cmp.SelectBehavior.Select }
 cmp.setup({
-    snippet = {
-        expand = function(args)
-            luasnip.lsp_expand(args.body)
-        end
-    },
+    snippet = { expand = function(args) luasnip.lsp_expand(args.body) end },
     sources = {
         { name = 'luasnip' },
         { name = 'nvim_lsp' },
@@ -184,20 +239,11 @@ cmp.setup({
         ['<C-Space>'] = cmp.mapping.complete(),
         ['<C-e>'] = cmp.mapping.abort(),
         ['<CR>'] = cmp.mapping.confirm({ select = false }),
-
         ['<C-f>'] = cmp.mapping(function(fallback)
-            if luasnip.jumpable(1) then
-                luasnip.jump(1)
-            else
-                fallback()
-            end
+            if luasnip.jumpable(1) then luasnip.jump(1) else fallback() end
         end, { 'i', 's' }),
         ['<C-b>'] = cmp.mapping(function(fallback)
-            if luasnip.jumpable(-1) then
-                luasnip.jump(-1)
-            else
-                fallback()
-            end
+            if luasnip.jumpable(-1) then luasnip.jump(-1) else fallback() end
         end, { 'i', 's' }),
     },
 })
@@ -212,18 +258,14 @@ lspconfig_defaults.capabilities = vim.tbl_deep_extend(
 require('mason').setup {}
 require('mason-lspconfig').setup {
     ensure_installed = {
-        'bashls', 'clangd', 'cssls', 'lua_ls',
-        'gopls', 'grammarly', 'html', 'marksman',
-        'pylsp', 'ts_ls', 'rust_analyzer', --  'cmake'
+        'astro', 'bashls', 'clangd', 'cssls', 'cmake', 'gopls', 'html',
+        'lua_ls', 'marksman', 'pylsp', 'rust_analyzer', 'ts_ls',
     },
-    handlers = {
-        function(server_name)
-            require('lspconfig')[server_name].setup {
-                diagnostics = {
-                    enable = true,
-                }
-            }
-        end,
+    handlers = { function(srvr)
+        require('lspconfig')[srvr].setup {
+            diagnostics = { enable = true, }
+        }
+    end,
     }
 }
 
@@ -249,16 +291,11 @@ require('lspconfig').lua_ls.setup({
                 }
             })
     end,
-    settings = {
-        diagnostics = { globals = { "vim" } }
-    }
+    settings = { diagnostics = { globals = { "vim" } } }
 })
 
 require("nvim-treesitter.configs").setup({
-    highlight = {
-        enable = true,
-        additional_vim_regex_highlighting = false,
-    },
+    highlight = { enable = true },
     ensure_installed = {
         "c", "cmake", "comment", "cpp", "dart", "dockerfile", "go", "gomod",
         "gdscript", "html", "http", "java", "javascript", "jsdoc", "json",
@@ -269,12 +306,7 @@ require("nvim-treesitter.configs").setup({
 vim.cmd("colorscheme kanagawa")
 
 require("telescope").setup {
-    defaults = {
-        layout_config = {
-            --            vertical = { width = 0.5 }
-            -- other layout configuration here
-        }
-    },
+    defaults = { layout_config = { vertical = { width = 0.5 } } },
     opts = {
         extensions = {
             ["ui-select"] = require("telescope.themes").get_cursor {}
@@ -282,54 +314,6 @@ require("telescope").setup {
     }
 }
 require("telescope").load_extension("ui-select")
-
-require("lualine").setup({
-    options = {
-        theme = '16color',
-    },
-    sections = {
-        lualine_a = { "mode", "branch" },
-        lualine_b = {
-            {
-                "filename",
-                symbols = {
-                    modified = " * ",
-                    readonly = "  ",
-                    unnamed = "[No Name]",
-                },
-            },
-        },
-        lualine_c = {},
-        lualine_x = {
-            {
-                "diagnostics",
-                sources = { "nvim_diagnostic", "nvim_lsp" },
-                sections = { "error", "warn", "info", "hint" },
-                symbols = {
-                    error = " ⊗ ",
-                    warn = " ",
-                    info = "🛈 ",
-                    hint = "⚑ "
-                },
-            },
-        },
-        lualine_y = { "tabs", "location" },
-        lualine_z = { "filetype" },
-    },
-    inactive_sections = {
-        lualine_a = {},
-        lualine_b = {},
-        lualine_c = {},
-        lualine_x = {},
-        lualine_y = {},
-        lualine_z = { 'filename' }
-    },
-    tabline = {},
-    winbar = {},
-    inactive_winbar = {},
-    extensions = {}
-})
-
 
 vim.diagnostic.config {
     signs = {
@@ -343,9 +327,6 @@ vim.diagnostic.config {
     virtual_text = true,
 }
 
--- ╭────────────────────╮
--- │ Keyboard shortcuts │
--- ╰────────────────────╯
 vim.cmd([[
     map <silent> <A-h> :tabprevious<CR>
     map <silent> <A-l> :tabnext<CR>
@@ -370,9 +351,6 @@ vim.keymap.set("n", "<A-f>", ":lua vim.lsp.buf.format() <CR>")
 vim.keymap.set("n", "<A-q>", ":lua vim.lsp.buf.code_action() <CR>")
 vim.keymap.set("n", "<A-r>", ":lua vim.lsp.buf.rename() <CR>")
 
--- ╭───────────────────╮
--- │ Platform Specific │
--- ╰───────────────────╯
 if IS_WINDOWS then
     vim.g.clipboard = {
         name = 'WslClipboard',

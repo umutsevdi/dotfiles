@@ -8,4 +8,5 @@ AllowShortIfStatementsOnASingleLine: WithoutElse
 ColumnLimit: '80'
 TabWidth: '4'
 UseTab: Never
+FixNamespaceComments: 'true'
 ...
