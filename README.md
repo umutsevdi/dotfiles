@@ -26,8 +26,7 @@ environment.
   </ul>
 </details>
 
-<img src="screenshots/desktop.png">
-
+![Desktop](screenshots/desktop.png)
 
 ## How To Install
 

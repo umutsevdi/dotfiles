@@ -23,12 +23,38 @@ Help()
    echo
 }
 
+CleanOne()
+{
+    if [ -f $1 ] || [ -d $1 ]; then
+        rm $1 -fr && echo "Cleaning $1"
+    fi 
+}
+
 Fetch()
 {
     cp -r $HOME/.dotfiles/bookmarks $HOME/.config/gtk-3.0/
     cp -r $HOME/.dotfiles/bashrc $HOME/.bashrc
+    cp -r $HOME/.dotfiles/nvim/init.lua $HOME/.config/nvim/init.lua
+    cp -r $HOME/.dotfiles/Xdefaults $HOME/.Xdefaults
+    cp -r $HOME/.dotfiles/Xdefaults $HOME/.Xresoruces
     source $HOME/.bashrc
     colorscheme -r
+    xrdb $HOME/.Xdefaults
+    mkdir -p ~/.local/share/backgrounds/bg
+    mkdir -p ~/.local/share/gnome-background-properties
+    cp ~/.dotfiles/background/*.jpg ~/.local/share/backgrounds/bg
+    cp ~/.dotfiles/background/bg.xml ~/.local/share/gnome-background-properties
+    cp ~/.dotfiles/sway/config ~/.config/sway/
+}
+
+Clean()
+{
+    CleanOne $HOME/.cmake
+    CleanOne $HOME/.w3m
+    CleanOne $HOME/.npm
+    CleanOne $HOME/.node_repl_history
+    CleanOne $HOME/.python_history
+
 }
 
 for arg in $@;do
@@ -43,3 +69,4 @@ for arg in $@;do
     fi 
 done
 Fetch
+Clean

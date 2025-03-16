@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!DOCTYPE wallpapers SYSTEM "gnome-wp-list.dtd">
+<wallpapers>
+  <wallpaper deleted="false">
+    <name>Tag</name>
+    <filename>/home/umutsevdi/.local/share/backgrounds/bg/day.jpg</filename>
+    <filename-dark>/home/umutsevdi/.local/share/backgrounds/bg/night.jpg</filename-dark>
+    <options>zoom</options>
+  </wallpaper>
+</wallpapers>

@@ -2,10 +2,16 @@
 BasedOnStyle: WebKit
 AlignConsecutiveAssignments: 'true'
 AlignTrailingComments: 'true'
-AllowShortBlocksOnASingleLine: 'true'
 AllowShortCaseLabelsOnASingleLine: 'true'
-AllowShortIfStatementsOnASingleLine: WithoutElse
 ColumnLimit: '80'
 TabWidth: '4'
 UseTab: Never
+FixNamespaceComments: 'true'
+IncludeCategories:
+  - Regex: ^".*"$
+    Priority: 1
+  - Regex: ^<.*\.h>$
+    Priority: 2
+  - Regex: ^<.*>$
+    Priority: 3
 ...

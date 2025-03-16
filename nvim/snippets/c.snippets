@@ -7,12 +7,12 @@ snippet head
 	 * File: `bufname("%")`
 	 * Created: `system("date +%D")` * Author: `system("git config user.name || whoami")` * Description: $1
 	 *
-	 * Project: `system("git config --get remote.origin.url | sed -e 's/^git@[^:]*://' -e 's/\.git$//'")` * License: `system("head -n 1 LICENSE 2>/dev/null| sed 's/^[[:space:]]*//;s/[[:space:]]*$//' || echo '-'")` ******************************************************************************/
+	 * Project: `system("git config get remote.origin.url  | awk -F '/' '{print $(NF-1)  \"/\"  $(NF) }'")` * License: `system("head -n 1 LICENSE 2>/dev/null || echo | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' ")` ******************************************************************************/
 
 ## Section
 # section
 snippet section
 	/******************************************************************************
 										$1
-	*****************************************************************************/
+	******************************************************************************/
 	$0

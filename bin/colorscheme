@@ -24,7 +24,7 @@ PLASMA_COLOR_DARK="FlatRemixGreenDarkest"
 
 Help()
 {
-   # gDisplay Help
+   # Display Help
    echo "colorscheme.sh - Toggle between light and dark mode"
    echo
    echo "Syntax: [-r]"
@@ -123,8 +123,17 @@ case $XDG_CURRENT_DESKTOP in
     KDE)
         SetKDE
         ;;
+    sway);;
     *)
         SetAll
         ;;
 esac
+if [ "$XDG_CURRENT_DESKTOP" = "sway" ] || [ -z "$XDG_CURRENT_DESKTOP" ];then
+    gsettings set org.gnome.desktop.wm.preferences button-layout 'appmenu:'
+    [ "$is_dark" = true ] && _img="day" || _img="night"
+    echo "~/.dotfiles/background/$_img"
+    exec swaybg -i ~/.dotfiles/background/${_img}.jpg &
+else
+    gsettings set org.gnome.desktop.wm.preferences button-layout 'appmenu:minimize,close'
+fi
 SetTerminal &

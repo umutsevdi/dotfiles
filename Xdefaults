@@ -1,0 +1,18 @@
+XTerm.vt100.locale: false
+XTerm.vt100.utf8: true
+XTerm.vt100.scrollTtyOutput: false
+XTerm.vt100.scrollKey: true
+XTerm.vt100.bellIsUrgent: true
+XTerm.vt100.metaSendsEscape: true
+
+xterm*background:              black
+xterm*foreground:              white
+xterm*renderFont:              true
+xterm*faceSize:                10
+xterm*faceName:                UbuntuMonoNerdFontMono-Regular
+xterm*saveLines:               10000
+xterm*scrollBar:               false
+xterm*scrollLines:             1
+xterm.vt100.selectToClipboard: true
+xterm*boldMode:                false
+xterm*internalBorder:          2
