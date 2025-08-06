@@ -9,7 +9,7 @@ xterm*background:              black
 xterm*foreground:              white
 xterm*renderFont:              true
 xterm*faceSize:                10
-xterm*faceName:                UbuntuMonoNerdFontMono-Regular
+xterm*faceName:                CommitMonoNerdFont-Regular
 xterm*saveLines:               10000
 xterm*scrollBar:               false
 xterm*scrollLines:             1

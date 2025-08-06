@@ -6,11 +6,11 @@ unfocused_hollow = true
 size = 10
 
 [font.bold]
-family = "UbuntuMonoNerdFont"
+family = "CommitMonoNerdFont"
 style = "Bold"
 
 [font.bold_italic]
-family = "UbuntuMonoNerdFont"
+family = "CommitMonoNerdFont"
 style = "Bold Italic"
 
 [font.glyph_offset]
@@ -18,11 +18,11 @@ x = 0
 y = 0
 
 [font.italic]
-family = "UbuntuMonoNerdFont"
+family = "CommitMonoNerdFont"
 style = "Italic"
 
 [font.normal]
-family = "UbuntuMonoNerdFont"
+family = "CommitMonoNerdFont"
 style = "Regular"
 
 [mouse]

@@ -3,66 +3,44 @@
 --
 -- Author: Umut Sevdi
 -- Created: 04/07/22
--- Description: init.lua is the primary configuration file that initializes
--- basic settings and initializes basic Lua configurations.
--- It also links the configuration files of plugins respectively.
 -------------------------------------------------------------------------------
-IS_WINDOWS = vim.fn.executable("clip.exe") == 1 and true or false
 
-local ICON_ERROR = "󰅝 "
-local ICON_WARN = " "
-local ICON_HINT = " "
-local ICON_INFO = "󰳦 "
-local ICON_MENU = IS_WINDOWS
-    and { nvim_lsp = '⎀', luasnip = '⎓', buffer = '⎙', path = '⌘' }
-    or { nvim_lsp = '󰌷', luasnip = '󱡠', buffer = '', path = '' }
-
-vim.cmd([[
-    set shell=$SHELL
-    set encoding=UTF-8
-    syntax on
-    set t_Co=256
-    set cmdheight=1
-    set shortmess+=c
-    set showtabline=0
-    set foldmethod=manual
-    set mousemodel=extend
-    set inccommand=nosplit
-    set conceallevel=0
-    set expandtab
-    set smarttab
-    set smartindent
-    set spell
-    set colorcolumn=80
-]])
+vim.cmd [[ set t_Co=256 ]]
+vim.o.shell = os.getenv("SHELL")
+vim.o.encoding = "UTF-8"
+vim.o.syntax = "on"
+vim.o.cmdheight = 1
+vim.o.shortmess = vim.o.shortmess .. "c"
+vim.o.showtabline = 0
+vim.o.foldmethod = "manual"
+vim.o.mousemodel = "extend"
+vim.o.inccommand = "nosplit"
+vim.o.conceallevel = 0
+vim.o.expandtab = true
+vim.o.smarttab = true
+vim.o.smartindent = true
+vim.o.spell = true
 
 vim.o.number = true
 vim.o.relativenumber = true
+vim.o.wrap = false
 vim.opt.showmode = false
+vim.o.colorcolumn = "80"
 
-vim.opt.clipboard = ""
 vim.schedule(function()
     vim.opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus"
 end)
-
 vim.o.undofile = true
 vim.o.undodir = vim.fn.stdpath("config") .. "/undodir"
 vim.o.ignorecase = true
 vim.o.smartcase = true
-
 vim.o.signcolumn = 'yes'
 vim.o.updatetime = 200
-
 vim.opt.splitright = true
 vim.opt.splitbelow = true
-
-vim.opt.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
-
 vim.o.cursorline = true
 vim.opt.scrolloff = 10
 vim.opt.inccommand = 'split'
-
 vim.o.hidden = true
 vim.o.backup = false
 vim.o.writebackup = false
@@ -73,7 +51,7 @@ vim.o.shiftwidth = 4
 vim.o.softtabstop = 4
 vim.o.textwidth = 120
 vim.o.jumpoptions = "view"
-vim.o.wrap = false
+vim.o.winborder = 'none'
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -104,33 +82,19 @@ require('lazy').setup({
             },
             current_line_blame = true,
         },
-        { "vigoux/notifier.nvim",  opts = {} },
-        { "m4xshen/hardtime.nvim", lazy = false, opts = { disable_mouse = false } },
+        { "vigoux/notifier.nvim", opts = {} },
     },
     {
         "EdenEast/nightfox.nvim",
         opts = {
             options = {
-                colorblind = {
-                    enable = true,
-                    simulate_only = false,
-                    severity = {
-                        deutan = 1,
-                        tritan = 1,
-                    },
-                },
                 transparent = true,
                 styles = {
                     comments = "italic",
                     constants = "bold",
                     functions = "bold,italic",
-                    keywords = "italic",
+                    keywords = "NONE",
                     types = "bold",
-                    -- conditionals = "NONE",
-                    -- numbers = "NONE",
-                    -- operators = "NONE",
-                    -- strings = "NONE",
-                    -- variables = "NONE",
                 },
             },
         }
@@ -152,17 +116,35 @@ require('lazy').setup({
         dependencies = { "nvim-tree/nvim-web-devicons" },
     },
     {
-        'VonHeikemen/lsp-zero.nvim',
+        'neovim/nvim-lspconfig',
         dependencies = {
-            'neovim/nvim-lspconfig',
-            'hrsh7th/cmp-nvim-lsp',
             'williamboman/mason.nvim',
             'williamboman/mason-lspconfig.nvim',
-            "L3MON4D3/LuaSnip",
-            'hrsh7th/nvim-cmp',
-            'saadparwaiz1/cmp_luasnip',
-            "rafamadriz/friendly-snippets",
         }
+    },
+    {
+        'saghen/blink.cmp',
+        dependencies = { {
+            "L3MON4D3/LuaSnip",
+            dependencies = { "rafamadriz/friendly-snippets" },
+        } },
+        version = '1.*',
+        opts = {
+            -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
+            -- C-space: Open menu or open docs if already open
+            -- C-y: accept
+            -- C-n/C-p or Up/Down: Select next/previous item
+            -- C-e: Hide menu
+            -- C-k: Toggle signature help (if signature.enabled = true)
+            keymap = { preset = 'default' },
+            appearance = { nerd_font_variant = 'mono' },
+            completion = { documentation = { auto_show = true } },
+            sources = {
+                default = { 'snippets', 'lsp', 'path', 'buffer' },
+            },
+            snippets = { preset = 'luasnip' },
+        },
+        opts_extend = { "sources.default" }
     },
     {
         'MeanderingProgrammer/render-markdown.nvim',
@@ -178,7 +160,7 @@ require('lazy').setup({
                 left_pad = 1,
                 language_pad = 2,
                 right_pad = 1,
-            }
+            },
         },
     },
     {
@@ -186,7 +168,6 @@ require('lazy').setup({
         dependencies = { 'nvim-tree/nvim-web-devicons' },
         opts = {
             options = {
---                theme = custom_theme,
                 section_separators = { left = '', right = '' },
                 component_separators = { left = '', right = '' },
                 disabled_filetypes = {
@@ -199,99 +180,34 @@ require('lazy').setup({
                 lualine_b = { 'filename' },
                 lualine_c = { 'branch', 'diff' },
                 lualine_x = { 'diagnostics' },
-                lualine_y = { 'location' },
-                lualine_z = { 'tabs' },
+                lualine_y = { 'tabs' },
+                lualine_z = { 'location' },
             }
         }
-    },
+    }
 })
-
 require("luasnip.loaders.from_vscode").lazy_load()
-require("luasnip.loaders.from_snipmate").lazy_load({
-    paths = { "~/.dotfiles/nvim/snippets/" }
-})
-
-local cmp = require("cmp")
-local luasnip = require("luasnip")
-local select_opts = { behavior = cmp.SelectBehavior.Select }
-cmp.setup({
-    snippet = { expand = function(args) luasnip.lsp_expand(args.body) end },
-    sources = {
-        { name = 'luasnip' },
-        { name = 'nvim_lsp' },
-        { name = 'path' },
-        { name = 'buffer' },
-    },
-    window = {
-        documentation = cmp.config.window.bordered()
-    },
-    formatting = {
-        fields = { 'menu', 'abbr', 'kind' },
-        format = function(entry, item)
-            item.menu = ICON_MENU[entry.source.name]
-            return item
-        end,
-    },
-    mapping = {
-        ['<C-p>'] = cmp.mapping.select_prev_item(select_opts),
-        ['<C-n>'] = cmp.mapping.select_next_item(select_opts),
-        ['<C-Space>'] = cmp.mapping.complete(),
-        ['<C-e>'] = cmp.mapping.abort(),
-        ['<CR>'] = cmp.mapping.confirm({ select = false }),
-        ['<C-f>'] = cmp.mapping(function(fallback)
-            if luasnip.jumpable(1) then luasnip.jump(1) else fallback() end
-        end, { 'i', 's' }),
-        ['<C-b>'] = cmp.mapping(function(fallback)
-            if luasnip.jumpable(-1) then luasnip.jump(-1) else fallback() end
-        end, { 'i', 's' }),
-    },
-})
+require("luasnip.loaders.from_snipmate").lazy_load({ paths = { "~/.dotfiles/nvim/snippets/" } })
 
 local lspconfig_defaults = require('lspconfig').util.default_config
 lspconfig_defaults.capabilities = vim.tbl_deep_extend(
     'force',
     lspconfig_defaults.capabilities,
-    require('cmp_nvim_lsp').default_capabilities()
+    require('blink.cmp').get_lsp_capabilities()
 )
 
 require('mason').setup {}
 require('mason-lspconfig').setup {
     ensure_installed = {
         'astro', 'bashls', 'clangd', 'cssls',
-        'cmake', 'gopls', 'grammarly', 'html',
-        'lua_ls', 'pylsp', 'rust_analyzer', 'ts_ls',
+        'cmake', 'gopls', 'grammarly', 'html', 'lua_ls',
+        'pylsp', 'rust_analyzer', 'ts_ls',
     },
     handlers = { function(srvr)
         require('lspconfig')[srvr].setup { diagnostics = { enable = true, } }
     end,
     }
 }
-
-require('lspconfig').lua_ls.setup({
-    on_init = function(client)
-        if client.workspace_folders then
-            local path = client.workspace_folders[1].name
-            if vim.uv.fs_stat(path .. '/.luarc.json') or
-                vim.uv.fs_stat(path .. '/.luarc.jsonc') then
-                return
-            end
-        end
-        client.config.settings.Lua = vim.tbl_deep_extend('force',
-            client.config.settings.Lua, {
-                runtime = {
-                    version = 'LuaJIT'
-                },
-                workspace = {
-                    checkThirdParty = false,
-                    library = {
-                        vim.env.VIMRUNTIME
-                    }
-                }
-            })
-    end,
-    settings = { diagnostics = { globals = { "vim" } } }
-})
-
 require("nvim-treesitter.configs").setup({
     highlight = { enable = true },
     ensure_installed = {
@@ -302,29 +218,25 @@ require("nvim-treesitter.configs").setup({
 })
 
 require("telescope").load_extension("ui-select")
-
 vim.diagnostic.config {
     signs = {
         text = {
-            [vim.diagnostic.severity.ERROR] = ICON_ERROR,
-            [vim.diagnostic.severity.WARN]  = ICON_WARN,
-            [vim.diagnostic.severity.HINT]  = ICON_HINT,
-            [vim.diagnostic.severity.INFO]  = ICON_INFO,
+            [vim.diagnostic.severity.ERROR] = "󰅝 ",
+            [vim.diagnostic.severity.WARN]  = " ",
+            [vim.diagnostic.severity.HINT]  = " ",
+            [vim.diagnostic.severity.INFO]  = "󰳦 ",
         }
     },
     virtual_text = true,
 }
 
-vim.cmd([[
-    map <silent> <A-h> :tabprevious<CR>
-    map <silent> <A-l> :tabnext<CR>
-    map <silent> <A-Left> :tabprevious<CR>
-    map <silent> <A-Right> :tabnext<CR>
-    map <silent> <A-1> :tabfirst <cr>
-    map <silent> <A-0> :tablast<cr>
-]])
-
 vim.keymap.set("n", "qq", ":q! <CR>")
+vim.keymap.set("n", "<A-h>", ":tabprevious<CR>")
+vim.keymap.set("n", "<A-l>", ":tabnext<CR>")
+vim.keymap.set("n", "<A-Left>", ":tabprevious<CR>")
+vim.keymap.set("n", "<A-Right>", ":tabnext<CR>")
+vim.keymap.set("n", "<A-1>", ":tabfirst <CR>")
+vim.keymap.set("n", "<A-0>", ":tablast<CR>")
 vim.keymap.set("n", "<A-n>", ":tabnew | Oil <CR>")
 vim.keymap.set("n", "<A-t>", ":vsplit | Oil <CR>")
 vim.keymap.set("v", "<", "<gv")
@@ -338,23 +250,20 @@ vim.keymap.set("n", "fh", "<cmd>Telescope man_pages sections=2,3<CR>")
 vim.keymap.set("n", "<A-d>", "<cmd>:Telescope diagnostics theme=ivy bufnr=0<CR>", { silent = true, noremap = true })
 vim.keymap.set("n", "<A-D>", "<cmd>:Telescope diagnostics theme=ivy<CR>", { silent = true, noremap = true })
 vim.keymap.set("n", "<A-q>", ":lua vim.lsp.buf.code_action() <CR>")
-
 vim.keymap.set("n", "<A-f>", ":lua vim.lsp.buf.format() <CR>")
 vim.keymap.set("n", "<A-r>", ":lua vim.lsp.buf.rename() <CR>")
-if IS_WINDOWS then
+
+if vim.fn.executable("clip.exe") == 1 then -- is Windows?
     vim.g.clipboard = {
         name = 'WslClipboard',
-        copy = {
-            ['+'] = 'clip.exe',
-            ['*'] = 'clip.exe',
-        },
+        copy = { ['+'] = 'clip.exe', ['*'] = 'clip.exe' },
         paste = {
             ['+'] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
             ['*'] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
         },
         cache_enabled = 0,
     }
-    vim.cmd [[ colorscheme carbonfox ]]
+    vim.cmd [[ colorscheme duskfox ]]
 else
     local function getColor()
         local handle = io.popen(
@@ -368,10 +277,12 @@ else
     end
     function SetColors()
         if getColor() then
-            vim.cmd [[ colorscheme carbonfox ]]
+            vim.cmd [[ colorscheme duskfox ]]
         else
             vim.cmd [[ colorscheme dayfox ]]
         end
+        -- Make bar background transparent.
+        vim.cmd(":hi statusline guibg=NONE")
     end
 
     SetColors()

@@ -1,27 +1,28 @@
-# ---NOTE---
-# https://github.com/idleberg/Kimbie.tmTheme
-# https://github.com/alacritty/alacritty-theme/blob/master/themes/kimbie_light.toml
+# Colors (NoctixLux)
 
+# Default colors
 [colors.primary]
-background = "#fbebd4"
-foreground = "#6e5346"
+background = '#fef8ec'
+foreground = '#005661'
 
+# Normal colors
 [colors.normal]
-black = "#fbebd4"
-red = "#d43552"
-green = "#b8bb26"
-yellow = "#f0c674"
-blue = "#7cafc2"
-magenta = "#d3869b"
-cyan = "#8abeb7"
-white = "#6e5346"
+black = '#003b42'
+red = '#e34e1c'
+green = '#00b368'
+yellow = '#f49725'
+blue = '#0094f0'
+magenta = '#ff5792'
+cyan = '#00bdd6'
+white = '#8ca6a6'
 
+# Bright colors
 [colors.bright]
-black = "#f7e4c6"
-red = "#d43552"
-green = "#b8bb26"
-yellow = "#f0c674"
-blue = "#7cafc2"
-magenta = "#d3869b"
-cyan = "#8abeb7"
-white = "#4a3631"
+black = '#004d57'
+red = '#ff4000'
+green = '#00d17a'
+yellow = '#ff8c00'
+blue = '#0fa3ff'
+magenta = '#ff6b9f'
+cyan = '#00cbe6'
+white = '#bbc3c4'

@@ -18,9 +18,20 @@ GTK_THEME_DARK="Adwaita"
 GTK_ICON_LIGHT="Adwaita" #"Pop-Extended"
 GTK_ICON_DARK="Adwaita" #"Pop-Extended"
 
-PLASMA_COLOR_LIGHT="FlatRemixGreen"
-PLASMA_COLOR_DARK="FlatRemixGreenDarkest"
+PLASMA_COLOR_LIGHT="136942-Marble"
+PLASMA_COLOR_DARK="KritaDarker"
+QT_ICON_LIGHT="Haiku"
+QT_ICON_DARK="Haiku"
 
+PLASMA_DESKTOP_LIGHT="reactplus"
+PLASMA_DESKTOP_DARK="reactplus"
+
+echo "gtk_theme_dock_light=$GTK_THEME_DOCK_LIGHT"
+echo "gtk_theme=${GTK_THEME_LIGHT}|${GTK_THEME_DARK}"
+echo "gtk_icon=${GTK_ICON_LIGHT}|${GTK_ICON_DARK}"
+echo "plasma_color=${PLASMA_COLOR_LIGHT}|${PLASMA_COLOR_DARK}"
+echo "qt_icon=${QT_ICON_LIGHT}|${QT_ICON_DARK}"
+echo "plasma_desktop_theme=${PLASMA_DESKTOP_LIGHT}|${PLASMA_DESKTOP_DARK}"
 
 Help()
 {
@@ -86,12 +97,17 @@ SetKDE()
         qt_color=$PLASMA_COLOR_LIGHT
         gnome_prefer="prefer-light"
         icon=$QT_ICON_LIGHT
+        desktop_theme=$PLASMA_DESKTOP_LIGHT
     else
         qt_color=$PLASMA_COLOR_DARK
         gnome_prefer="prefer-dark"
         icon=$QT_ICON_DARK
+        desktop_theme=$PLASMA_DESKTOP_DARK
     fi
     plasma-apply-colorscheme $qt_color
+    if [ "$PLASMA_DESKTOP_DARK" != "$PLASMA_DESKTOP_LIGHT" ]; then
+        plasma-apply-desktoptheme $desktop_theme
+    fi
     gsettings set org.gnome.desktop.interface color-scheme "$gnome_prefer"
 }
 
@@ -118,7 +134,7 @@ else
     echo $write > /tmp/.cs
 fi
 
-echo "{$XDG_CURRENT_DESKTOP}"
+echo "Updating configuration for the platform $XDG_CURRENT_DESKTOP"
 case $XDG_CURRENT_DESKTOP in
     KDE)
         SetKDE
