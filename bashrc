@@ -32,13 +32,12 @@ if [ -d ~/.bashrc.d ]; then
 fi
 unset rc
 
-export GOPATH=$HOME/.config/go
 export JAVA_HOME="$(ls /lib/jvm | grep java-11-openjdk.)"
 export DOT_PATH=$HOME/.dotfiles/bin
 export RUSTUP_HOME=$HOME/.config/rust/.rustup
 export CARGO_HOME=$HOME/.config/rust/.cargo
 
-export PATH="/sbin:$JAVA_HOME:$GOPATH/bin:$GOROOT/bin:$DOT_PATH::$PATH;$RUSTUP_HOME;$CARGO_HOME"
+export PATH="/sbin:$JAVA_HOME:$GOPATH/bin:$DOT_PATH::$PATH;$RUSTUP_HOME;$CARGO_HOME"
 
 # ssh configuration
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
@@ -46,7 +45,7 @@ find ~/.ssh/ | grep \.pub | sed "s/.pub//" | xargs ssh-add > /dev/null 2>&1
 
 # Generate the neovim directory for the color changes
 mkdir /tmp/nvim  2>/dev/null
-alias nvim="nvim -u ~/.dotfiles/nvim/init.lua --listen /tmp/nvim/\$((\`ls /tmp/nvim | tail -n 1\`+1))"
+alias nvim="nvim --listen /tmp/nvim/\$((\`ls /tmp/nvim | tail -n 1\`+1))"
 export EDITOR=nvim
 export TODO_DB_PATH=$HOME/.config/shared/todo.json
 export LESSHISTFILE=$HOME/.config/.lesshst
@@ -95,8 +94,8 @@ dskill() {
 # │       Setup PS1      │
 # └──────────────────────┘
 ps_dir="\[\e[34;3m\]\W"
-ps_git="\[\e[;0m\]\[\e[36;3m\]\$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/')\[\e[39;0m\]"
-export PS1="$ps_dir$ps_git \[\e[33;1m\]$\[\e[;0m\] "
+ps_git="\[\e[;0m\]\[\e[2;36;3m\]\$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/')\[\e[39;0m\]"
+export PS1="$ps_dir$ps_git \[\e[2;33;1m\]$\[\e[;0m\] "
 td --nerd
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 . "$CARGO_HOME/env"
