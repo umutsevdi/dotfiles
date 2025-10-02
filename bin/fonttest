@@ -1,8 +1,27 @@
 #!/bin/bash
-echo -e
-echo -e '\e[1mBold\e[22m'
-echo -e '\e[2mDimmed\e[22m'
-echo -e '\e[3mItalic\e[23m'
-echo -e '\e[4mUnderlined\e[24m'
-echo -e '\e[4:3mCurly Underlined\e[4:0m'
-echo -e '\e[4:3m\e[58;2;240;143;104mColored Curly Underlined\e[59m\e[4:0m'
+RESET="\e[0m"
+echo -e "## FORMATS"
+echo -e "- \e[1mBold\e[22m"
+echo -e "- \e[2mDimmed\e[22m"
+echo -e "- \e[3mItalic\e[23m"
+echo -e "- \e[4mUnderlined\e[24m"
+echo -e "- \e[4:3mCurly Underlined\e[4:0m"
+echo -e "- \e[4:3m\e[58;2;240;143;104mColored Curly Underlined\e[59m\e[4:0m"
+echo -e "## STANDARD COLOURS (30‑37)"
+echo -e "- \e[30mBlack${RESET}"
+echo -e "- \e[31mRed${RESET}"
+echo -e "- \e[32mGreen${RESET}"
+echo -e "- \e[33mYellow${RESET}"
+echo -e "- \e[34mBlue${RESET}"
+echo -e "- \e[35mMagenta${RESET}"
+echo -e "- \e[36mCyan${RESET}"
+echo -e "- \e[37mWhite${RESET}"
+echo -e "## BRIGHT COLOURS (90‑97)"
+echo -e "- \e[90mBright Black (Gray)${RESET}"
+echo -e "- \e[91mBright Red${RESET}"
+echo -e "- \e[92mBright Green${RESET}"
+echo -e "- \e[93mBright Yellow${RESET}"
+echo -e "- \e[94mBright Blue${RESET}"
+echo -e "- \e[95mBright Magenta${RESET}"
+echo -e "- \e[96mBright Cyan${RESET}"
+echo -e "- \e[97mBright White${RESET}"

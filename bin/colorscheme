@@ -18,8 +18,8 @@ GTK_THEME_DARK="Adwaita"
 GTK_ICON_LIGHT="Adwaita" #"Pop-Extended"
 GTK_ICON_DARK="Adwaita" #"Pop-Extended"
 
-PLASMA_COLOR_LIGHT="136942-Marble"
-PLASMA_COLOR_DARK="KritaDarker"
+PLASMA_COLOR_LIGHT="ReactionaryEnTee"
+PLASMA_COLOR_DARK="Monochrome"
 QT_ICON_LIGHT="Haiku"
 QT_ICON_DARK="Haiku"
 
