@@ -38,7 +38,6 @@ Fetch()
     cp -r $HOME/.dotfiles/bashrc $HOME/.bashrc
     cp -r $HOME/.dotfiles/nvim/init.lua $HOME/.config/nvim/init.lua
     cp -r $HOME/.dotfiles/Xdefaults $HOME/.Xdefaults
-    cp -r $HOME/.dotfiles/Xdefaults $HOME/.Xresources
     source $HOME/.bashrc
     colorscheme -r
     xrdb $HOME/.Xdefaults
@@ -46,7 +45,6 @@ Fetch()
     mkdir -p ~/.local/share/gnome-background-properties
     cp ~/.dotfiles/background/*.jpg ~/.local/share/backgrounds/bg
     cp ~/.dotfiles/background/bg.xml ~/.local/share/gnome-background-properties
-    cp ~/.dotfiles/sway/config ~/.config/sway/
 }
 
 Clean()

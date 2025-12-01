@@ -97,9 +97,9 @@ require("lazy").setup({
             "neovim/nvim-lspconfig"
         },
         opts = {
-            ensure_installed = { "astro", "bashls", "clangd", "cssls",
-                "cmake", "gopls", "html", "lua_ls", "pylsp", "rust_analyzer",
-                "ts_ls" }
+            ensure_installed = { "astro", "bashls", "clangd", "cmake",
+                "cssls", "gopls", "harper_ls", "html", "lua_ls",
+                "pylsp", "rust_analyzer", "svelte", "ts_ls" }
         }
     },
     {
@@ -127,15 +127,10 @@ require("lazy").setup({
             "echasnovski/mini.nvim"
         },
         opts = {
+            file_types = { 'markdown' },
             completions = { lsp = { enabled = true } },
-            code = {
-                position = "right",
-                width = "block",
-                left_pad = 1,
-                language_pad = 2,
-                right_pad = 1,
-            },
-        },
+            code = { language_icon = true, language_name = false }
+        }
     },
     {
         'nvim-mini/mini.statusline',
@@ -144,25 +139,28 @@ require("lazy").setup({
             content = {
                 active = function()
                     local line          = MiniStatusline
-                    local mode, mode_hl = line.section_mode({ trunc_width = 120 })
+                    local mode, mode_hl = line.section_mode({ trunc_width = 75 })
                     local git           = line.section_git({ trunc_width = 40 })
                     local diff          = line.section_diff({ trunc_width = 75, icon = "" })
+                    local filename      = line.section_filename({ trunc_width = 125 })
                     local diagnostics   = line.section_diagnostics({
                         trunc_width = 75,
                         icon = "",
                         signs = { ERROR = "󰅝 ", WARN = " ", INFO = "󰳦 ", HINT = " " }
                     })
-                    local search        = line.section_searchcount({ trunc_width = 75 })
                     return line.combine_groups({
-                        { hl = mode_hl,  strings = { mode } },
-                        { hl = 'String', strings = { git, diff } },
+                        { hl = mode_hl,      strings = { string.upper(mode) } },
+                        { hl = 'WarningMsg', strings = { git, diff } },
+                        { hl = 'Comment',    strings = { filename } },
                         '%<%=',
-                        { hl = "String", strings = { diagnostics } },
+                        { hl = "PMenu",  strings = { diagnostics } },
+                        { hl = "Normal", strings = { vim.bo.filetype } },
                         {
                             hl = mode_hl,
                             strings = {
-                                vim.bo.filetype, vim.bo.fileformat,
-                                "%l/%L", search,
+                                string.upper(vim.bo.fileformat),
+                                "%l/%L│%03c",
+                                line.section_searchcount({ trunc_width = 75 }),
                             }
                         },
                         { hl = "Search", strings = { tabinfo() } },
@@ -178,12 +176,12 @@ require("nvim-treesitter.configs").setup({
     highlight = { enable = true },
     ensure_installed = {
         "c", "cmake", "comment", "cpp", "dart", "dockerfile", "go", "gomod",
-        "gdscript", "html", "http", "java", "javascript", "jsdoc", "json",
-        "lua", "make", "perl", "python", "regex", "rust", "sql", "toml",
-        "tsx", "typescript", "yaml", "vim", "vimdoc" },
+        "html", "http", "java", "javascript", "jsdoc", "json", "lua", "make",
+        "perl", "python", "regex", "rust", "sql", "svelte", "toml", "tsx",
+        "typescript", "vim", "vimdoc", "yaml" },
 })
 vim.diagnostic.config {
-    virtual_lines = true,
+    virtual_lines = { open = true, severity = { min = vim.diagnostic.severity.WARN } },
     loclist = { open = true, severity = { min = vim.diagnostic.severity.INFO } },
     signs = {
         text = {
@@ -242,7 +240,11 @@ function SetColors(bg)
     set_hl(0, "Normal", { bg = "NONE" })
     set_hl(0, "EndOfBuffer", { bg = "NONE" })
     set_hl(0, "StatusLine", { bg = "NONE" })
-    set_hl(0, "StatusLineNC", { bg = "NONE" })
+    set_hl(0, "StatusLineNC", { link = "Comment" })
+    set_hl(0, "PMenu", { bg = "NONE", fg = "DarkYellow" })
+    set_hl(0, "CursorLine", { link = "DiffAdd" })
+    set_hl(0, "RenderMarkdownCode", { link = "DiffText" })
+    set_hl(0, "NormalFloat", { link = "DiffText" })
 end
 
 SetColors()

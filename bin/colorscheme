@@ -6,26 +6,24 @@
 # * Author:  Umut Sevdi
 # * Created: 08/20/22
 # * Description: Switch between light and dark mode
-# * @require i3, xsettingsd
 #*****************************************************************************
-
-color_value=`cat /tmp/.cs 2>/dev/null`
-[ "$color_value" = "" ] && color_value=true
 GTK_THEME_DOCK_LIGHT="Adwaita"
 GTK_THEME_LIGHT="Adwaita"
 GTK_THEME_DARK="Adwaita"
 
-GTK_ICON_LIGHT="Adwaita" #"Pop-Extended"
-GTK_ICON_DARK="Adwaita" #"Pop-Extended"
+GTK_ICON_LIGHT="Adwaita"
+GTK_ICON_DARK="Adwaita"
 
-PLASMA_COLOR_LIGHT="ReactionaryEnTee"
-PLASMA_COLOR_DARK="Monochrome"
+PLASMA_COLOR_LIGHT="ReactionarySea"
+PLASMA_COLOR_DARK="175970-FairytaleMoon"
 QT_ICON_LIGHT="Haiku"
 QT_ICON_DARK="Haiku"
 
-PLASMA_DESKTOP_LIGHT="reactplus"
-PLASMA_DESKTOP_DARK="reactplus"
+PLASMA_DESKTOP_LIGHT="exposeblue"
+PLASMA_DESKTOP_DARK="exposeblue"
 
+clr=`/usr/bin/gsettings get org.gnome.desktop.interface color-scheme`
+[ "$clr" = "'prefer-light'" ] && is_dark=false || is_dark=true
 echo "gtk_theme_dock_light=$GTK_THEME_DOCK_LIGHT"
 echo "gtk_theme=${GTK_THEME_LIGHT}|${GTK_THEME_DARK}"
 echo "gtk_icon=${GTK_ICON_LIGHT}|${GTK_ICON_DARK}"
@@ -36,38 +34,23 @@ echo "plasma_desktop_theme=${PLASMA_DESKTOP_LIGHT}|${PLASMA_DESKTOP_DARK}"
 Help()
 {
    # Display Help
-   echo "colorscheme.sh - Toggle between light and dark mode"
+   echo "colorscheme - Toggle between light and dark mode"
    echo
    echo "Syntax: [-r]"
    echo
    echo "Options:"
    echo "-h/--help          Prints this menu."
-   echo "-r/--refresh       Refreshes the display"
+   echo "-r/--refresh       Refreshes the display."
+   echo "-i                 Display icon and exit."
    echo
-}
-
-Libadwaita()
-{
-    rm -rf "$HOME/.config/assets"
-    rm -rf "$HOME/.config/gtk-4.0/"{assets,windows-assets,gtk.css,gtk-dark.css}
-    ln -s "$HOME/.themes/${lib_themeT}/gtk-4.0/gtk.css" "$HOME/.config/gtk-4.0/gtk.css"
-    ln -s "$HOME/.themes/${lib_theme}/gtk-4.0/gtk-dark.css" "$HOME/.config/gtk-4.0/gtk-dark.css"
-    ln -s "$HOME/.themes/${lib_theme}/gtk-4.0/assets" "$HOME/.config/gtk-4.0/assets"
-    ln -s "$HOME/.themes/${lib_theme}/assets" "$HOME/.config/assets"
-    
-}
-
-Icon()
-{
-    [ "$color_value" = true ] && echo "  " || echo "  "
 }
 
 SetTerminal()
 {
-    if [ "$is_dark" = true ]; then
-        cat $HOME/.dotfiles/alacritty/base.toml $HOME/.dotfiles/alacritty/light.toml > $HOME/.config/alacritty/alacritty.toml
-    else
+    if $is_dark; then
         cat $HOME/.dotfiles/alacritty/base.toml $HOME/.dotfiles/alacritty/dark.toml > $HOME/.config/alacritty/alacritty.toml
+    else
+        cat $HOME/.dotfiles/alacritty/base.toml $HOME/.dotfiles/alacritty/light.toml > $HOME/.config/alacritty/alacritty.toml
     fi
     # Change themes of all actively running NeoVim instances
     for i in `ls /tmp/nvim/`; do nvim --server /tmp/nvim/$i --remote-send ":lua SetColors() <CR>" > /dev/null; done
@@ -75,14 +58,14 @@ SetTerminal()
 
 SetAll()
 {
-    if [ "$is_dark" = true ]; then
-        gtk_theme=$GTK_THEME_LIGHT
-        gtk_icon=$GTK_ICON_LIGHT
-        gnome_prefer="prefer-light"
-    else
+    if $is_dark; then
         gtk_theme=$GTK_THEME_DARK
         gtk_icon=$GTK_ICON_DARK
         gnome_prefer="prefer-dark"
+    else
+        gtk_theme=$GTK_THEME_LIGHT
+        gtk_icon=$GTK_ICON_LIGHT
+        gnome_prefer="prefer-light"
     fi
     lib_theme=$GTK_THEME_LIB
     gsettings set org.gnome.desktop.wm.preferences theme "$gtk_theme"
@@ -93,16 +76,16 @@ SetAll()
 
 SetKDE()
 {
-    if [ "$is_dark" = true ]; then
-        qt_color=$PLASMA_COLOR_LIGHT
-        gnome_prefer="prefer-light"
-        icon=$QT_ICON_LIGHT
-        desktop_theme=$PLASMA_DESKTOP_LIGHT
-    else
+    if $is_dark; then
         qt_color=$PLASMA_COLOR_DARK
         gnome_prefer="prefer-dark"
         icon=$QT_ICON_DARK
         desktop_theme=$PLASMA_DESKTOP_DARK
+    else
+        qt_color=$PLASMA_COLOR_LIGHT
+        gnome_prefer="prefer-light"
+        icon=$QT_ICON_LIGHT
+        desktop_theme=$PLASMA_DESKTOP_LIGHT
     fi
     plasma-apply-colorscheme $qt_color
     if [ "$PLASMA_DESKTOP_DARK" != "$PLASMA_DESKTOP_LIGHT" ]; then
@@ -111,6 +94,7 @@ SetKDE()
     gsettings set org.gnome.desktop.interface color-scheme "$gnome_prefer"
 }
 
+refresh=false
 for arg in $@;do
     if   [ "$arg" = "-h" ] || [ "$arg" = "--help" ]; then
         Help
@@ -118,7 +102,7 @@ for arg in $@;do
     elif [ "$arg" = "-r" ] || [ "$arg" = "--refresh" ]; then 
         refresh=true
     elif [ "$arg" = "-i" ]; then
-        Icon
+        $is_dark && echo "  " || echo "  "
         exit
     else
         echo -e "Error: Invalid arguments" 1>&2
@@ -126,12 +110,8 @@ for arg in $@;do
     fi 
 done
 
-if [ "$refresh" = true  ];then
-    is_dark=`[ "$color_value" = true ] && echo false || echo true`
-else
-    is_dark=$color_value
-    write=`[ "$color_value" = true ] && echo false || echo true`
-    echo $write > /tmp/.cs
+if ! $refresh; then
+    $is_dark && is_dark=false || is_dark=true
 fi
 
 echo "Updating configuration for the platform $XDG_CURRENT_DESKTOP"
@@ -146,7 +126,7 @@ case $XDG_CURRENT_DESKTOP in
 esac
 if [ "$XDG_CURRENT_DESKTOP" = "sway" ] || [ -z "$XDG_CURRENT_DESKTOP" ];then
     gsettings set org.gnome.desktop.wm.preferences button-layout 'appmenu:'
-    [ "$is_dark" = true ] && _img="day" || _img="night"
+    $is_dark &&_img="night" || _img="day"
     echo "~/.dotfiles/background/$_img"
     exec swaybg -i ~/.dotfiles/background/${_img}.jpg &
 else

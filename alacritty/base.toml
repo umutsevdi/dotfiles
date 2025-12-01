@@ -13,10 +13,6 @@ style = "Bold"
 family = "CommitMonoNerdFont"
 style = "Bold Italic"
 
-[font.glyph_offset]
-x = 0
-y = 0
-
 [font.italic]
 family = "CommitMonoNerdFont"
 style = "Italic"
@@ -24,6 +20,10 @@ style = "Italic"
 [font.normal]
 family = "CommitMonoNerdFont"
 style = "Regular"
+
+[font.glyph_offset]
+x = 0
+y = 0
 
 [mouse]
 hide_when_typing = false
@@ -34,8 +34,9 @@ history = 10000
 [window]
 decorations = "full"
 dynamic_padding = true
-title = "Alacritty"
+dynamic_title = true
 
 [window.padding]
-x = 0
-y = 5
+x = 1
+y = 0
+
