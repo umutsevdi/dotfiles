@@ -1,32 +1,34 @@
-# Colors (Hyper)
+# Color theme ported from iTerm 2 Smoooooth
+# https://github.com/alacritty/alacritty-theme/blob/master/themes/smoooooth.toml
 
-# Default colors
 [colors.primary]
-background = '#000000'
-foreground = '#ffffff'
+foreground = '#dbdbdb'
+background = '#14191e'
 
 [colors.cursor]
-text = '#F81CE5'
-cursor = '#ffffff'
+text = '#000000'
+cursor = '#fefffe'
 
-# Normal colors
+[colors.selection]
+text = '#000000'
+background = '#b3d7ff'
+
 [colors.normal]
-black   = '#000000'
-red     = '#fe0100'
-green   = '#33ff00'
-yellow  = '#feff00'
-blue    = '#0066ff'
-magenta = '#cc00ff'
-cyan    = '#00ffff'
-white   = '#d0d0d0'
+black   = '#14191e'
+red     = '#b43c29'
+green   = '#00c200'
+yellow  = '#c7c400'
+blue    = '#2743c7'
+magenta = '#bf3fbd'
+cyan    = '#00c5c7'
+white   = '#c7c7c7'
 
-# Bright colors
 [colors.bright]
-black   = '#808080'
-red     = '#fe0100'
-green   = '#33ff00'
-yellow  = '#feff00'
-blue    = '#0066ff'
-magenta = '#cc00ff'
-cyan    = '#00ffff'
-white   = '#FFFFFF'
+black   = '#676767'
+red     = '#dc7974'
+green   = '#57e690'
+yellow  = '#ece100'
+blue    = '#a6aaf1'
+magenta = '#e07de0'
+cyan    = '#5ffdff'
+white   = '#feffff'

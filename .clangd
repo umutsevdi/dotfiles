@@ -23,3 +23,7 @@ If:
 
 Diagnostics:
   Suppress: "*"
+
+CompileFlags:
+  Add: [-std=c++23]
+

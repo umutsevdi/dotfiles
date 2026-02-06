@@ -1,0 +1,70 @@
+#!/bin/bash
+#******************************************************************************
+#
+# * File: cfgload
+#
+# * Author:  Umut Sevdi
+# * Created: 08/20/22
+# * Description: A script that updates the configuration files 
+#*****************************************************************************
+
+CFGDIR=`dirname $(which cfgload)`
+Help()
+{
+   # Display Help
+   echo "cfgload"
+   echo "  Update configuration files"
+   echo
+   echo "Syntax: [-r]"
+   echo
+   echo "Options:"
+   echo "-h/--help      Prints this menu."
+}
+
+Fetch()
+{
+    mkdir -p ~/.local/share/backgrounds/bg
+    mkdir -p ~/.local/share/gnome-background-properties
+    mkdir -p ~/.local/bin
+    mkdir -p ~/.config/tmux
+    cp -r ${CFGDIR}/../tmux.conf ~/.config/tmux/tmux.conf
+    cp -r ${CFGDIR}/../nvim/init.lua $HOME/.config/nvim/
+    cp -r ${CFGDIR}/../nvim/snippets $HOME/.config/nvim/
+    cp -r ${CFGDIR}/../bookmarks $HOME/.config/gtk-3.0/
+    cp -r ${CFGDIR}/../bashrc $HOME/.bashrc
+    cp -r ${CFGDIR}/../Xdefaults $HOME/.Xdefaults
+
+    source $HOME/.bashrc
+    colorscheme -r
+    xrdb $HOME/.Xdefaults
+    cp ${CFGDIR}/../background/*.jpg  ~/.local/share/backgrounds/bg
+    cp ${CFGDIR}/../background/bg.xml ~/.local/share/gnome-background-properties
+}
+
+CleanOne()
+{
+    if [ -f $1 ] || [ -d $1 ]; then
+        rm $1 -fr && echo "Cleaning $1"
+    fi 
+}
+
+Clean()
+{
+    CleanOne $HOME/.cmake
+    CleanOne $HOME/.w3m
+    CleanOne $HOME/.npm
+    CleanOne $HOME/.node_repl_history
+    CleanOne $HOME/.python_history
+}
+
+for arg in $@;do
+    if   [ $arg = -h ] || [ $arg = --help ]; then
+        Help
+        exit
+    else
+        echo -e "Error: Invalid arguments" 1>&2
+        exit
+    fi 
+done
+Fetch
+Clean

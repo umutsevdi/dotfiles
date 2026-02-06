@@ -7,6 +7,8 @@
 # * Created: 08/20/22
 # * Description: Switch between light and dark mode
 #*****************************************************************************
+CFGDIR=`dirname $(which cfgload)`
+
 GTK_THEME_DOCK_LIGHT="Adwaita"
 GTK_THEME_LIGHT="Adwaita"
 GTK_THEME_DARK="Adwaita"
@@ -14,13 +16,13 @@ GTK_THEME_DARK="Adwaita"
 GTK_ICON_LIGHT="Adwaita"
 GTK_ICON_DARK="Adwaita"
 
-PLASMA_COLOR_LIGHT="ReactionarySea"
-PLASMA_COLOR_DARK="175970-FairytaleMoon"
+PLASMA_COLOR_LIGHT="BreezeLight"
+PLASMA_COLOR_DARK="BreezeDark"
 QT_ICON_LIGHT="Haiku"
 QT_ICON_DARK="Haiku"
 
-PLASMA_DESKTOP_LIGHT="exposeblue"
-PLASMA_DESKTOP_DARK="exposeblue"
+PLASMA_DESKTOP_LIGHT="breeze"
+PLASMA_DESKTOP_DARK="breeze"
 
 clr=`/usr/bin/gsettings get org.gnome.desktop.interface color-scheme`
 [ "$clr" = "'prefer-light'" ] && is_dark=false || is_dark=true
@@ -48,9 +50,9 @@ Help()
 SetTerminal()
 {
     if $is_dark; then
-        cat $HOME/.dotfiles/alacritty/base.toml $HOME/.dotfiles/alacritty/dark.toml > $HOME/.config/alacritty/alacritty.toml
+        cat ${CFGDIR}/../alacritty/base.toml ${CFGDIR}/../alacritty/dark.toml > $HOME/.config/alacritty/alacritty.toml
     else
-        cat $HOME/.dotfiles/alacritty/base.toml $HOME/.dotfiles/alacritty/light.toml > $HOME/.config/alacritty/alacritty.toml
+        cat ${CFGDIR}/../alacritty/base.toml ${CFGDIR}/../alacritty/light.toml > $HOME/.config/alacritty/alacritty.toml
     fi
     # Change themes of all actively running NeoVim instances
     for i in `ls /tmp/nvim/`; do nvim --server /tmp/nvim/$i --remote-send ":lua SetColors() <CR>" > /dev/null; done
@@ -127,9 +129,7 @@ esac
 if [ "$XDG_CURRENT_DESKTOP" = "sway" ] || [ -z "$XDG_CURRENT_DESKTOP" ];then
     gsettings set org.gnome.desktop.wm.preferences button-layout 'appmenu:'
     $is_dark &&_img="night" || _img="day"
-    echo "~/.dotfiles/background/$_img"
-    exec swaybg -i ~/.dotfiles/background/${_img}.jpg &
-else
-    gsettings set org.gnome.desktop.wm.preferences button-layout 'appmenu:minimize,close'
+    echo "${CFGDIR}/../background/$_img"
+    exec swaybg -i ${CFGDIR}/../background/${_img}.jpg &
 fi
 SetTerminal &
