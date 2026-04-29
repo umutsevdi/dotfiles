@@ -1,0 +1,9 @@
+#!/bin/bash
+# List public ssh keys to the corresponding files
+ssh-add -l | awk '{print $2 " " $3}' | while read fp comment; do
+  for f in ~/.ssh/*.pub; do
+    if [ "$(ssh-keygen -lf "$f" -E sha256 | awk '{print $2}')" = "$fp" ]; then
+      echo "$fp -> $f ($comment)"
+    fi
+  done
+done

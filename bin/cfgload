@@ -30,15 +30,10 @@ Fetch()
     cp -r ${CFGDIR}/../tmux.conf ~/.config/tmux/tmux.conf
     cp -r ${CFGDIR}/../nvim/init.lua $HOME/.config/nvim/
     cp -r ${CFGDIR}/../nvim/snippets $HOME/.config/nvim/
-    cp -r ${CFGDIR}/../bookmarks $HOME/.config/gtk-3.0/
     cp -r ${CFGDIR}/../bashrc $HOME/.bashrc
-    cp -r ${CFGDIR}/../Xdefaults $HOME/.Xdefaults
 
     source $HOME/.bashrc
     colorscheme -r
-    xrdb $HOME/.Xdefaults
-    cp ${CFGDIR}/../background/*.jpg  ~/.local/share/backgrounds/bg
-    cp ${CFGDIR}/../background/bg.xml ~/.local/share/gnome-background-properties
 }
 
 CleanOne()
@@ -55,6 +50,9 @@ Clean()
     CleanOne $HOME/.npm
     CleanOne $HOME/.node_repl_history
     CleanOne $HOME/.python_history
+    CleanOne $HOME/.yarnrc
+    CleanOne $HOME/.yarn
+    CleanOne $HOME/.rumdl_cache
 }
 
 for arg in $@;do

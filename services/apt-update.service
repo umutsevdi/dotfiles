@@ -1,7 +1,0 @@
-[Unit]
-Description=APT Updater
-Wants=apt.update.timer
-
-[Service]
-Type=simple
-ExecStart=/usr/bin/apt update

@@ -22,16 +22,19 @@ fi
 unset rc
 
 export JAVA_HOME="$(ls /lib/jvm | grep java-21-openjdk.)"
-export DOT_PATH=$HOME/src/dev/dotfiles/bin/
+export DOT_PATH=$HOME/Source/dev/dotfiles/
 export RUSTUP_HOME=$HOME/.config/rust/.rustup
 export CARGO_HOME=$HOME/.config/rust/.cargo
+export ANDROID_HOME=$HOME/.config/android
 export GOROOT=$HOME/.config/go
 export GOPATH=$HOME/.config/go/pkg
-export PATH="/sbin:${JAVA_HOME}:${GOROOT}/bin:${DOT_PATH}:${PATH}:${RUSTUP_HOME}:${CARGO_HOME}"
+export PATH="/sbin:${JAVA_HOME}:${GOROOT}/bin:${DOT_PATH}/bin:${PATH}:${RUSTUP_HOME}:${CARGO_HOME}"
 
 # ssh configuration
-export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
-find ~/.ssh/ | grep \.pub | sed "s/.pub//" | xargs ssh-add > /dev/null 2>&1
+if ! ssh-add -l >/dev/null 2>&1; then
+    eval "$(ssh-agent -s)" >/dev/null
+    find ~/.ssh/ | grep \.pub | sed "s/.pub//" | xargs ssh-add > /dev/null 2>&1
+fi
 
 mkdir /tmp/nvim  2>/dev/null
 alias nvim="nvim --listen /tmp/nvim/\$((\`ls /tmp/nvim | tail -n 1\`+1))"
@@ -67,10 +70,11 @@ ff () {
 __fzf_alias() {
     cd $(find $1 -maxdepth $2  -type d -not -path '*/[@.]*' | fzf -i -x)
 }
-for i in `ls $HOME/src/`; do
-    alias $i="__fzf_alias $HOME/src/$i 2; tmux"
+for i in `ls $HOME/Source/`; do
+    alias $i="__fzf_alias $HOME/Source/$i 2; tmux"
 done
-alias lect="__fzf_alias $HOME/Lectures/ 4; tmux"
+unset i
+alias lect="__fzf_alias $HOME/Documents/Lectures/ 4; tmux"
 
 __gitbranch() {
     local branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null) || return

@@ -40,28 +40,31 @@ vim.o.textwidth = 120
 vim.o.jumpoptions = "view"
 vim.o.winborder = "none"
 
-local PRESET = {
-    Comment = { italic = true, fg = "Gray" },
-    Constant = { bold = true, fg = "Red" },
-    CursorLine = { link = "DiffAdd" },
-    EndOfBuffer = { bg = "NONE" },
-    Function = { bold = true, italic = true, fg = "DarkCyan" },
-    Keyword = { link = "Type" },
-    MiniNotifyNormal = { link = "Normal" },
-    Normal = { bg = "NONE" },
-    NormalFloat = { link = "DiffText" },
-    PMenu = { bg = "NONE", fg = "DarkYellow" },
-    RenderMarkdownCode = { link = "DiffText" },
-    Search = { reverse = true },
-    StatusLine = { bg = "NONE" },
-    StatusLineNC = { link = "Comment" },
-    String = { fg = "DarkYellow" },
-    Type = { bold = true },
-}
+local function preset(is_dark)
+    return {
+        Normal = { bg = "NONE" },
+        Comment = { italic = true, fg = "Gray" },
+        Constant = { bold = true, fg = "Red" },
+        Type = { bold = true },
+        Keyword = { bold = true, fg = is_dark and "LightGreen" or "Green" },
+        Function = { bold = true, italic = true, fg = is_dark and "Cyan" or "DarkCyan" },
+        Identifier = { link = "Normal" },
+        String = { fg = "DarkYellow" },
+        CursorLine = { link = "DiffAdd" },
+        EndOfBuffer = { bg = "NONE" },
+        MiniNotifyNormal = { link = "Normal" },
+        NormalFloat = { link = "DiffText" },
+        PMenu = { bg = "NONE", fg = "DarkYellow" },
+        RenderMarkdownCode = { link = "DiffText" },
+        Search = { reverse = true },
+        StatusLine = { bg = "NONE" },
+        StatusLineNC = { link = "Comment" },
+    }
+end
 
 function SetColors(opts)
     local function default()
-        if vim.fn.has('linux') == 1 then
+        if vim.fn.has("linux") == 1 then
             local handle = io.popen("gsettings get org.gnome.desktop.interface color-scheme")
             if handle then
                 local output = handle:read("*a")
@@ -71,12 +74,12 @@ function SetColors(opts)
         end
         return "dark"
     end
-    local theme = { bg = default(), light = "default", dark = "default" }
-    if opts then theme = vim.tbl_extend('force', theme, opts) end
+    local theme = { bg = default(), light = "default", dark = "lunaperche" }
+    if opts then theme = vim.tbl_extend("force", theme, opts) end
     local active = theme.bg == "dark" and theme.dark or theme.light
     vim.cmd("colorscheme " .. active)
     vim.cmd("set background=" .. theme.bg)
-    for k, v in pairs(PRESET) do vim.api.nvim_set_hl(0, k, v) end
+    for k, v in pairs(preset(theme.bg == "dark")) do vim.api.nvim_set_hl(0, k, v) end
 end
 
 local function tabinfo()
@@ -101,10 +104,9 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
-    { "LudoPinelli/comment-box.nvim",    opts = {} },
-    { "m4xshen/autoclose.nvim",          opts = {} },
-    { "nvim-mini/mini.notify",           opts = { window = { config = { row = vim.o.columns }, winblend = 0 } } },
-    { "lewis6991/gitsigns.nvim",         opts = { current_line_blame = true } },
+    { "m4xshen/autoclose.nvim", opts = {} },
+    { "nvim-mini/mini.notify", version = "*", opts = { window = { config = { row = vim.o.columns }, winblend = 0 } } },
+    { 'nvim-mini/mini.diff', version = '*', opts = { view = { signs = { add = '┃', change = '┋', delete = '━' } } } },
     { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
     {
         "nvim-telescope/telescope.nvim",
@@ -116,7 +118,7 @@ require("lazy").setup({
         "stevearc/oil.nvim",
         opts = {},
         cmd = { "Oil" },
-        dependencies = { "echasnovski/mini.nvim" },
+        dependencies = { { "nvim-mini/mini.icons", opts = {}, version = "*" } },
     },
     {
         "williamboman/mason-lspconfig.nvim",
@@ -124,8 +126,9 @@ require("lazy").setup({
         opts = {
             ensure_installed = {
                 "astro", "bashls", "clangd", "cssls", "dockerls", "gopls",
-                "harper_ls", "html", "jsonls", "lua_ls", "markdown_oxide",
-                "neocmake", "pylsp", "rust_analyzer", "svelte", "ts_ls", "zls"
+                "harper_ls", "html", "jsonls", "lua_ls",
+                "neocmake", "pylsp", "rust_analyzer", "sqlls", "svelte",
+                "ts_ls"
             }
         }
     },
@@ -144,16 +147,15 @@ require("lazy").setup({
     },
     {
         "MeanderingProgrammer/render-markdown.nvim",
-        dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.nvim" },
+        dependencies = { "nvim-treesitter/nvim-treesitter", { "nvim-mini/mini.icons", opts = {}, version = "*" } },
         opts = {
-            file_types = { 'markdown' },
             completions = { lsp = { enabled = true } },
             code = { language_icon = true, language_name = false }
         }
     },
     {
-        'nvim-mini/mini.statusline',
-        version = false,
+        "nvim-mini/mini.statusline",
+        version = "*",
         opts = {
             content = {
                 active = function()
@@ -169,9 +171,9 @@ require("lazy").setup({
                     })
                     return line.combine_groups({
                         { hl = mode_hl,  strings = { string.upper(mode) } },
-                        { hl = 'String', strings = { git, diff } },
-                        { hl = 'Normal', strings = { filename } },
-                        '%<%=',
+                        { hl = "String", strings = { git, diff } },
+                        { hl = "Normal", strings = { filename } },
+                        "%<%=",
                         { hl = "PMenu",  strings = { diagnostics } },
                         {
                             hl = "Normal",
@@ -196,16 +198,12 @@ require("lazy").setup({
 })
 require("luasnip.loaders.from_vscode").lazy_load()
 require("luasnip.loaders.from_snipmate").lazy_load({ paths = { "~/.config/nvim/snippets/" } })
-require("nvim-treesitter.configs").setup({
-    highlight = { enable = true },
-    ensure_installed = {
-        "c", "cmake", "comment", "cpp", "dart", "dockerfile",
-        "go", "gomod", "html", "http", "java", "javascript",
-        "jsdoc", "json", "lua", "make", "perl", "python",
-        "regex", "rust", "sql", "svelte", "toml", "tsx",
-        "typescript", "vim", "vimdoc", "yaml", "zig"
-    },
-})
+require("nvim-treesitter").install {
+    "c", "cmake", "comment", "cpp", "dart", "dockerfile", "go", "gomod",
+    "html", "http", "java", "javascript", "jsdoc", "json", "lua", "make",
+    "python", "regex", "rust", "sql", "svelte", "toml", "tsx", "typescript",
+    "vim", "vimdoc", "yaml"
+}
 vim.diagnostic.config {
     virtual_lines = { open = true, severity = { min = vim.diagnostic.severity.WARN } },
     loclist = { open = true, severity = { min = vim.diagnostic.severity.INFO } },
@@ -221,7 +219,7 @@ vim.diagnostic.config {
 
 local function find_todos()
     local results = {}
-    local cmd = vim.fn.executable('rg') == 1
+    local cmd = vim.fn.executable("rg") == 1
         and "rg --line-number --no-heading 'TODO|FIXME|NOTE|HACK' ."
         or "grep -rn 'TODO|FIXME|NOTE|HACK'"
     local output = vim.fn.system(cmd)
@@ -235,13 +233,13 @@ local function find_todos()
             })
         end
     end
-    local pickers = require('telescope.pickers')
-    local finders = require('telescope.finders')
-    local conf = require('telescope.config').values
-    local actions = require('telescope.actions')
-    local action_state = require('telescope.actions.state')
+    local pickers = require("telescope.pickers")
+    local finders = require("telescope.finders")
+    local conf = require("telescope.config").values
+    local actions = require("telescope.actions")
+    local action_state = require("telescope.actions.state")
     pickers.new({}, {
-        prompt_title = 'TODOs',
+        prompt_title = "TODOs",
         finder = finders.new_table({
             results = results,
             entry_maker = function(entry)
@@ -259,7 +257,7 @@ local function find_todos()
             actions.select_default:replace(function()
                 actions.close(prompt_bufnr)
                 local selection = action_state.get_selected_entry()
-                vim.cmd('edit ' .. selection.filename)
+                vim.cmd("edit " .. selection.filename)
                 vim.api.nvim_win_set_cursor(0, { selection.lnum, 0 })
             end)
             return true

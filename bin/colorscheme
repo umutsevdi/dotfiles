@@ -16,8 +16,8 @@ GTK_THEME_DARK="Adwaita"
 GTK_ICON_LIGHT="Adwaita"
 GTK_ICON_DARK="Adwaita"
 
-PLASMA_COLOR_LIGHT="BreezeLight"
-PLASMA_COLOR_DARK="BreezeDark"
+PLASMA_COLOR_LIGHT="DexyColorLightBrightBlue"
+PLASMA_COLOR_DARK="DexyColoDarkNorwayGreen"
 QT_ICON_LIGHT="Haiku"
 QT_ICON_DARK="Haiku"
 
