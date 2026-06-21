@@ -46,7 +46,7 @@ local function preset(is_dark)
         Comment = { italic = true, fg = "Gray" },
         Constant = { bold = true, fg = "DarkYellow" },
         Type = { bold = true, fg = is_dark and "LightGreen" or "Green" },
-        Keyword = { bold = true, fg = is_dark and "Teal" or "DarkBlue"},
+        Keyword = { bold = true, fg = is_dark and "Teal" or "DarkBlue" },
         Function = { bold = true, italic = true, fg = is_dark and "Cyan" or "DarkCyan" },
         Identifier = { link = "Normal" },
         String = { fg = "DarkYellow" },
@@ -82,106 +82,84 @@ function SetColors(opts)
     for k, v in pairs(preset(theme.bg == "dark")) do vim.api.nvim_set_hl(0, k, v) end
 end
 
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-    vim.fn.system({
-        "git", "clone", "--filter=blob:none",
-        "https://github.com/folke/lazy.nvim.git", "--branch=stable", lazypath
-    })
-end
-
-vim.opt.rtp:prepend(lazypath)
-require("lazy").setup({
-    { "m4xshen/autoclose.nvim", opts = {} },
-    { "nvim-mini/mini.icons", opts = {}, version = "*" },
-    { "nvim-mini/mini.notify", version = "*", opts = { window = { config = { row = vim.o.columns }, winblend = 0 } } },
-    { 'nvim-mini/mini.diff', version = '*', opts = { view = { signs = { add = '█', change = '▒', delete = '█' } } } },
-    {
-        'nvim-mini/mini.completion',
-        version = '*',
-        dependencies = { "nvim-mini/mini.snippets" },
-        opts = { delay = { completion = 10, info = 25 } }
-    },
-    {
-        "nvim-mini/mini.statusline",
-        version = "*",
-        opts = {
-            content = {
-                active = function()
-                    local line          = MiniStatusline
-                    local mode, mode_hl = line.section_mode({ trunc_width = 75 })
-                    local git           = line.section_git({ trunc_width = 40 })
-                    local diff          = line.section_diff({ trunc_width = 75, icon = "" })
-                    local filename      = line.section_filename({ trunc_width = 125 })
-                    local diagnostics   = line.section_diagnostics({
-                        trunc_width = 75,
-                        icon = "",
-                        signs = { ERROR = "󰅝 ", WARN = " ", INFO = "󰳦 ", HINT = " " }
-                    })
-                    local tabtext       = ""
-                    local tabs          = vim.api.nvim_list_tabpages()
-                    if #tabs > 1 then
-                        local p = {}
-                        local cur = vim.api.nvim_get_current_tabpage()
-                        for i in pairs(tabs) do
-                            table.insert(p, i == cur and "[" .. i .. "]" or i)
-                        end
-                        tabtext = table.concat(p, " ")
-                    end
-                    return line.combine_groups({
-                        { hl = mode_hl,  strings = { string.upper(mode) } },
-                        { hl = "String", strings = { git, diff } },
-                        { hl = "Normal", strings = { filename } },
-                        "%<%=",
-                        { hl = "PMenu",  strings = { diagnostics } },
-                        { hl = "Normal", strings = { vim.bo.filetype, string.upper(vim.bo.fileformat) } },
-                        { hl = mode_hl,  strings = { "%02l:%02c", line.section_searchcount({ trunc_width = 75 }) } },
-                        { hl = "Search", strings = { tabtext } },
-                    })
-                end
-            }
-        }
-    },
-    { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
-    {
-        "nvim-telescope/telescope.nvim",
-        opts = { defaults = { layout_config = { vertical = { width = 0.5 } } } },
-        dependencies = { "nvim-lua/plenary.nvim" },
-        cmd = { "Telescope" },
-    },
-    {
-        "stevearc/oil.nvim",
-        opts = {},
-        cmd = { "Oil" },
-        dependencies = {},
-    },
-    {
-        "williamboman/mason-lspconfig.nvim",
-        dependencies = { { "williamboman/mason.nvim", opts = {} }, "neovim/nvim-lspconfig" },
-        opts = {
-            ensure_installed = {
-                "astro", "bashls", "clangd", "cssls", "dockerls", -- "gopls",
-                "harper_ls", "html", "jsonls", "lua_ls",
-                "neocmake", "pyright", "rust_analyzer", "sqlls", "svelte",
-                "ts_ls"
-            }
-        }
-    },
-    {
-        "MeanderingProgrammer/render-markdown.nvim",
-        dependencies = { "nvim-treesitter/nvim-treesitter" },
-        opts = {
-            completions = { lsp = { enabled = true } },
-            code = { language_icon = true, language_name = false }
-        }
-    },
+local gh = "https://github.com/"
+vim.pack.add({
+    { src = gh .. "m4xshen/autoclose.nvim", },                                      -- OK WORKING
+    { src = gh .. "nvim-mini/mini.icons",                     version = 'stable' }, -- OK WORKING
+    { src = gh .. "nvim-mini/mini.notify",                    version = 'stable' }, -- OK WORKING
+    { src = gh .. 'nvim-mini/mini.diff',                      version = 'stable' }, -- OK WORKING
+    { src = gh .. "nvim-mini/mini.snippets",                  version = 'stable' }, --OK WORKING
+    { src = gh .. 'nvim-mini/mini.completion',                version = 'stable' }, -- OK WORKING
+    { src = gh .. "nvim-mini/mini.statusline",                version = 'stable' }, -- OK WORKING
+    { src = gh .. "stevearc/oil.nvim" },                                            -- OK WORKING
+    { src = gh .. "MeanderingProgrammer/render-markdown.nvim" },                    -- OK WORKING
+    { src = gh .. "nvim-treesitter/nvim-treesitter" },                              -- OK WORKING
+    { src = gh .. "neovim/nvim-lspconfig" },                                        -- OK WORKING
+    { src = gh .. "williamboman/mason.nvim" },                                      -- OK WORKING
+    { src = gh .. "williamboman/mason-lspconfig.nvim", },                           -- OK WORKING
+    { src = gh .. "nvim-lua/plenary.nvim" },
+    { src = gh .. "nvim-telescope/telescope.nvim" },
 })
+require("autoclose").setup()
+require("mini.icons").setup()
+require("mini.notify").setup({ window = { config = { row = vim.o.columns }, winblend = 0 } })
+require("mini.diff").setup({ view = { signs = { add = '█', change = '▒', delete = '█' } } })
+require("mini.snippets").setup()
+require("mini.completion").setup({ delay = { completion = 10, info = 25 } })
+require("mini.statusline").setup({
+    content = {
+        active = function()
+            local line          = MiniStatusline
+            local mode, mode_hl = line.section_mode({ trunc_width = 75 })
+            local git           = line.section_git({ trunc_width = 40 })
+            local diff          = line.section_diff({ trunc_width = 75, icon = "" })
+            local filename      = line.section_filename({ trunc_width = 125 })
+            local diagnostics   = line.section_diagnostics({
+                trunc_width = 75,
+                icon = "",
+                signs = { ERROR = "󰅝 ", WARN = " ", INFO = "󰳦 ", HINT = " " }
+            })
+            local tabtext       = ""
+            local tabs          = vim.api.nvim_list_tabpages()
+            if #tabs > 1 then
+                local p = {}
+                local cur = vim.api.nvim_get_current_tabpage()
+                for i in pairs(tabs) do
+                    table.insert(p, i == cur and "[" .. i .. "]" or i)
+                end
+                tabtext = table.concat(p, " ")
+            end
+            return line.combine_groups({
+                { hl = mode_hl,  strings = { string.upper(mode) } },
+                { hl = "String", strings = { git, diff } },
+                { hl = "Normal", strings = { filename } },
+                "%<%=",
+                { hl = "PMenu",  strings = { diagnostics } },
+                { hl = "Normal", strings = { vim.bo.filetype, string.upper(vim.bo.fileformat) } },
+                { hl = mode_hl,  strings = { "%02l:%02c", line.section_searchcount({ trunc_width = 75 }) } },
+                { hl = "Search", strings = { tabtext } },
+            })
+        end
+    }
+})
+require("oil").setup()
+require('render-markdown').setup({})
 require("nvim-treesitter").install {
     "c", "cmake", "comment", "cpp", "dart", "dockerfile", "go", "gomod",
     "html", "http", "java", "javascript", "jsdoc", "json", "lua", "make",
     "python", "regex", "rust", "sql", "svelte", "toml", "tsx", "typescript",
     "vim", "vimdoc", "yaml"
 }
+require("mason").setup()
+require("mason-lspconfig").setup({
+    ensure_installed = {
+        "astro", "bashls", "clangd", "cssls", "dockerls", -- "gopls",
+        "harper_ls", "html", "jsonls", "lua_ls",
+        "neocmake", "pyright", "rust_analyzer", "sqlls", "svelte",
+        "ts_ls"
+    }
+})
+require("telescope").setup({ defaults = { layout_config = { vertical = { width = 0.5 } } } })
 vim.diagnostic.config {
     virtual_lines = { open = true, severity = { min = vim.diagnostic.severity.WARN } },
     loclist = { open = true, severity = { min = vim.diagnostic.severity.INFO } },
