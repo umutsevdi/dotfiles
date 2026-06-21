@@ -5,7 +5,8 @@
 #
 # * Author:  Umut Sevdi
 # * Created: 08/20/22
-# * Description: A script that updates the configuration files 
+# * Description: A script that updates the configuration files. Changes 
+# GNOME settings to sane defaults.
 #*****************************************************************************
 
 CFGDIR=`dirname $(which cfgload)`
@@ -21,19 +22,25 @@ Help()
    echo "-h/--help      Prints this menu."
 }
 
-Fetch()
+GsettingsSet()
 {
-    mkdir -p ~/.local/share/backgrounds/bg
-    mkdir -p ~/.local/share/gnome-background-properties
+    gsettings set org.gnome.software allow-updates                    false
+    gsettings set org.gnome.desktop.interface show-battery-percentage true
+    gsettings set org.gnome.shell always-show-log-out                 true
+    gsettings set org.gnome.desktop.interface document-font-name      'Adwaita Sans 9.5'
+    gsettings set org.gnome.desktop.interface font-name               'Adwaita Sans 9.5'
+    gsettings set org.gnome.desktop.wm.preferences titlebar-font      'Adwaita Sans Bold 10'
+    gsettings set org.gnome.desktop.interface monospace-font-name     'CommitMonoNerdFont Regular 9.5'
+}
+
+Unpack()
+{
     mkdir -p ~/.local/bin
     mkdir -p ~/.config/tmux
+    mkdir -p ~/.config/nvim
     cp -r ${CFGDIR}/../tmux.conf ~/.config/tmux/tmux.conf
     cp -r ${CFGDIR}/../nvim/init.lua $HOME/.config/nvim/
-    cp -r ${CFGDIR}/../nvim/snippets $HOME/.config/nvim/
     cp -r ${CFGDIR}/../bashrc $HOME/.bashrc
-
-    source $HOME/.bashrc
-    colorscheme -r
 }
 
 CleanOne()
@@ -53,6 +60,8 @@ Clean()
     CleanOne $HOME/.yarnrc
     CleanOne $HOME/.yarn
     CleanOne $HOME/.rumdl_cache
+    CleanOne $HOME/.viminfo
+    CleanOne $HOME/.ai
 }
 
 for arg in $@;do
@@ -64,5 +73,8 @@ for arg in $@;do
         exit
     fi 
 done
-Fetch
+Unpack
 Clean
+GsettingsSet
+source $HOME/.bashrc
+colorscheme -r

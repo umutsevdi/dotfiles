@@ -21,6 +21,7 @@ if [ -d ~/.bashrc.d ]; then
 fi
 unset rc
 
+export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
 export JAVA_HOME="$(ls /lib/jvm | grep java-21-openjdk.)"
 export DOT_PATH=$HOME/Source/dev/dotfiles/
 export RUSTUP_HOME=$HOME/.config/rust/.rustup
@@ -38,30 +39,31 @@ fi
 
 mkdir /tmp/nvim  2>/dev/null
 alias nvim="nvim --listen /tmp/nvim/\$((\`ls /tmp/nvim | tail -n 1\`+1))"
-export EDITOR=nvim
-export XDG_CONFIG_HOME=$HOME/.config
-export XDG_CACHE_HOME=$HOME/.cache
-export TODO_DB_PATH=$HOME/.config/shared/todo.json
-export LESSHISTFILE=$HOME/.config/.lesshst
-export HISTFILE=$HOME/.config/history
-export TERMINAL=/bin/alacritty
-export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
-export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
-export PLATFORMIO_CORE_DIR="$XDG_CONFIG_HOME"/platformio
 export CUDA_CACHE_PATH="$XDG_CACHE_HOME"/nv
+export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
+export EDITOR=nvim
+export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
+export HISTFILE=$HOME/.config/history
+export LESSHISTFILE=$HOME/.config/.lesshst
+export TERMINAL=/bin/alacritty
+export XDG_CACHE_HOME=$HOME/.cache
+export XDG_CONFIG_HOME=$HOME/.config
 FZF_DEFAULT_COMMAND="find -L"
-alias ls='ls --color=auto'
-alias grep='grep --color=auto'
-alias la='ls -A'
 alias ..='cd ..'
+alias cs=colorscheme
+alias dotpath="cd $DOT_PATH"
+alias gh='git show --stat --summary'
+alias gl='git log --all --decorate --oneline --graph'
+alias grep='grep --color=auto'
 alias gs='git status'
+alias la='ls -A'
+alias ls='ls --color=auto'
 alias mv='mv -i'
+alias n=nvim
+alias open=xdg-open
 alias rm='rm -i'
 alias sl=ls
 alias v=vim
-alias n=nvim
-alias nivm=nvim
-alias cs=colorscheme
 
 ff () {
   local file
@@ -83,5 +85,5 @@ __gitbranch() {
     printf '(%s)' "$branch"
 }
 export PS1="\[\e[1m\]\W\[\e[;0m\]\[\e[2;36;3m\]\$(__gitbranch)\[\e[;0m\]\[\e[2;33;1m\] $\[\e[;0m\] "
-command -v td >/dev/null && td --nerd
 . "$CARGO_HOME/env"
+echo -e "\e[2;32;1m$(date "+%a %d/%m/%y %I:%M%p")\e[;0m │ \e[2;37;2m$(uname -norm)\e[;0m\n"

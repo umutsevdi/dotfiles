@@ -44,9 +44,9 @@ local function preset(is_dark)
     return {
         Normal = { bg = "NONE" },
         Comment = { italic = true, fg = "Gray" },
-        Constant = { bold = true, fg = "Red" },
-        Type = { bold = true },
-        Keyword = { bold = true, fg = is_dark and "LightGreen" or "Green" },
+        Constant = { bold = true, fg = "DarkYellow" },
+        Type = { bold = true, fg = is_dark and "LightGreen" or "Green" },
+        Keyword = { bold = true, fg = is_dark and "Teal" or "DarkBlue"},
         Function = { bold = true, italic = true, fg = is_dark and "Cyan" or "DarkCyan" },
         Identifier = { link = "Normal" },
         String = { fg = "DarkYellow" },
@@ -82,18 +82,6 @@ function SetColors(opts)
     for k, v in pairs(preset(theme.bg == "dark")) do vim.api.nvim_set_hl(0, k, v) end
 end
 
-local function tabinfo()
-    local tabs = vim.api.nvim_list_tabpages()
-    if #tabs > 1 then
-        local p = {}
-        local cur = vim.api.nvim_get_current_tabpage()
-        for i in pairs(tabs) do
-            table.insert(p, i == cur and "[" .. i .. "]" or i)
-        end
-        return table.concat(p, " ")
-    end
-    return ""
-end
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
@@ -105,53 +93,14 @@ end
 vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
     { "m4xshen/autoclose.nvim", opts = {} },
+    { "nvim-mini/mini.icons", opts = {}, version = "*" },
     { "nvim-mini/mini.notify", version = "*", opts = { window = { config = { row = vim.o.columns }, winblend = 0 } } },
-    { 'nvim-mini/mini.diff', version = '*', opts = { view = { signs = { add = '┃', change = '┋', delete = '━' } } } },
-    { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+    { 'nvim-mini/mini.diff', version = '*', opts = { view = { signs = { add = '█', change = '▒', delete = '█' } } } },
     {
-        "nvim-telescope/telescope.nvim",
-        opts = { defaults = { layout_config = { vertical = { width = 0.5 } } } },
-        dependencies = { "nvim-lua/plenary.nvim" },
-        cmd = { "Telescope" },
-    },
-    {
-        "stevearc/oil.nvim",
-        opts = {},
-        cmd = { "Oil" },
-        dependencies = { { "nvim-mini/mini.icons", opts = {}, version = "*" } },
-    },
-    {
-        "williamboman/mason-lspconfig.nvim",
-        dependencies = { { "williamboman/mason.nvim", opts = {} }, "neovim/nvim-lspconfig" },
-        opts = {
-            ensure_installed = {
-                "astro", "bashls", "clangd", "cssls", "dockerls", "gopls",
-                "harper_ls", "html", "jsonls", "lua_ls",
-                "neocmake", "pylsp", "rust_analyzer", "sqlls", "svelte",
-                "ts_ls"
-            }
-        }
-    },
-    {
-        "saghen/blink.cmp",
-        dependencies = { { "L3MON4D3/LuaSnip", dependencies = { "rafamadriz/friendly-snippets" } } },
-        version = "1.*",
-        opts = {
-            keymap = { preset = "default" },
-            appearance = { nerd_font_variant = "mono" },
-            completion = { documentation = { auto_show = true } },
-            sources = { default = { "snippets", "lsp", "path", "buffer" } },
-            snippets = { preset = "luasnip" },
-        },
-        opts_extend = { "sources.default" }
-    },
-    {
-        "MeanderingProgrammer/render-markdown.nvim",
-        dependencies = { "nvim-treesitter/nvim-treesitter", { "nvim-mini/mini.icons", opts = {}, version = "*" } },
-        opts = {
-            completions = { lsp = { enabled = true } },
-            code = { language_icon = true, language_name = false }
-        }
+        'nvim-mini/mini.completion',
+        version = '*',
+        dependencies = { "nvim-mini/mini.snippets" },
+        opts = { delay = { completion = 10, info = 25 } }
     },
     {
         "nvim-mini/mini.statusline",
@@ -169,35 +118,64 @@ require("lazy").setup({
                         icon = "",
                         signs = { ERROR = "󰅝 ", WARN = " ", INFO = "󰳦 ", HINT = " " }
                     })
+                    local tabtext       = ""
+                    local tabs          = vim.api.nvim_list_tabpages()
+                    if #tabs > 1 then
+                        local p = {}
+                        local cur = vim.api.nvim_get_current_tabpage()
+                        for i in pairs(tabs) do
+                            table.insert(p, i == cur and "[" .. i .. "]" or i)
+                        end
+                        tabtext = table.concat(p, " ")
+                    end
                     return line.combine_groups({
                         { hl = mode_hl,  strings = { string.upper(mode) } },
                         { hl = "String", strings = { git, diff } },
                         { hl = "Normal", strings = { filename } },
                         "%<%=",
                         { hl = "PMenu",  strings = { diagnostics } },
-                        {
-                            hl = "Normal",
-                            strings = {
-                                vim.bo.filetype,
-                                string.upper(vim.bo.fileformat),
-                            }
-                        },
-                        {
-                            hl = mode_hl,
-                            strings = {
-                                "%02l│%02c",
-                                line.section_searchcount({ trunc_width = 75 }),
-                            }
-                        },
-                        { hl = "Search", strings = { tabinfo() } },
+                        { hl = "Normal", strings = { vim.bo.filetype, string.upper(vim.bo.fileformat) } },
+                        { hl = mode_hl,  strings = { "%02l:%02c", line.section_searchcount({ trunc_width = 75 }) } },
+                        { hl = "Search", strings = { tabtext } },
                     })
                 end
             }
         }
     },
+    { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+    {
+        "nvim-telescope/telescope.nvim",
+        opts = { defaults = { layout_config = { vertical = { width = 0.5 } } } },
+        dependencies = { "nvim-lua/plenary.nvim" },
+        cmd = { "Telescope" },
+    },
+    {
+        "stevearc/oil.nvim",
+        opts = {},
+        cmd = { "Oil" },
+        dependencies = {},
+    },
+    {
+        "williamboman/mason-lspconfig.nvim",
+        dependencies = { { "williamboman/mason.nvim", opts = {} }, "neovim/nvim-lspconfig" },
+        opts = {
+            ensure_installed = {
+                "astro", "bashls", "clangd", "cssls", "dockerls", -- "gopls",
+                "harper_ls", "html", "jsonls", "lua_ls",
+                "neocmake", "pyright", "rust_analyzer", "sqlls", "svelte",
+                "ts_ls"
+            }
+        }
+    },
+    {
+        "MeanderingProgrammer/render-markdown.nvim",
+        dependencies = { "nvim-treesitter/nvim-treesitter" },
+        opts = {
+            completions = { lsp = { enabled = true } },
+            code = { language_icon = true, language_name = false }
+        }
+    },
 })
-require("luasnip.loaders.from_vscode").lazy_load()
-require("luasnip.loaders.from_snipmate").lazy_load({ paths = { "~/.config/nvim/snippets/" } })
 require("nvim-treesitter").install {
     "c", "cmake", "comment", "cpp", "dart", "dockerfile", "go", "gomod",
     "html", "http", "java", "javascript", "jsdoc", "json", "lua", "make",
@@ -221,7 +199,7 @@ local function find_todos()
     local results = {}
     local cmd = vim.fn.executable("rg") == 1
         and "rg --line-number --no-heading 'TODO|FIXME|NOTE|HACK' ."
-        or "grep -rn 'TODO|FIXME|NOTE|HACK'"
+        or "grep -rn -m 100 'TODO|FIXME|NOTE|HACK'"
     local output = vim.fn.system(cmd)
     for line in output:gmatch("[^\r\n]+") do
         local file, lnum, text = line:match("([^:]+):(%d+):(.*)")
@@ -275,8 +253,8 @@ vim.keymap.set("n", "<A-n>", ":tabnew | Oil <CR>")
 vim.keymap.set("n", "<A-t>", ":vsplit | Oil <CR>")
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
-vim.keymap.set("n", "ff", "<cmd>Telescope find_files theme=dropdown <CR>")
 vim.keymap.set("n", "<A-s>", "<cmd>Telescope spell_suggest theme=cursor<CR>")
+vim.keymap.set("n", "ff", "<cmd>Telescope find_files theme=dropdown <CR>")
 vim.keymap.set("n", "fd", "<cmd>Telescope lsp_references theme=cursor <CR>")
 vim.keymap.set("n", "fg", "<cmd>Telescope live_grep theme=dropdown<CR>")
 vim.keymap.set("n", "fh", "<cmd>Telescope man_pages sections=2,3<CR>")

@@ -25,13 +25,24 @@ PLASMA_DESKTOP_LIGHT="breeze"
 PLASMA_DESKTOP_DARK="breeze"
 
 clr=`/usr/bin/gsettings get org.gnome.desktop.interface color-scheme`
-[ "$clr" = "'prefer-light'" ] && is_dark=false || is_dark=true
-echo "gtk_theme_dock_light=$GTK_THEME_DOCK_LIGHT"
-echo "gtk_theme=${GTK_THEME_LIGHT}|${GTK_THEME_DARK}"
-echo "gtk_icon=${GTK_ICON_LIGHT}|${GTK_ICON_DARK}"
-echo "plasma_color=${PLASMA_COLOR_LIGHT}|${PLASMA_COLOR_DARK}"
-echo "qt_icon=${QT_ICON_LIGHT}|${QT_ICON_DARK}"
-echo "plasma_desktop_theme=${PLASMA_DESKTOP_LIGHT}|${PLASMA_DESKTOP_DARK}"
+[ "$clr" = "'prefer-dark'" ] && is_dark=true || is_dark=false
+
+ShowConfig()
+{
+    echo -e "-----------------------------------------"
+    echo -e "|Current Configuration \t\t\t|"
+    echo -e "+---------------------+---------+-------+"
+    echo -e "|Color Scheme         |$(${is_dark} && printf 'Dark' || printf 'Light')\t|\t|"
+    echo -e "|GTK Theme            |${GTK_THEME_LIGHT}\t|${GTK_THEME_DARK}|"
+    echo -e "|GTK Icon             |${GTK_ICON_LIGHT}\t|${GTK_ICON_DARK}|"
+    echo -e "|GTK Theme Dock Light |$GTK_THEME_DOCK_LIGHT\t|\t|"
+    if [ "$XDG_CURRENT_DESKTOP" = "KDE" ];then
+    echo -e "|Plasma Color         |${PLASMA_COLOR_LIGHT}\t|${PLASMA_COLOR_DARK}\t|"
+    echo -e "|QT Icon              |${QT_ICON_LIGHT}\t|${QT_ICON_DARK}\t|"
+    echo -e "|Plasma Desktop Theme |${PLASMA_DESKTOP_LIGHT}\t|${PLASMA_DESKTOP_DARK}\t|"
+    fi
+    echo -e "+---------------------+---------+-------|"
+}
 
 Help()
 {
@@ -67,12 +78,13 @@ SetAll()
     else
         gtk_theme=$GTK_THEME_LIGHT
         gtk_icon=$GTK_ICON_LIGHT
-        gnome_prefer="prefer-light"
+        gnome_prefer="default"
     fi
     lib_theme=$GTK_THEME_LIB
-    gsettings set org.gnome.desktop.wm.preferences theme "$gtk_theme"
-    gsettings set org.gnome.desktop.interface gtk-theme "$gtk_theme"
-    gsettings set org.gnome.desktop.interface icon-theme "$gtk_icon"
+#   Commented out to update later. -- when you need a custom GTK/Libadwaita theme
+#   gsettings set org.gnome.desktop.wm.preferences theme "$gtk_theme"
+#   gsettings set org.gnome.desktop.interface gtk-theme "$gtk_theme"
+#   gsettings set org.gnome.desktop.interface icon-theme "$gtk_icon"
     gsettings set org.gnome.desktop.interface color-scheme "$gnome_prefer"
 }
 
@@ -132,4 +144,5 @@ if [ "$XDG_CURRENT_DESKTOP" = "sway" ] || [ -z "$XDG_CURRENT_DESKTOP" ];then
     echo "${CFGDIR}/../background/$_img"
     exec swaybg -i ${CFGDIR}/../background/${_img}.jpg &
 fi
+ShowConfig
 SetTerminal &
