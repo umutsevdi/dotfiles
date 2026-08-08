@@ -1,29 +1,25 @@
-# Theme: enfocado_light
-# Source:  https://github.com/wuelnerdotexe/vim-enfocado
 
 # Default colors
 [colors.primary]
-background = '#ffffff'
-foreground = '#474747'
+background =  '#ffffea'
+foreground =  '#000000'
 
-# Normal colors
 [colors.normal]
-black   = '#282828'
-red     = '#d6000c'
-green   = '#1d9700'
-yellow  = '#c49700'
-blue    = '#0064e4'
-magenta = '#dd0f9d'
-cyan    = '#00ad9c'
-white   = '#cdcdcd'
+black   = '#101010'
+red     = '#af5f00'
+green = "#396847"
+yellow = "#ac5402"
+blue = "#2848a9"
+magenta = "#6e33ce"
+cyan = "#287980"
+white = "#f2e9e1"
 
-# Bright colors
 [colors.bright]
-black   = '#878787'
-red     = '#df0000'
-green   = '#008400'
-yellow  = '#af8500'
-blue    = '#0054cf'
-magenta = '#c7008b'
-cyan    = '#009a8a'
-white   = '#ebebeb'
+black   = '#101010'
+red     = '#af5f00'
+green = "#577f63"
+yellow = "#b86e28"
+blue = "#4863b6"
+magenta = "#8452d5"
+cyan = "#488d93"
+white = "#f4ece6"

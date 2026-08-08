@@ -52,16 +52,25 @@ CleanOne()
 
 Clean()
 {
-    CleanOne $HOME/.cmake
-    CleanOne $HOME/.w3m
-    CleanOne $HOME/.npm
-    CleanOne $HOME/.node_repl_history
-    CleanOne $HOME/.python_history
-    CleanOne $HOME/.yarnrc
-    CleanOne $HOME/.yarn
-    CleanOne $HOME/.rumdl_cache
-    CleanOne $HOME/.viminfo
-    CleanOne $HOME/.ai
+    files=(
+            .ai
+            .cmake
+            .java
+            .node_repl_history
+            .npm
+            .nuget
+            .python_history
+            .rumdl_cache
+            .viminfo
+            .w3m
+            .yarn
+            .yarnrc
+    )
+    for file in "${files[@]}"; do
+        if [ -f "$HOME/$file" ] || [ -d "$HOME/$file" ]; then
+            rm $HOME/$file -fr && echo "Cleaning $HOME/$file"
+        fi 
+    done
 }
 
 for arg in $@;do

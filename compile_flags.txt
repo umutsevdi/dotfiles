@@ -2,5 +2,6 @@
 -xc++-header
 -Wall
 -Wextra
+-Wpedantic
 -I
 include/

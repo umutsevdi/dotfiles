@@ -2,14 +2,15 @@
 -- Author: Umut Sevdi
 -- Created: 04/07/22
 -------------------------------------------------------------------------------
-vim.o.encoding = "UTF-8"
+local SIGNS = { ERROR = "󰅝 ", WARN = " ", INFO = "󰳦 ", HINT = " " }
+local GH = "https://github.com/"
 vim.o.syntax = "on"
 vim.o.cmdheight = 1
-vim.o.shortmess = vim.o.shortmess .. "c"
 vim.o.showtabline = 0
+vim.o.shortmess = vim.o.shortmess .. "c"
 vim.o.foldmethod = "manual"
 vim.o.mousemodel = "extend"
-vim.o.inccommand = "nosplit"
+vim.opt.inccommand = "split"
 vim.o.conceallevel = 0
 vim.o.expandtab = true
 vim.o.smarttab = true
@@ -30,7 +31,6 @@ vim.opt.splitright = true
 vim.opt.splitbelow = true
 vim.o.cursorline = true
 vim.opt.scrolloff = 10
-vim.opt.inccommand = "split"
 vim.o.hidden = true
 vim.o.history = 50
 vim.o.tabstop = 4
@@ -39,7 +39,17 @@ vim.o.softtabstop = 4
 vim.o.textwidth = 120
 vim.o.jumpoptions = "view"
 vim.o.winborder = "none"
-
+local function default()
+    if vim.fn.has("linux") == 1 then
+        local handle = io.popen("gsettings get org.gnome.desktop.interface color-scheme")
+        if handle then
+            local output = handle:read("*a")
+            handle:close()
+            return output:find("prefer-dark", 1, true) and "dark" or "light"
+        end
+    end
+    return "dark"
+end
 local function preset(is_dark)
     return {
         Normal = { bg = "NONE" },
@@ -61,19 +71,7 @@ local function preset(is_dark)
         StatusLineNC = { link = "Comment" },
     }
 end
-
 function SetColors(opts)
-    local function default()
-        if vim.fn.has("linux") == 1 then
-            local handle = io.popen("gsettings get org.gnome.desktop.interface color-scheme")
-            if handle then
-                local output = handle:read("*a")
-                handle:close()
-                return output:find("prefer-dark", 1, true) and "dark" or "light"
-            end
-        end
-        return "dark"
-    end
     local theme = { bg = default(), light = "default", dark = "lunaperche" }
     if opts then theme = vim.tbl_extend("force", theme, opts) end
     local active = theme.bg == "dark" and theme.dark or theme.light
@@ -82,29 +80,43 @@ function SetColors(opts)
     for k, v in pairs(preset(theme.bg == "dark")) do vim.api.nvim_set_hl(0, k, v) end
 end
 
-local gh = "https://github.com/"
+vim.diagnostic.config {
+    virtual_lines = { open = true, severity = { min = vim.diagnostic.severity.WARN } },
+    loclist = { open = true, severity = { min = vim.diagnostic.severity.INFO } },
+    signs = {
+        text = {
+            [vim.diagnostic.severity.ERROR] = SIGNS.ERROR,
+            [vim.diagnostic.severity.WARN]  = SIGNS.WARN,
+            [vim.diagnostic.severity.HINT]  = SIGNS.HINT,
+            [vim.diagnostic.severity.INFO]  = SIGNS.INFO,
+        }
+    }
+}
 vim.pack.add({
-    { src = gh .. "m4xshen/autoclose.nvim", },                                      -- OK WORKING
-    { src = gh .. "nvim-mini/mini.icons",                     version = 'stable' }, -- OK WORKING
-    { src = gh .. "nvim-mini/mini.notify",                    version = 'stable' }, -- OK WORKING
-    { src = gh .. 'nvim-mini/mini.diff',                      version = 'stable' }, -- OK WORKING
-    { src = gh .. "nvim-mini/mini.snippets",                  version = 'stable' }, --OK WORKING
-    { src = gh .. 'nvim-mini/mini.completion',                version = 'stable' }, -- OK WORKING
-    { src = gh .. "nvim-mini/mini.statusline",                version = 'stable' }, -- OK WORKING
-    { src = gh .. "stevearc/oil.nvim" },                                            -- OK WORKING
-    { src = gh .. "MeanderingProgrammer/render-markdown.nvim" },                    -- OK WORKING
-    { src = gh .. "nvim-treesitter/nvim-treesitter" },                              -- OK WORKING
-    { src = gh .. "neovim/nvim-lspconfig" },                                        -- OK WORKING
-    { src = gh .. "williamboman/mason.nvim" },                                      -- OK WORKING
-    { src = gh .. "williamboman/mason-lspconfig.nvim", },                           -- OK WORKING
-    { src = gh .. "nvim-lua/plenary.nvim" },
-    { src = gh .. "nvim-telescope/telescope.nvim" },
+    { src = GH .. "m4xshen/autoclose.nvim", },
+    { src = GH .. "nvim-mini/mini.icons",                     version = 'stable' },
+    { src = GH .. "nvim-mini/mini.notify",                    version = 'stable' },
+    { src = GH .. 'nvim-mini/mini.diff',                      version = 'stable' },
+    { src = GH .. "nvim-mini/mini.snippets",                  version = 'stable' },
+    { src = GH .. 'nvim-mini/mini.completion',                version = 'stable' },
+    { src = GH .. "nvim-mini/mini.statusline",                version = 'stable' },
+    { src = GH .. "rafamadriz/friendly-snippets" },
+    { src = GH .. "stevearc/oil.nvim" },
+    { src = GH .. "MeanderingProgrammer/render-markdown.nvim" },
+    { src = GH .. "nvim-treesitter/nvim-treesitter" },
+    { src = GH .. "neovim/nvim-lspconfig" },
+    { src = GH .. "williamboman/mason.nvim" },
+    { src = GH .. "williamboman/mason-lspconfig.nvim", },
+    { src = GH .. "nvim-lua/plenary.nvim" },
+    { src = GH .. "nvim-telescope/telescope.nvim" },
 })
 require("autoclose").setup()
 require("mini.icons").setup()
 require("mini.notify").setup({ window = { config = { row = vim.o.columns }, winblend = 0 } })
 require("mini.diff").setup({ view = { signs = { add = '█', change = '▒', delete = '█' } } })
-require("mini.snippets").setup()
+local gen_loader = require('mini.snippets').gen_loader
+require("mini.snippets").setup({ snippets = { gen_loader.from_lang() } })
+require("mini.snippets").start_lsp_server()
 require("mini.completion").setup({ delay = { completion = 10, info = 25 } })
 require("mini.statusline").setup({
     content = {
@@ -114,11 +126,7 @@ require("mini.statusline").setup({
             local git           = line.section_git({ trunc_width = 40 })
             local diff          = line.section_diff({ trunc_width = 75, icon = "" })
             local filename      = line.section_filename({ trunc_width = 125 })
-            local diagnostics   = line.section_diagnostics({
-                trunc_width = 75,
-                icon = "",
-                signs = { ERROR = "󰅝 ", WARN = " ", INFO = "󰳦 ", HINT = " " }
-            })
+            local diagnostics   = line.section_diagnostics({ trunc_width = 75, icon = "", signs = SIGNS })
             local tabtext       = ""
             local tabs          = vim.api.nvim_list_tabpages()
             if #tabs > 1 then
@@ -160,19 +168,6 @@ require("mason-lspconfig").setup({
     }
 })
 require("telescope").setup({ defaults = { layout_config = { vertical = { width = 0.5 } } } })
-vim.diagnostic.config {
-    virtual_lines = { open = true, severity = { min = vim.diagnostic.severity.WARN } },
-    loclist = { open = true, severity = { min = vim.diagnostic.severity.INFO } },
-    signs = {
-        text = {
-            [vim.diagnostic.severity.ERROR] = "󰅝 ",
-            [vim.diagnostic.severity.WARN]  = " ",
-            [vim.diagnostic.severity.HINT]  = " ",
-            [vim.diagnostic.severity.INFO]  = "󰳦 ",
-        }
-    }
-}
-
 local function find_todos()
     local results = {}
     local cmd = vim.fn.executable("rg") == 1
@@ -238,7 +233,7 @@ vim.keymap.set("n", "fg", "<cmd>Telescope live_grep theme=dropdown<CR>")
 vim.keymap.set("n", "fh", "<cmd>Telescope man_pages sections=2,3<CR>")
 vim.keymap.set("n", "ft", find_todos)
 vim.keymap.set("n", "<A-d>", "<cmd>lua vim.diagnostic.setloclist()<CR>", { silent = true, noremap = true })
-vim.keymap.set("n", "<A-q>", ":lua vim.lsp.buf.code_action() <CR>")
-vim.keymap.set("n", "<A-f>", ":lua vim.lsp.buf.format() <CR>")
-vim.keymap.set("n", "<A-r>", ":lua vim.lsp.buf.rename() <CR>")
+vim.keymap.set("n", "<A-q>", "<cmd>lua vim.lsp.buf.code_action() <CR>")
+vim.keymap.set("n", "<A-f>", "<cmd>lua vim.lsp.buf.format() <CR>")
+vim.keymap.set("n", "<A-r>", "<cmd>lua vim.lsp.buf.rename() <CR>")
 SetColors()

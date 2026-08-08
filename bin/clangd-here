@@ -1,0 +1,8 @@
+#!/bin/bash
+#******************************************************************************
+# Copy Clangd configuration here.
+#******************************************************************************
+
+CFGDIR=`dirname $(which clangd-here)`
+cp $CFGDIR/../.clang* .
+cp $CFGDIR/../compile_flags.txt .
