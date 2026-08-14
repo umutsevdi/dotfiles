@@ -45,7 +45,7 @@ local function default()
         if handle then
             local output = handle:read("*a")
             handle:close()
-            return output:find("prefer-dark", 1, true) and "dark" or "light"
+            return output:find("prefer-light", 1, true) and "light" or "dark"
         end
     end
     return "dark"
