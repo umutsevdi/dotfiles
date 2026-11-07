@@ -16,8 +16,8 @@ GTK_THEME_DARK="Adwaita"
 GTK_ICON_LIGHT="Adwaita"
 GTK_ICON_DARK="Adwaita"
 
-PLASMA_COLOR_LIGHT="BreezeLight"
-PLASMA_COLOR_DARK="KritaDarker"
+PLASMA_COLOR_LIGHT="AritimLight"
+PLASMA_COLOR_DARK="AritimDark"
 QT_ICON_LIGHT="Haiku"
 QT_ICON_DARK="Haiku"
 
@@ -80,7 +80,6 @@ SetAll()
         gtk_icon=$GTK_ICON_LIGHT
         gnome_prefer="default"
     fi
-    lib_theme=$GTK_THEME_LIB
 #   Commented out to update later. -- when you need a custom GTK/Libadwaita theme
 #   gsettings set org.gnome.desktop.wm.preferences theme "$gtk_theme"
 #   gsettings set org.gnome.desktop.interface gtk-theme "$gtk_theme"

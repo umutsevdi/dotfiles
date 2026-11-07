@@ -64,6 +64,13 @@ alias open=xdg-open
 alias rm='rm -i'
 alias sl=ls
 alias v=vim
+alias llama-up='llama serve --models-max 2 --models-memory-margin 1024 --ctx-size '
+
+cmtat() {
+    local date="$1";
+    shift;
+    GIT_COMMITTER_DATE="$date" git commit --date="$date" "$@";
+}
 
 ff () {
   local file
@@ -85,5 +92,5 @@ __gitbranch() {
     printf '(%s)' "$branch"
 }
 export PS1="\[\e[1m\]\W\[\e[;0m\]\[\e[2;36;3m\]\$(__gitbranch)\[\e[;0m\]\[\e[2;33;1m\] $\[\e[;0m\] "
-. "$CARGO_HOME/env"
+# . "$CARGO_HOME/env"
 echo -e "\e[2;32;1m$(date "+%a %d/%m/%y %I:%M%p")\e[;0m │ \e[2;37;2m$(uname -norm)\e[;0m\n"

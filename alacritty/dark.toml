@@ -1,28 +1,32 @@
-# Colours (Monokai Charcoal)
-
-# Default Colours
+# Color theme ported from iTerm 2 Smoooooth
 [colors.primary]
-background = '#000000'
-foreground = '#FFFFFF'
+foreground = '#dbdbdb'
+background = '#14191e'
 
-# Normal Colours
+[colors.cursor]
+text = '#000000'
+cursor = '#fefffe'
+
+[colors.selection]
+text = '#000000'
+background = '#b3d7ff'
+
 [colors.normal]
-black   = '#1a1a1a'
-red     = '#f4005f'
-green   = '#98e024'
-yellow  = '#fa8419'
-blue    = '#9d65ff'
-magenta = '#f4005f'
-cyan    = '#58d1eb'
-white   = '#c4c5b5'
+black   = '#14191e'
+red     = '#b43c29'
+green   = '#00c200'
+yellow  = '#c7c400'
+blue    = '#2743c7'
+magenta = '#bf3fbd'
+cyan    = '#00c5c7'
+white   = '#c7c7c7'
 
-# Bright Colours
 [colors.bright]
-black   = '#625e4c'
-red     = '#f4005f'
-green   = '#98e024'
-yellow  = '#e0d561'
-blue    = '#9d65ff'
-magenta = '#f4005f'
-cyan    = '#58d1eb'
-white   = '#f6f6ef'
+black   = '#676767'
+red     = '#dc7974'
+green   = '#57e690'
+yellow  = '#ece100'
+blue    = '#a6aaf1'
+magenta = '#e07de0'
+cyan    = '#5ffdff'
+white   = '#feffff'

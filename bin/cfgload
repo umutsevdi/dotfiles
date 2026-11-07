@@ -9,19 +9,7 @@
 # GNOME settings to sane defaults.
 #*****************************************************************************
 
-CFGDIR=`dirname $(which cfgload)`
-Help()
-{
-   # Display Help
-   echo "cfgload"
-   echo "  Update configuration files"
-   echo
-   echo "Syntax: [-r]"
-   echo
-   echo "Options:"
-   echo "-h/--help      Prints this menu."
-}
-
+CFGDIR="$(dirname "$(readlink -f "$0")")"
 GsettingsSet()
 {
     gsettings set org.gnome.software allow-updates                    false
@@ -68,16 +56,13 @@ Clean()
     )
     for file in "${files[@]}"; do
         if [ -f "$HOME/$file" ] || [ -d "$HOME/$file" ]; then
-            rm $HOME/$file -fr && echo "Cleaning $HOME/$file"
+            rm -fr "$HOME/$file" && echo "Cleaning $HOME/$file"
         fi 
     done
 }
 
 for arg in $@;do
-    if   [ $arg = -h ] || [ $arg = --help ]; then
-        Help
-        exit
-    else
+    if [ "$arg" != "" ]; then
         echo -e "Error: Invalid arguments" 1>&2
         exit
     fi 

@@ -105,10 +105,11 @@ vim.pack.add({
     { src = GH .. "MeanderingProgrammer/render-markdown.nvim" },
     { src = GH .. "nvim-treesitter/nvim-treesitter" },
     { src = GH .. "neovim/nvim-lspconfig" },
-    { src = GH .. "williamboman/mason.nvim" },
-    { src = GH .. "williamboman/mason-lspconfig.nvim", },
+    { src = GH .. "mason-org/mason.nvim" },
+    { src = GH .. "mason-org/mason-lspconfig.nvim", },
     { src = GH .. "nvim-lua/plenary.nvim" },
     { src = GH .. "nvim-telescope/telescope.nvim" },
+    { src = GH .. "Wansmer/symbol-usage.nvim" },
 })
 require("autoclose").setup()
 require("mini.icons").setup()
@@ -118,6 +119,7 @@ local gen_loader = require('mini.snippets').gen_loader
 require("mini.snippets").setup({ snippets = { gen_loader.from_lang() } })
 require("mini.snippets").start_lsp_server()
 require("mini.completion").setup({ delay = { completion = 10, info = 25 } })
+require("symbol-usage").setup()
 require("mini.statusline").setup({
     content = {
         active = function()
@@ -161,10 +163,9 @@ require("nvim-treesitter").install {
 require("mason").setup()
 require("mason-lspconfig").setup({
     ensure_installed = {
-        "astro", "bashls", "clangd", "cssls", "dockerls", -- "gopls",
-        "harper_ls", "html", "jsonls", "lua_ls",
-        "neocmake", "pyright", "rust_analyzer", "sqlls", "svelte",
-        "ts_ls"
+        "astro", "bashls", "buf_ls", "clangd", "cssls", "dockerls",
+        "harper_ls", "html", "jsonls", "lua_ls", "neocmake", "pyright",
+        "rust_analyzer", "sqlls", "svelte", "ts_ls"
     }
 })
 require("telescope").setup({ defaults = { layout_config = { vertical = { width = 0.5 } } } })
